@@ -1,0 +1,35 @@
+{
+  "name": "@vantage/ui-platform",
+  "version": "1.0.0-beta.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Teradata/vantage-ui-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Teradata/vantage-ui-platform/issues"
+  },
+  "license": "MIT",
+  "author": "Teradata UI Team",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/cdk": "^8.0.0",
+    "@angular/material": "^8.0.0",
+    "@covalent/core": "^2.0.2",
+    "@covalent/http": "^2.0.2",
+    "@ngx-translate/core": "^11.0.1"
+  },
+  "main": "bundles/vantage-ui-platform.umd.js",
+  "module": "fesm5/vantage-ui-platform.js",
+  "es2015": "fesm2015/vantage-ui-platform.js",
+  "esm5": "esm5/vantage-ui-platform.js",
+  "esm2015": "esm2015/vantage-ui-platform.js",
+  "fesm5": "fesm5/vantage-ui-platform.js",
+  "fesm2015": "fesm2015/vantage-ui-platform.js",
+  "typings": "vantage-ui-platform.d.ts",
+  "metadata": "vantage-ui-platform.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

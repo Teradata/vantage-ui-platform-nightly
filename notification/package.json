@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/vantage-ui-platform-notification.umd.js",
+  "module": "../fesm5/vantage-ui-platform-notification.js",
+  "es2015": "../fesm2015/vantage-ui-platform-notification.js",
+  "esm5": "../esm5/notification/vantage-ui-platform-notification.js",
+  "esm2015": "../esm2015/notification/vantage-ui-platform-notification.js",
+  "fesm5": "../fesm5/vantage-ui-platform-notification.js",
+  "fesm2015": "../fesm2015/vantage-ui-platform-notification.js",
+  "typings": "vantage-ui-platform-notification.d.ts",
+  "metadata": "vantage-ui-platform-notification.metadata.json",
+  "sideEffects": false,
+  "name": "@vantage/ui-platform/notification"
+}

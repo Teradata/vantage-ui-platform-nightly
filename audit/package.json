@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/vantage-ui-platform-audit.umd.js",
+  "module": "../fesm5/vantage-ui-platform-audit.js",
+  "es2015": "../fesm2015/vantage-ui-platform-audit.js",
+  "esm5": "../esm5/audit/vantage-ui-platform-audit.js",
+  "esm2015": "../esm2015/audit/vantage-ui-platform-audit.js",
+  "fesm5": "../fesm5/vantage-ui-platform-audit.js",
+  "fesm2015": "../fesm2015/vantage-ui-platform-audit.js",
+  "typings": "vantage-ui-platform-audit.d.ts",
+  "metadata": "vantage-ui-platform-audit.metadata.json",
+  "sideEffects": false,
+  "name": "@vantage/ui-platform/audit"
+}

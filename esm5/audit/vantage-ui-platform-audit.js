@@ -1,0 +1,10 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { VantageAuditModule, VantageAuditService } from './index';
+export { VANTAGE_AUDIT_PROVIDER as ɵb, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa } from './audit.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidmFudGFnZS11aS1wbGF0Zm9ybS1hdWRpdC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B2YW50YWdlL3VpLXBsYXRmb3JtL2F1ZGl0LyIsInNvdXJjZXMiOlsidmFudGFnZS11aS1wbGF0Zm9ybS1hdWRpdC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsd0RBQWMsU0FBUyxDQUFDO0FBRXhCLE9BQU8sRUFBQyxzQkFBc0IsSUFBSSxFQUFFLEVBQUMsOEJBQThCLElBQUksRUFBRSxFQUFDLE1BQU0saUJBQWlCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEdlbmVyYXRlZCBidW5kbGUgaW5kZXguIERvIG5vdCBlZGl0LlxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vaW5kZXgnO1xuXG5leHBvcnQge1ZBTlRBR0VfQVVESVRfUFJPVklERVIgYXMgybViLFZBTlRBR0VfQVVESVRfUFJPVklERVJfRkFDVE9SWSBhcyDJtWF9IGZyb20gJy4vYXVkaXQuc2VydmljZSc7Il19

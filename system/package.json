@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/vantage-ui-platform-system.umd.js",
+  "module": "../fesm5/vantage-ui-platform-system.js",
+  "es2015": "../fesm2015/vantage-ui-platform-system.js",
+  "esm5": "../esm5/system/vantage-ui-platform-system.js",
+  "esm2015": "../esm2015/system/vantage-ui-platform-system.js",
+  "fesm5": "../fesm5/vantage-ui-platform-system.js",
+  "fesm2015": "../fesm2015/vantage-ui-platform-system.js",
+  "typings": "vantage-ui-platform-system.d.ts",
+  "metadata": "vantage-ui-platform-system.metadata.json",
+  "sideEffects": false,
+  "name": "@vantage/ui-platform/system"
+}

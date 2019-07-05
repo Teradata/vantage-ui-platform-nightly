@@ -1,0 +1,6 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { VantageAuthenticationModule, VANTAGE_SESSION_PROVIDER_FACTORY, VantageSessionService, VANTAGE_SESSION_PROVIDER, VANTAGE_TOKEN_PROVIDER_FACTORY, VantageTokenService, VANTAGE_TOKEN_PROVIDER, VantageAuthenticationGuard, VantageAuthenticationInterceptor } from './public_api';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AdmFudGFnZS91aS1wbGF0Zm9ybS9hdXRoLyIsInNvdXJjZXMiOlsiaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLDBRQUFjLGNBQWMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCAqIGZyb20gJy4vcHVibGljX2FwaSc7XG4iXX0=

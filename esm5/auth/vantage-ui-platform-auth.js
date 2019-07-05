@@ -1,0 +1,9 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { VantageAuthenticationModule, VANTAGE_SESSION_PROVIDER_FACTORY, VantageSessionService, VANTAGE_SESSION_PROVIDER, VANTAGE_TOKEN_PROVIDER_FACTORY, VantageTokenService, VANTAGE_TOKEN_PROVIDER, VantageAuthenticationGuard, VantageAuthenticationInterceptor } from './index';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidmFudGFnZS11aS1wbGF0Zm9ybS1hdXRoLmpzIiwic291cmNlUm9vdCI6Im5nOi8vQHZhbnRhZ2UvdWktcGxhdGZvcm0vYXV0aC8iLCJzb3VyY2VzIjpbInZhbnRhZ2UtdWktcGxhdGZvcm0tYXV0aC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsMFFBQWMsU0FBUyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBHZW5lcmF0ZWQgYnVuZGxlIGluZGV4LiBEbyBub3QgZWRpdC5cbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2luZGV4JztcbiJdfQ==
