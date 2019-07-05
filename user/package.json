@@ -1,13 +1,13 @@
 {
-  "main": "../bundles/vantage-ui-platform-user.umd.js",
-  "module": "../fesm5/vantage-ui-platform-user.js",
-  "es2015": "../fesm2015/vantage-ui-platform-user.js",
-  "esm5": "../esm5/user/vantage-ui-platform-user.js",
-  "esm2015": "../esm2015/user/vantage-ui-platform-user.js",
-  "fesm5": "../fesm5/vantage-ui-platform-user.js",
-  "fesm2015": "../fesm2015/vantage-ui-platform-user.js",
-  "typings": "vantage-ui-platform-user.d.ts",
-  "metadata": "vantage-ui-platform-user.metadata.json",
+  "main": "../bundles/td-vantage-ui-platform-user.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-user.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-user.js",
+  "esm5": "../esm5/user/td-vantage-ui-platform-user.js",
+  "esm2015": "../esm2015/user/td-vantage-ui-platform-user.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-user.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-user.js",
+  "typings": "td-vantage-ui-platform-user.d.ts",
+  "metadata": "td-vantage-ui-platform-user.metadata.json",
   "sideEffects": false,
-  "name": "@vantage/ui-platform/user"
+  "name": "@td-vantage/ui-platform/user"
 }

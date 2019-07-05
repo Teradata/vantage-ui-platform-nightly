@@ -1,13 +1,13 @@
 {
-  "main": "../bundles/vantage-ui-platform-auth.umd.js",
-  "module": "../fesm5/vantage-ui-platform-auth.js",
-  "es2015": "../fesm2015/vantage-ui-platform-auth.js",
-  "esm5": "../esm5/auth/vantage-ui-platform-auth.js",
-  "esm2015": "../esm2015/auth/vantage-ui-platform-auth.js",
-  "fesm5": "../fesm5/vantage-ui-platform-auth.js",
-  "fesm2015": "../fesm2015/vantage-ui-platform-auth.js",
-  "typings": "vantage-ui-platform-auth.d.ts",
-  "metadata": "vantage-ui-platform-auth.metadata.json",
+  "main": "../bundles/td-vantage-ui-platform-auth.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-auth.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-auth.js",
+  "esm5": "../esm5/auth/td-vantage-ui-platform-auth.js",
+  "esm2015": "../esm2015/auth/td-vantage-ui-platform-auth.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-auth.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-auth.js",
+  "typings": "td-vantage-ui-platform-auth.d.ts",
+  "metadata": "td-vantage-ui-platform-auth.metadata.json",
   "sideEffects": false,
-  "name": "@vantage/ui-platform/auth"
+  "name": "@td-vantage/ui-platform/auth"
 }

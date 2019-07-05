@@ -1,13 +1,13 @@
 {
-  "main": "../bundles/vantage-ui-platform-utilities.umd.js",
-  "module": "../fesm5/vantage-ui-platform-utilities.js",
-  "es2015": "../fesm2015/vantage-ui-platform-utilities.js",
-  "esm5": "../esm5/utilities/vantage-ui-platform-utilities.js",
-  "esm2015": "../esm2015/utilities/vantage-ui-platform-utilities.js",
-  "fesm5": "../fesm5/vantage-ui-platform-utilities.js",
-  "fesm2015": "../fesm2015/vantage-ui-platform-utilities.js",
-  "typings": "vantage-ui-platform-utilities.d.ts",
-  "metadata": "vantage-ui-platform-utilities.metadata.json",
+  "main": "../bundles/td-vantage-ui-platform-utilities.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-utilities.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-utilities.js",
+  "esm5": "../esm5/utilities/td-vantage-ui-platform-utilities.js",
+  "esm2015": "../esm2015/utilities/td-vantage-ui-platform-utilities.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-utilities.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-utilities.js",
+  "typings": "td-vantage-ui-platform-utilities.d.ts",
+  "metadata": "td-vantage-ui-platform-utilities.metadata.json",
   "sideEffects": false,
-  "name": "@vantage/ui-platform/utilities"
+  "name": "@td-vantage/ui-platform/utilities"
 }

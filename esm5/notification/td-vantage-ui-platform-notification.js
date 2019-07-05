@@ -1,0 +1,10 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { VantageNotificationModule, VantageSMTPService } from './index';
+export { VANTAGE_SMTP_PROVIDER as ɵb, VANTAGE_SMTP_PROVIDER_FACTORY as ɵa } from './smtp/smtp.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGQtdmFudGFnZS11aS1wbGF0Zm9ybS1ub3RpZmljYXRpb24uanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AdGQtdmFudGFnZS91aS1wbGF0Zm9ybS9ub3RpZmljYXRpb24vIiwic291cmNlcyI6WyJ0ZC12YW50YWdlLXVpLXBsYXRmb3JtLW5vdGlmaWNhdGlvbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsOERBQWMsU0FBUyxDQUFDO0FBRXhCLE9BQU8sRUFBQyxxQkFBcUIsSUFBSSxFQUFFLEVBQUMsNkJBQTZCLElBQUksRUFBRSxFQUFDLE1BQU0scUJBQXFCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEdlbmVyYXRlZCBidW5kbGUgaW5kZXguIERvIG5vdCBlZGl0LlxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vaW5kZXgnO1xuXG5leHBvcnQge1ZBTlRBR0VfU01UUF9QUk9WSURFUiBhcyDJtWIsVkFOVEFHRV9TTVRQX1BST1ZJREVSX0ZBQ1RPUlkgYXMgybVhfSBmcm9tICcuL3NtdHAvc210cC5zZXJ2aWNlJzsiXX0=
