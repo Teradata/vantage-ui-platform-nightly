@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata, __awaiter } from 'tslib';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap, catchError } from 'rxjs/operators';
+import { map, switchMap, tap, catchError, timeout } from 'rxjs/operators';
 import { TdPOST, TdBody, TdResponse, TdHttp, TdGET, TdParam } from '@covalent/http';
+import { Router } from '@angular/router';
 
 /**
  * @fileoverview added by tsickle
@@ -231,21 +232,16 @@ const VANTAGE_SESSION_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const UNAUTHORIZED = 401;
 class VantageAuthenticationGuard {
     /**
+     * @param {?} _router
      * @param {?} _sessionService
      */
-    constructor(_sessionService) {
+    constructor(_router, _sessionService) {
+        this._router = _router;
         this._sessionService = _sessionService;
-    }
-    /**
-     * @param {?} name
-     * @return {?}
-     */
-    getCookiebyName(name) {
-        /** @type {?} */
-        let pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
-        return !!pair ? pair[1] : undefined;
     }
     /**
      * @param {?} next
@@ -254,20 +250,15 @@ class VantageAuthenticationGuard {
      */
     canActivate(next, state) {
         return __awaiter(this, void 0, void 0, function* () {
-            /** @type {?} */
-            let xsrfToken = this.getCookiebyName('XSRF-TOKEN');
-            if (!xsrfToken) {
-                window.location.href = '/start-login';
-                return false;
+            try {
+                // check the validity to see if already logged in
+                yield this._sessionService.getInfo().pipe(timeout(5000)).toPromise();
             }
-            else {
-                try {
-                    yield this._sessionService.getInfo().toPromise();
-                }
-                catch (e) {
-                    this._sessionService.logout();
-                    return false;
-                }
+            catch (e) {
+                // if not logged in, go ahead and log in...otherwise logout
+                // append the current path so we get redirected back upon login
+                (e.status === UNAUTHORIZED) ? window.location.href = '/start-login' : this._sessionService.logout();
+                return false;
             }
             return true;
         });
@@ -278,6 +269,7 @@ VantageAuthenticationGuard.decorators = [
 ];
 /** @nocollapse */
 VantageAuthenticationGuard.ctorParameters = () => [
+    { type: Router },
     { type: VantageSessionService }
 ];
 
@@ -306,19 +298,21 @@ VantageAuthenticationModule.decorators = [
  */
 /* 4XX errors */
 /** @type {?} */
-const UNAUTHORIZED = 401;
+const UNAUTHORIZED$1 = 401;
 class VantageAuthenticationInterceptor {
     /**
      * @param {?} error
      * @return {?}
      */
     onResponseError(error) {
-        if (error.status === UNAUTHORIZED) {
-            // expire the xsrf cookie and reload page
-            document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            window.location.reload();
+        if (error.status === UNAUTHORIZED$1) {
+            // if logged in, go ahead an expire the cooke and reload the page
+            if (!error.url.includes('/token/validity')) {
+                document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                window.location.reload();
+            }
         }
-        return error;
+        throw error;
     }
     /**
      * @param {?} observable

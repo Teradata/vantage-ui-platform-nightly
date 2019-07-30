@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata, __awaiter, __generator } from 'tslib';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap, catchError } from 'rxjs/operators';
+import { map, switchMap, tap, catchError, timeout } from 'rxjs/operators';
 import { TdPOST, TdBody, TdResponse, TdHttp, TdGET, TdParam } from '@covalent/http';
+import { Router } from '@angular/router';
 
 /**
  * @fileoverview added by tsickle
@@ -284,23 +285,13 @@ var VANTAGE_SESSION_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var UNAUTHORIZED = 401;
 var VantageAuthenticationGuard = /** @class */ (function () {
-    function VantageAuthenticationGuard(_sessionService) {
+    function VantageAuthenticationGuard(_router, _sessionService) {
+        this._router = _router;
         this._sessionService = _sessionService;
     }
-    /**
-     * @param {?} name
-     * @return {?}
-     */
-    VantageAuthenticationGuard.prototype.getCookiebyName = /**
-     * @param {?} name
-     * @return {?}
-     */
-    function (name) {
-        /** @type {?} */
-        var pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
-        return !!pair ? pair[1] : undefined;
-    };
     /**
      * @param {?} next
      * @param {?} state
@@ -313,25 +304,24 @@ var VantageAuthenticationGuard = /** @class */ (function () {
      */
     function (next, state) {
         return __awaiter(this, void 0, void 0, function () {
-            var xsrfToken, e_1;
+            var e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        xsrfToken = this.getCookiebyName('XSRF-TOKEN');
-                        if (!!xsrfToken) return [3 /*break*/, 1];
-                        window.location.href = '/start-login';
-                        return [2 /*return*/, false];
+                        _a.trys.push([0, 2, , 3]);
+                        // check the validity to see if already logged in
+                        return [4 /*yield*/, this._sessionService.getInfo().pipe(timeout(5000)).toPromise()];
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this._sessionService.getInfo().toPromise()];
-                    case 2:
+                        // check the validity to see if already logged in
                         _a.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 3];
+                    case 2:
                         e_1 = _a.sent();
-                        this._sessionService.logout();
+                        // if not logged in, go ahead and log in...otherwise logout
+                        // append the current path so we get redirected back upon login
+                        (e_1.status === UNAUTHORIZED) ? window.location.href = '/start-login' : this._sessionService.logout();
                         return [2 /*return*/, false];
-                    case 4: return [2 /*return*/, true];
+                    case 3: return [2 /*return*/, true];
                 }
             });
         });
@@ -341,6 +331,7 @@ var VantageAuthenticationGuard = /** @class */ (function () {
     ];
     /** @nocollapse */
     VantageAuthenticationGuard.ctorParameters = function () { return [
+        { type: Router },
         { type: VantageSessionService }
     ]; };
     return VantageAuthenticationGuard;
@@ -374,7 +365,7 @@ var VantageAuthenticationModule = /** @class */ (function () {
  */
 /* 4XX errors */
 /** @type {?} */
-var UNAUTHORIZED = 401;
+var UNAUTHORIZED$1 = 401;
 var VantageAuthenticationInterceptor = /** @class */ (function () {
     function VantageAuthenticationInterceptor() {
     }
@@ -387,12 +378,14 @@ var VantageAuthenticationInterceptor = /** @class */ (function () {
      * @return {?}
      */
     function (error) {
-        if (error.status === UNAUTHORIZED) {
-            // expire the xsrf cookie and reload page
-            document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            window.location.reload();
+        if (error.status === UNAUTHORIZED$1) {
+            // if logged in, go ahead an expire the cooke and reload the page
+            if (!error.url.includes('/token/validity')) {
+                document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                window.location.reload();
+            }
         }
-        return error;
+        throw error;
     };
     /**
      * @param {?} observable

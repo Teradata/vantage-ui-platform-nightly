@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('rxjs'), require('rxjs/operators'), require('@covalent/http')) :
-    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/auth', ['exports', '@angular/core', '@angular/common', '@angular/common/http', 'rxjs', 'rxjs/operators', '@covalent/http'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].auth = {}), global.ng.core, global.ng.common, global.ng.common.http, global.rxjs, global.rxjs.operators, global.covalent.http));
-}(this, function (exports, core, common, http, rxjs, operators, http$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('rxjs'), require('rxjs/operators'), require('@covalent/http'), require('@angular/router')) :
+    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/auth', ['exports', '@angular/core', '@angular/common', '@angular/common/http', 'rxjs', 'rxjs/operators', '@covalent/http', '@angular/router'], factory) :
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].auth = {}), global.ng.core, global.ng.common, global.ng.common.http, global.rxjs, global.rxjs.operators, global.covalent.http, global.ng.router));
+}(this, function (exports, core, common, http, rxjs, operators, http$1, router) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -349,23 +349,13 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var UNAUTHORIZED = 401;
     var VantageAuthenticationGuard = /** @class */ (function () {
-        function VantageAuthenticationGuard(_sessionService) {
+        function VantageAuthenticationGuard(_router, _sessionService) {
+            this._router = _router;
             this._sessionService = _sessionService;
         }
-        /**
-         * @param {?} name
-         * @return {?}
-         */
-        VantageAuthenticationGuard.prototype.getCookiebyName = /**
-         * @param {?} name
-         * @return {?}
-         */
-        function (name) {
-            /** @type {?} */
-            var pair = document.cookie.match(new RegExp(name + '=([^;]+)'));
-            return !!pair ? pair[1] : undefined;
-        };
         /**
          * @param {?} next
          * @param {?} state
@@ -378,25 +368,24 @@
          */
         function (next, state) {
             return __awaiter(this, void 0, void 0, function () {
-                var xsrfToken, e_1;
+                var e_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            xsrfToken = this.getCookiebyName('XSRF-TOKEN');
-                            if (!!xsrfToken) return [3 /*break*/, 1];
-                            window.location.href = '/start-login';
-                            return [2 /*return*/, false];
+                            _a.trys.push([0, 2, , 3]);
+                            // check the validity to see if already logged in
+                            return [4 /*yield*/, this._sessionService.getInfo().pipe(operators.timeout(5000)).toPromise()];
                         case 1:
-                            _a.trys.push([1, 3, , 4]);
-                            return [4 /*yield*/, this._sessionService.getInfo().toPromise()];
-                        case 2:
+                            // check the validity to see if already logged in
                             _a.sent();
-                            return [3 /*break*/, 4];
-                        case 3:
+                            return [3 /*break*/, 3];
+                        case 2:
                             e_1 = _a.sent();
-                            this._sessionService.logout();
+                            // if not logged in, go ahead and log in...otherwise logout
+                            // append the current path so we get redirected back upon login
+                            (e_1.status === UNAUTHORIZED) ? window.location.href = '/start-login' : this._sessionService.logout();
                             return [2 /*return*/, false];
-                        case 4: return [2 /*return*/, true];
+                        case 3: return [2 /*return*/, true];
                     }
                 });
             });
@@ -406,6 +395,7 @@
         ];
         /** @nocollapse */
         VantageAuthenticationGuard.ctorParameters = function () { return [
+            { type: router.Router },
             { type: VantageSessionService }
         ]; };
         return VantageAuthenticationGuard;
@@ -439,7 +429,7 @@
      */
     /* 4XX errors */
     /** @type {?} */
-    var UNAUTHORIZED = 401;
+    var UNAUTHORIZED$1 = 401;
     var VantageAuthenticationInterceptor = /** @class */ (function () {
         function VantageAuthenticationInterceptor() {
         }
@@ -452,12 +442,14 @@
          * @return {?}
          */
         function (error) {
-            if (error.status === UNAUTHORIZED) {
-                // expire the xsrf cookie and reload page
-                document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                window.location.reload();
+            if (error.status === UNAUTHORIZED$1) {
+                // if logged in, go ahead an expire the cooke and reload the page
+                if (!error.url.includes('/token/validity')) {
+                    document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    window.location.reload();
+                }
             }
-            return error;
+            throw error;
         };
         /**
          * @param {?} observable
