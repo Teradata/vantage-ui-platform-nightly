@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":4,"metadata":{"ILoginCredentials":{"__symbolic":"interface"},"login":{"__symbolic":"function"},"logout":{"__symbolic":"function"}},"origins":{"ILoginCredentials":"./cypress","login":"./cypress","logout":"./cypress"},"importAs":"@td-vantage/ui-platform/testing/cypress"}
