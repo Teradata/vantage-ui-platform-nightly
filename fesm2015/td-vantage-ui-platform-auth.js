@@ -103,18 +103,7 @@ let VantageSessionService = class VantageSessionService {
      * @return {?}
      */
     logout() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield this._logout().toPromise();
-            }
-            catch (e) {
-                // ignore error
-            }
-            finally {
-                document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                window.location.reload();
-            }
-        });
+        window.location.href = '/api/user/logout';
     }
     /**
      * gets the current sso logged in users information
@@ -129,20 +118,6 @@ let VantageSessionService = class VantageSessionService {
          */
         (res) => {
             return res.body;
-        })));
-    }
-    /**
-     * @private
-     * @param {?=} response
-     * @return {?}
-     */
-    _logout(response) {
-        return response.pipe(map((/**
-         * @param {?} res
-         * @return {?}
-         */
-        (res) => {
-            return res;
         })));
     }
     /**
@@ -180,18 +155,6 @@ __decorate([
     __metadata("design:paramtypes", [Observable]),
     __metadata("design:returntype", Observable)
 ], VantageSessionService.prototype, "_get", null);
-__decorate([
-    TdGET({
-        path: '/logout?session=true',
-        options: {
-            observe: 'response',
-        },
-    }),
-    __param(0, TdResponse()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Observable]),
-    __metadata("design:returntype", Observable)
-], VantageSessionService.prototype, "_logout", null);
 __decorate([
     TdGET({
         path: '/users/:username',

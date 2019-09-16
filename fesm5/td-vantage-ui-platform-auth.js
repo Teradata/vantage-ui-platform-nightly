@@ -124,25 +124,7 @@ var VantageSessionService = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var e_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, 3, 4]);
-                        return [4 /*yield*/, this._logout().toPromise()];
-                    case 1: return [2 /*return*/, _a.sent()];
-                    case 2:
-                        e_1 = _a.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
-                        document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                        window.location.reload();
-                        return [7 /*endfinally*/];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
+        window.location.href = '/api/user/logout';
     };
     /**
      * gets the current sso logged in users information
@@ -166,25 +148,6 @@ var VantageSessionService = /** @class */ (function () {
          */
         function (res) {
             return res.body;
-        })));
-    };
-    /**
-     * @private
-     * @param {?=} response
-     * @return {?}
-     */
-    VantageSessionService.prototype._logout = /**
-     * @private
-     * @param {?=} response
-     * @return {?}
-     */
-    function (response) {
-        return response.pipe(map((/**
-         * @param {?} res
-         * @return {?}
-         */
-        function (res) {
-            return res;
         })));
     };
     /**
@@ -231,18 +194,6 @@ var VantageSessionService = /** @class */ (function () {
         __metadata("design:paramtypes", [Observable]),
         __metadata("design:returntype", Observable)
     ], VantageSessionService.prototype, "_get", null);
-    __decorate([
-        TdGET({
-            path: '/logout?session=true',
-            options: {
-                observe: 'response',
-            },
-        }),
-        __param(0, TdResponse()),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Observable]),
-        __metadata("design:returntype", Observable)
-    ], VantageSessionService.prototype, "_logout", null);
     __decorate([
         TdGET({
             path: '/users/:username',

@@ -22,12 +22,11 @@ export declare class VantageSessionService {
     private _user;
     readonly user: IUser;
     getInfo(): Observable<IUser>;
-    logout(): Promise<void>;
+    logout(): void;
     /**
      * gets the current sso logged in users information
      */
     private _get;
-    private _logout;
     /**
      * gets a single users information
      */
