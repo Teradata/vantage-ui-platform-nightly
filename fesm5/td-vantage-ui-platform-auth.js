@@ -1,6 +1,6 @@
 import { Optional, SkipSelf, Injectable, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { __decorate, __param, __metadata, __awaiter, __generator } from 'tslib';
+import { __decorate, __param, __metadata } from 'tslib';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, tap, catchError, timeout } from 'rxjs/operators';
@@ -254,28 +254,22 @@ var VantageAuthenticationGuard = /** @class */ (function () {
      * @return {?}
      */
     function (next, state) {
-        return __awaiter(this, void 0, void 0, function () {
-            var e_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        // check the validity to see if already logged in
-                        return [4 /*yield*/, this._sessionService.getInfo().pipe(timeout(5000)).toPromise()];
-                    case 1:
-                        // check the validity to see if already logged in
-                        _a.sent();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        e_1 = _a.sent();
-                        // if not logged in, go ahead and log in...otherwise logout
-                        // append the current path so we get redirected back upon login
-                        (e_1.status === UNAUTHORIZED) ? window.location.href = '/start-login' : this._sessionService.logout();
-                        return [2 /*return*/, false];
-                    case 3: return [2 /*return*/, true];
-                }
-            });
-        });
+        var _this = this;
+        return this._sessionService.getInfo().pipe(timeout(5000)).pipe(catchError((/**
+         * @param {?} e
+         * @return {?}
+         */
+        function (e) {
+            // if not logged in, go ahead and log in...otherwise logout
+            // append the current path so we get redirected back upon login
+            (e.status === UNAUTHORIZED) ? window.location.href = '/start-login' : _this._sessionService.logout();
+            throw e;
+        })), map((/**
+         * @return {?}
+         */
+        function () {
+            return true;
+        })));
     };
     VantageAuthenticationGuard.decorators = [
         { type: Injectable }

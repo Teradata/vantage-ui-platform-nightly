@@ -1,6 +1,6 @@
 import { Optional, SkipSelf, Injectable, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { __decorate, __param, __metadata, __awaiter } from 'tslib';
+import { __decorate, __param, __metadata } from 'tslib';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, tap, catchError, timeout } from 'rxjs/operators';
@@ -212,19 +212,21 @@ class VantageAuthenticationGuard {
      * @return {?}
      */
     canActivate(next, state) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                // check the validity to see if already logged in
-                yield this._sessionService.getInfo().pipe(timeout(5000)).toPromise();
-            }
-            catch (e) {
-                // if not logged in, go ahead and log in...otherwise logout
-                // append the current path so we get redirected back upon login
-                (e.status === UNAUTHORIZED) ? window.location.href = '/start-login' : this._sessionService.logout();
-                return false;
-            }
+        return this._sessionService.getInfo().pipe(timeout(5000)).pipe(catchError((/**
+         * @param {?} e
+         * @return {?}
+         */
+        (e) => {
+            // if not logged in, go ahead and log in...otherwise logout
+            // append the current path so we get redirected back upon login
+            (e.status === UNAUTHORIZED) ? window.location.href = '/start-login' : this._sessionService.logout();
+            throw e;
+        })), map((/**
+         * @return {?}
+         */
+        () => {
             return true;
-        });
+        })));
     }
 }
 VantageAuthenticationGuard.decorators = [

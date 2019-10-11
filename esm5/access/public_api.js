@@ -1,0 +1,8 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { VantageBlockRootAccessGuard } from './guards/block-root-access.guard';
+export { VantageBlockUserAccessGuard } from './guards/block-user-access.guard';
+export { VantageAccessModule } from './access.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B0ZC12YW50YWdlL3VpLXBsYXRmb3JtL2FjY2Vzcy8iLCJzb3VyY2VzIjpbInB1YmxpY19hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLDRDQUFjLGtDQUFrQyxDQUFDO0FBQ2pELDRDQUFjLGtDQUFrQyxDQUFDO0FBQ2pELG9DQUFjLGlCQUFpQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSAnLi9ndWFyZHMvYmxvY2stcm9vdC1hY2Nlc3MuZ3VhcmQnO1xuZXhwb3J0ICogZnJvbSAnLi9ndWFyZHMvYmxvY2stdXNlci1hY2Nlc3MuZ3VhcmQnO1xuZXhwb3J0ICogZnJvbSAnLi9hY2Nlc3MubW9kdWxlJztcbiJdfQ==
