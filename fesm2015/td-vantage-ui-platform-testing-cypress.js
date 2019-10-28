@@ -16,8 +16,6 @@ const LOGIN_URL = Cypress.env('loginUrl');
  * @return {?}
  */
 function login({ username, password }) {
-    cy.visit(BASE_URL);
-    cy.url().should('include', LOGIN_URL);
     cy.request({
         url: LOGIN_URL,
     }).then((/**
@@ -30,36 +28,41 @@ function login({ username, password }) {
         loginPageHtml.innerHTML = response.body;
         /** @type {?} */
         const loginForm = loginPageHtml.querySelector('#kc-form-login');
-        if (!loginForm) {
-            return;
+        if (loginForm) {
+            cy.request({
+                form: true,
+                method: 'POST',
+                url: loginForm.action,
+                followRedirect: false,
+                body: {
+                    username,
+                    password,
+                },
+            }).then((/**
+             * @return {?}
+             */
+            () => {
+                _redirectToHome();
+            }));
         }
-        cy.request({
-            form: true,
-            method: 'POST',
-            url: loginForm.action,
-            followRedirect: false,
-            body: {
-                username: username,
-                password: password,
-            },
-        }).then((/**
-         * @return {?}
-         */
-        () => {
-            cy.visit(BASE_URL);
-            cy.url().should('not.include', LOGIN_URL);
-            cy.url().should('include', BASE_URL);
-        }));
+        else {
+            _redirectToHome();
+        }
     }));
 }
 /**
  * @return {?}
  */
 function logout() {
+    cy.request('/api/user/logout');
+}
+/**
+ * @return {?}
+ */
+function _redirectToHome() {
     cy.visit(BASE_URL);
-    cy.visit('/api/user/logout');
-    cy.visit(BASE_URL);
-    cy.url().should('include', LOGIN_URL);
+    cy.url().should('not.include', LOGIN_URL);
+    cy.url().should('include', BASE_URL);
 }
 
 export { login, logout };

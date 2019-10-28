@@ -23,8 +23,6 @@
      */
     function login(_a) {
         var username = _a.username, password = _a.password;
-        cy.visit(BASE_URL);
-        cy.url().should('include', LOGIN_URL);
         cy.request({
             url: LOGIN_URL,
         }).then((/**
@@ -37,36 +35,41 @@
             loginPageHtml.innerHTML = response.body;
             /** @type {?} */
             var loginForm = loginPageHtml.querySelector('#kc-form-login');
-            if (!loginForm) {
-                return;
+            if (loginForm) {
+                cy.request({
+                    form: true,
+                    method: 'POST',
+                    url: loginForm.action,
+                    followRedirect: false,
+                    body: {
+                        username: username,
+                        password: password,
+                    },
+                }).then((/**
+                 * @return {?}
+                 */
+                function () {
+                    _redirectToHome();
+                }));
             }
-            cy.request({
-                form: true,
-                method: 'POST',
-                url: loginForm.action,
-                followRedirect: false,
-                body: {
-                    username: username,
-                    password: password,
-                },
-            }).then((/**
-             * @return {?}
-             */
-            function () {
-                cy.visit(BASE_URL);
-                cy.url().should('not.include', LOGIN_URL);
-                cy.url().should('include', BASE_URL);
-            }));
+            else {
+                _redirectToHome();
+            }
         }));
     }
     /**
      * @return {?}
      */
     function logout() {
+        cy.request('/api/user/logout');
+    }
+    /**
+     * @return {?}
+     */
+    function _redirectToHome() {
         cy.visit(BASE_URL);
-        cy.visit('/api/user/logout');
-        cy.visit(BASE_URL);
-        cy.url().should('include', LOGIN_URL);
+        cy.url().should('not.include', LOGIN_URL);
+        cy.url().should('include', BASE_URL);
     }
 
     exports.login = login;
