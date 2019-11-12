@@ -51,6 +51,18 @@ var VantageBlockRootAccessGuard = /** @class */ (function () {
     ]; };
     return VantageBlockRootAccessGuard;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockRootAccessGuard.prototype._authGuard;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockRootAccessGuard.prototype._sessionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -100,6 +112,18 @@ var VantageBlockUserAccessGuard = /** @class */ (function () {
     ]; };
     return VantageBlockUserAccessGuard;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockUserAccessGuard.prototype._authGuard;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockUserAccessGuard.prototype._sessionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -110,17 +134,27 @@ var VantageAccessModule = /** @class */ (function () {
     }
     VantageAccessModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                    ],
-                    providers: [
-                        VantageBlockRootAccessGuard,
-                        VantageBlockUserAccessGuard,
-                    ],
+                    imports: [CommonModule],
+                    providers: [VantageBlockRootAccessGuard, VantageBlockUserAccessGuard],
                 },] }
     ];
     return VantageAccessModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { VantageAccessModule, VantageBlockRootAccessGuard, VantageBlockUserAccessGuard };
 //# sourceMappingURL=td-vantage-ui-platform-access.js.map

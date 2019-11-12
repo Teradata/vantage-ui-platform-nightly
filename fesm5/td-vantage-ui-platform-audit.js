@@ -10,6 +10,30 @@ import { TdGET, TdQueryParams, TdResponse, TdPOST, TdBody, TdParam, TdHttp } fro
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IAuditLog() { }
+if (false) {
+    /** @type {?|undefined} */
+    IAuditLog.prototype.action;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.component;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.correlation_id;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.details;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.id;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.logtime;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.message;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.result;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.username;
+}
 var VantageAuditService = /** @class */ (function () {
     function VantageAuditService() {
     }
@@ -102,8 +126,7 @@ var VantageAuditService = /** @class */ (function () {
         TdPOST({
             path: '/audit/messages',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -112,8 +135,7 @@ var VantageAuditService = /** @class */ (function () {
         TdGET({
             path: '/audit/messages/:id',
         }),
-        __param(0, TdParam('id')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('id')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -130,7 +152,7 @@ var VantageAuditService = /** @class */ (function () {
     VantageAuditService = __decorate([
         TdHttp({
             baseUrl: '/api/audit',
-            baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
         })
     ], VantageAuditService);
     return VantageAuditService;
@@ -159,16 +181,27 @@ var VantageAuditModule = /** @class */ (function () {
     }
     VantageAuditModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                    ],
-                    providers: [
-                        VANTAGE_AUDIT_PROVIDER,
-                    ],
+                    imports: [CommonModule],
+                    providers: [VANTAGE_AUDIT_PROVIDER],
                 },] }
     ];
     return VantageAuditModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { VantageAuditModule, VantageAuditService, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa, VANTAGE_AUDIT_PROVIDER as ɵb };
 //# sourceMappingURL=td-vantage-ui-platform-audit.js.map

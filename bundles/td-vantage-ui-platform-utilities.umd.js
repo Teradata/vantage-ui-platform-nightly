@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@covalent/core/dialogs'), require('@ngx-translate/core'), require('@angular/material/snack-bar'), require('@covalent/core/media'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/utilities', ['exports', '@angular/core', '@covalent/core/dialogs', '@ngx-translate/core', '@angular/material/snack-bar', '@covalent/core/media', '@angular/common'], factory) :
     (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].utilities = {}), global.ng.core, global.covalent.core.dialogs, global['ngx-translate'].core, global.ng.material['snack-bar'], global.covalent.core.media, global.ng.common));
-}(this, function (exports, core, dialogs, core$1, snackBar, media, common) { 'use strict';
+}(this, (function (exports, core, dialogs, core$1, snackBar, media, common) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -13,6 +13,12 @@
         }
         return VantageError;
     }());
+    if (false) {
+        /** @type {?} */
+        VantageError.prototype.message;
+        /** @type {?} */
+        VantageError.prototype.error;
+    }
     var VantageErrorService = /** @class */ (function () {
         function VantageErrorService(_dialogService, _translate) {
             this._dialogService = _dialogService;
@@ -53,6 +59,18 @@
         ]; };
         return VantageErrorService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageErrorService.prototype._dialogService;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageErrorService.prototype._translate;
+    }
     /**
      * @param {?} parent
      * @param {?} dialogService
@@ -108,6 +126,18 @@
         ]; };
         return VantageToastService;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageToastService.prototype._snackBarService;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageToastService.prototype._media;
+    }
     /**
      * @param {?} parent
      * @param {?} snackBar
@@ -134,16 +164,8 @@
         }
         VantageUserFeedbackModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [
-                            common.CommonModule,
-                            snackBar.MatSnackBarModule,
-                            dialogs.CovalentDialogsModule,
-                            media.CovalentMediaModule,
-                        ],
-                        providers: [
-                            VANTAGE_ERROR_PROVIDER,
-                            VANTAGE_TOAST_PROVIDER,
-                        ],
+                        imports: [common.CommonModule, snackBar.MatSnackBarModule, dialogs.CovalentDialogsModule, media.CovalentMediaModule],
+                        providers: [VANTAGE_ERROR_PROVIDER, VANTAGE_TOAST_PROVIDER],
                     },] }
         ];
         return VantageUserFeedbackModule;
@@ -160,5 +182,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=td-vantage-ui-platform-utilities.umd.js.map

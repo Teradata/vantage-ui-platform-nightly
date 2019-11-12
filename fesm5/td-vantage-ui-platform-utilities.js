@@ -14,6 +14,12 @@ var VantageError = /** @class */ (function () {
     }
     return VantageError;
 }());
+if (false) {
+    /** @type {?} */
+    VantageError.prototype.message;
+    /** @type {?} */
+    VantageError.prototype.error;
+}
 var VantageErrorService = /** @class */ (function () {
     function VantageErrorService(_dialogService, _translate) {
         this._dialogService = _dialogService;
@@ -54,6 +60,18 @@ var VantageErrorService = /** @class */ (function () {
     ]; };
     return VantageErrorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._dialogService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._translate;
+}
 /**
  * @param {?} parent
  * @param {?} dialogService
@@ -109,6 +127,18 @@ var VantageToastService = /** @class */ (function () {
     ]; };
     return VantageToastService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._snackBarService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._media;
+}
 /**
  * @param {?} parent
  * @param {?} snackBar
@@ -135,20 +165,37 @@ var VantageUserFeedbackModule = /** @class */ (function () {
     }
     VantageUserFeedbackModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                        MatSnackBarModule,
-                        CovalentDialogsModule,
-                        CovalentMediaModule,
-                    ],
-                    providers: [
-                        VANTAGE_ERROR_PROVIDER,
-                        VANTAGE_TOAST_PROVIDER,
-                    ],
+                    imports: [CommonModule, MatSnackBarModule, CovalentDialogsModule, CovalentMediaModule],
+                    providers: [VANTAGE_ERROR_PROVIDER, VANTAGE_TOAST_PROVIDER],
                 },] }
     ];
     return VantageUserFeedbackModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { VantageError, VantageErrorService, VantageToastService, VantageUserFeedbackModule, VANTAGE_ERROR_PROVIDER_FACTORY as ɵa, VANTAGE_ERROR_PROVIDER as ɵb, VANTAGE_TOAST_PROVIDER_FACTORY as ɵc, VANTAGE_TOAST_PROVIDER as ɵd };
 //# sourceMappingURL=td-vantage-ui-platform-utilities.js.map

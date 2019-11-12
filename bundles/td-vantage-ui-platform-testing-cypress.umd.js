@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/testing/cypress', ['exports'], factory) :
     (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].testing = global['td-vantage']['ui-platform'].testing || {}, global['td-vantage']['ui-platform'].testing.cypress = {})));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -16,6 +16,16 @@
     // ex: http://localhost:4200
     /** @type {?} */
     var LOGIN_URL = Cypress.env('loginUrl');
+    /**
+     * @record
+     */
+    function ILoginCredentials() { }
+    if (false) {
+        /** @type {?} */
+        ILoginCredentials.prototype.username;
+        /** @type {?} */
+        ILoginCredentials.prototype.password;
+    }
     // inspired by https://vrockai.github.io/blog/2017/10/28/cypress-keycloak-intregration/
     /**
      * @param {?} __0
@@ -77,5 +87,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=td-vantage-ui-platform-testing-cypress.umd.js.map

@@ -11,6 +11,24 @@ import { Router } from '@angular/router';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IToken() { }
+if (false) {
+    /** @type {?|undefined} */
+    IToken.prototype.access_token;
+    /** @type {?|undefined} */
+    IToken.prototype.refresh_token;
+    /** @type {?|undefined} */
+    IToken.prototype.expires_at;
+    /** @type {?|undefined} */
+    IToken.prototype.token_type;
+    /** @type {?|undefined} */
+    IToken.prototype.expires_in;
+    /** @type {?|undefined} */
+    IToken.prototype.token_in;
+}
 let VantageTokenService = class VantageTokenService {
     /**
      * @param {?} user
@@ -24,10 +42,10 @@ let VantageTokenService = class VantageTokenService {
          */
         (res) => {
             /** @type {?} */
-            let data = res.body;
+            const data = res.body;
             /** @type {?} */
-            let token = res.headers.get('X-AUTH-TOKEN') || data.access_token;
-            return { data: data, token: token };
+            const token = res.headers.get('X-AUTH-TOKEN') || data.access_token;
+            return { data, token };
         })));
     }
 };
@@ -47,7 +65,7 @@ __decorate([
 VantageTokenService = __decorate([
     TdHttp({
         baseUrl: '/api/user',
-        baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
 ], VantageTokenService);
 /**
@@ -69,6 +87,46 @@ const VANTAGE_TOKEN_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IUser() { }
+if (false) {
+    /** @type {?|undefined} */
+    IUser.prototype.username;
+    /** @type {?|undefined} */
+    IUser.prototype.password;
+    /** @type {?|undefined} */
+    IUser.prototype.email;
+    /** @type {?|undefined} */
+    IUser.prototype.local;
+    /** @type {?|undefined} */
+    IUser.prototype.admin;
+    /** @type {?|undefined} */
+    IUser.prototype.groups;
+    /** @type {?|undefined} */
+    IUser.prototype.display_name;
+    /** @type {?|undefined} */
+    IUser.prototype.access_token;
+    /** @type {?|undefined} */
+    IUser.prototype.expires_at;
+}
+/**
+ * @record
+ */
+function ISessionUser() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISessionUser.prototype.user;
+    /** @type {?|undefined} */
+    ISessionUser.prototype.valid;
+    /** @type {?|undefined} */
+    ISessionUser.prototype.admin;
+    /** @type {?|undefined} */
+    ISessionUser.prototype.groups;
+    /** @type {?|undefined} */
+    ISessionUser.prototype.expires_at;
+}
 let VantageSessionService = class VantageSessionService {
     /**
      * @return {?}
@@ -139,7 +197,7 @@ let VantageSessionService = class VantageSessionService {
          * @return {?}
          */
         (res) => {
-            return (/** @type {?} */ (res.body));
+            return res.body;
         })));
     }
 };
@@ -176,6 +234,13 @@ VantageSessionService = __decorate([
         }),
     })
 ], VantageSessionService);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageSessionService.prototype._user;
+}
 /**
  * @param {?} parent
  * @return {?}
@@ -212,14 +277,17 @@ class VantageAuthenticationGuard {
      * @return {?}
      */
     canActivate(next, state) {
-        return this._sessionService.getInfo().pipe(timeout(5000)).pipe(catchError((/**
+        return this._sessionService
+            .getInfo()
+            .pipe(timeout(5000))
+            .pipe(catchError((/**
          * @param {?} e
          * @return {?}
          */
         (e) => {
             // if not logged in, go ahead and log in...otherwise logout
             // append the current path so we get redirected back upon login
-            (e.status === UNAUTHORIZED) ? window.location.href = '/start-login' : this._sessionService.logout();
+            e.status === UNAUTHORIZED ? (window.location.href = '/start-login') : this._sessionService.logout();
             throw e;
         })), map((/**
          * @return {?}
@@ -237,6 +305,18 @@ VantageAuthenticationGuard.ctorParameters = () => [
     { type: Router },
     { type: VantageSessionService }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageAuthenticationGuard.prototype._router;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageAuthenticationGuard.prototype._sessionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -246,14 +326,8 @@ class VantageAuthenticationModule {
 }
 VantageAuthenticationModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VANTAGE_TOKEN_PROVIDER,
-                    VANTAGE_SESSION_PROVIDER,
-                    VantageAuthenticationGuard,
-                ],
+                imports: [CommonModule],
+                providers: [VANTAGE_TOKEN_PROVIDER, VANTAGE_SESSION_PROVIDER, VantageAuthenticationGuard],
             },] }
 ];
 
@@ -264,18 +338,23 @@ VantageAuthenticationModule.decorators = [
 /* 4XX errors */
 /** @type {?} */
 const UNAUTHORIZED$1 = 401;
+/** @type {?} */
+const PAYLOAD_TOO_LARGE = 413;
+/* 5XX errors */
+/** @type {?} */
+const SERVICE_UNAVAILABLE = 503;
+/** @type {?} */
+const GATEWAY_TIMEOUT = 504;
 class VantageAuthenticationInterceptor {
     /**
      * @param {?} error
      * @return {?}
      */
     onResponseError(error) {
-        if (error.status === UNAUTHORIZED$1) {
+        if (error.status === UNAUTHORIZED$1 && !error.url.includes('/token/validity')) {
             // if logged in, go ahead an expire the cooke and reload the page
-            if (!error.url.includes('/token/validity')) {
-                document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                window.location.reload();
-            }
+            document.cookie = 'XSRF-TOKEN=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            window.location.reload();
         }
         throw error;
     }
@@ -300,6 +379,21 @@ class VantageAuthenticationInterceptor {
 VantageAuthenticationInterceptor.decorators = [
     { type: Injectable }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { VANTAGE_SESSION_PROVIDER, VANTAGE_SESSION_PROVIDER_FACTORY, VANTAGE_TOKEN_PROVIDER, VANTAGE_TOKEN_PROVIDER_FACTORY, VantageAuthenticationGuard, VantageAuthenticationInterceptor, VantageAuthenticationModule, VantageSessionService, VantageTokenService };
 //# sourceMappingURL=td-vantage-ui-platform-auth.js.map

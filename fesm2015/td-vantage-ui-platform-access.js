@@ -48,6 +48,18 @@ VantageBlockRootAccessGuard.ctorParameters = () => [
     { type: VantageAuthenticationGuard },
     { type: VantageSessionService }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockRootAccessGuard.prototype._authGuard;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockRootAccessGuard.prototype._sessionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -94,6 +106,18 @@ VantageBlockUserAccessGuard.ctorParameters = () => [
     { type: VantageAuthenticationGuard },
     { type: VantageSessionService }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockUserAccessGuard.prototype._authGuard;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageBlockUserAccessGuard.prototype._sessionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -103,15 +127,25 @@ class VantageAccessModule {
 }
 VantageAccessModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VantageBlockRootAccessGuard,
-                    VantageBlockUserAccessGuard,
-                ],
+                imports: [CommonModule],
+                providers: [VantageBlockRootAccessGuard, VantageBlockUserAccessGuard],
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { VantageAccessModule, VantageBlockRootAccessGuard, VantageBlockUserAccessGuard };
 //# sourceMappingURL=td-vantage-ui-platform-access.js.map

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/operators'), require('@td-vantage/ui-platform/auth'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/access', ['exports', '@angular/core', 'rxjs/operators', '@td-vantage/ui-platform/auth', '@angular/common'], factory) :
     (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].access = {}), global.ng.core, global.rxjs.operators, global['td-vantage']['ui-platform'].auth, global.ng.common));
-}(this, function (exports, core, operators, auth, common) { 'use strict';
+}(this, (function (exports, core, operators, auth, common) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -52,6 +52,18 @@
         ]; };
         return VantageBlockRootAccessGuard;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageBlockRootAccessGuard.prototype._authGuard;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageBlockRootAccessGuard.prototype._sessionService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -101,6 +113,18 @@
         ]; };
         return VantageBlockUserAccessGuard;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageBlockUserAccessGuard.prototype._authGuard;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageBlockUserAccessGuard.prototype._sessionService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -111,13 +135,8 @@
         }
         VantageAccessModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [
-                            common.CommonModule,
-                        ],
-                        providers: [
-                            VantageBlockRootAccessGuard,
-                            VantageBlockUserAccessGuard,
-                        ],
+                        imports: [common.CommonModule],
+                        providers: [VantageBlockRootAccessGuard, VantageBlockUserAccessGuard],
                     },] }
         ];
         return VantageAccessModule;
@@ -129,5 +148,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=td-vantage-ui-platform-access.umd.js.map

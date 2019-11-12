@@ -10,6 +10,28 @@ import { TdPUT, TdBody, TdResponse, TdGET, TdDELETE, TdHttp } from '@covalent/ht
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function ISMTPConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.server;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.port;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.reply_address;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.smtp_username;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.smtp_password;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.use_ssl;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.anon_logon;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.server_timeout;
+}
 let VantageSMTPService = class VantageSMTPService {
     /**
      * @param {?} body
@@ -57,8 +79,7 @@ __decorate([
     TdPUT({
         path: '/smtp-config',
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -93,7 +114,7 @@ __decorate([
 VantageSMTPService = __decorate([
     TdHttp({
         baseUrl: '/api/notification',
-        baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
 ], VantageSMTPService);
 /**
@@ -119,14 +140,25 @@ class VantageNotificationModule {
 }
 VantageNotificationModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VANTAGE_SMTP_PROVIDER,
-                ],
+                imports: [CommonModule],
+                providers: [VANTAGE_SMTP_PROVIDER],
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { VantageNotificationModule, VantageSMTPService, VANTAGE_SMTP_PROVIDER_FACTORY as ɵa, VANTAGE_SMTP_PROVIDER as ɵb };
 //# sourceMappingURL=td-vantage-ui-platform-notification.js.map

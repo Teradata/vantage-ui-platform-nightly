@@ -14,6 +14,30 @@ import { TdMediaService, CovalentMediaModule } from '@covalent/core/media';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IAuditLog() { }
+if (false) {
+    /** @type {?|undefined} */
+    IAuditLog.prototype.action;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.component;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.correlation_id;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.details;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.id;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.logtime;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.message;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.result;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.username;
+}
 var VantageAuditService = /** @class */ (function () {
     function VantageAuditService() {
     }
@@ -106,8 +130,7 @@ var VantageAuditService = /** @class */ (function () {
         TdPOST({
             path: '/audit/messages',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -116,8 +139,7 @@ var VantageAuditService = /** @class */ (function () {
         TdGET({
             path: '/audit/messages/:id',
         }),
-        __param(0, TdParam('id')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('id')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -134,7 +156,7 @@ var VantageAuditService = /** @class */ (function () {
     VantageAuditService = __decorate([
         TdHttp({
             baseUrl: '/api/audit',
-            baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
         })
     ], VantageAuditService);
     return VantageAuditService;
@@ -163,12 +185,8 @@ var VantageAuditModule = /** @class */ (function () {
     }
     VantageAuditModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                    ],
-                    providers: [
-                        VANTAGE_AUDIT_PROVIDER,
-                    ],
+                    imports: [CommonModule],
+                    providers: [VANTAGE_AUDIT_PROVIDER],
                 },] }
     ];
     return VantageAuditModule;
@@ -178,6 +196,38 @@ var VantageAuditModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function ISMTPConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.server;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.port;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.reply_address;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.smtp_username;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.smtp_password;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.use_ssl;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.anon_logon;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.server_timeout;
+}
 var VantageSMTPService = /** @class */ (function () {
     function VantageSMTPService() {
     }
@@ -243,8 +293,7 @@ var VantageSMTPService = /** @class */ (function () {
         TdPUT({
             path: '/smtp-config',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -279,7 +328,7 @@ var VantageSMTPService = /** @class */ (function () {
     VantageSMTPService = __decorate([
         TdHttp({
             baseUrl: '/api/notification',
-            baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
         })
     ], VantageSMTPService);
     return VantageSMTPService;
@@ -308,16 +357,22 @@ var VantageNotificationModule = /** @class */ (function () {
     }
     VantageNotificationModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                    ],
-                    providers: [
-                        VANTAGE_SMTP_PROVIDER,
-                    ],
+                    imports: [CommonModule],
+                    providers: [VANTAGE_SMTP_PROVIDER],
                 },] }
     ];
     return VantageNotificationModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -330,11 +385,71 @@ var SystemType = {
     Presto: 'PRESTO',
 };
 /** @type {?} */
-var VANTAGE_SYSTEMS_TYPES = [
-    SystemType.Teradata,
-    SystemType.Aster,
-    SystemType.Presto,
-];
+var VANTAGE_SYSTEMS_TYPES = [SystemType.Teradata, SystemType.Aster, SystemType.Presto];
+/**
+ * @record
+ */
+function ISystemAttributes() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISystemAttributes.prototype.attributes;
+}
+/**
+ * @record
+ */
+function IAbstractSystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.host;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.port;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.system_type;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.catalog;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.schema;
+}
+/**
+ * @record
+ */
+function ISystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISystem.prototype.attributes;
+    /** @type {?|undefined} */
+    ISystem.prototype.data_center;
+    /** @type {?|undefined} */
+    ISystem.prototype.environment;
+    /** @type {?|undefined} */
+    ISystem.prototype.id;
+    /** @type {?|undefined} */
+    ISystem.prototype.nickname;
+    /** @type {?|undefined} */
+    ISystem.prototype.platform_id;
+    /** @type {?|undefined} */
+    ISystem.prototype.system_attributes;
+    /** @type {?|undefined} */
+    ISystem.prototype.version;
+}
+/**
+ * @record
+ */
+function ITestSystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    ITestSystem.prototype.account;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.default_char_set;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.default_database;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.log_mech;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.password;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.username;
+}
 var VantageSystemService = /** @class */ (function () {
     function VantageSystemService() {
     }
@@ -483,8 +598,7 @@ var VantageSystemService = /** @class */ (function () {
         TdGET({
             path: '/systems/:id',
         }),
-        __param(0, TdParam('id')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('id')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -493,8 +607,7 @@ var VantageSystemService = /** @class */ (function () {
         TdPOST({
             path: '/systems',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -514,8 +627,7 @@ var VantageSystemService = /** @class */ (function () {
         TdDELETE({
             path: '/systems/:id',
         }),
-        __param(0, TdParam('id')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('id')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [String, Observable]),
         __metadata("design:returntype", Observable)
@@ -524,8 +636,7 @@ var VantageSystemService = /** @class */ (function () {
         TdPOST({
             path: '/testsystem',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -533,7 +644,7 @@ var VantageSystemService = /** @class */ (function () {
     VantageSystemService = __decorate([
         TdHttp({
             baseUrl: '/api/system',
-            baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
         })
     ], VantageSystemService);
     return VantageSystemService;
@@ -562,12 +673,8 @@ var VantageSystemModule = /** @class */ (function () {
     }
     VantageSystemModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                    ],
-                    providers: [
-                        VANTAGE_SYSTEM_PROVIDER,
-                    ],
+                    imports: [CommonModule],
+                    providers: [VANTAGE_SYSTEM_PROVIDER],
                 },] }
     ];
     return VantageSystemModule;
@@ -577,10 +684,60 @@ var VantageSystemModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @enum {string} */
 var LDAPEncription = {
     None: 'NONE',
 };
+/**
+ * @record
+ */
+function ILDAPConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.allowed_groups;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.base_dn;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.config_id;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.connectionUrl;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.email_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.encryption;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.group_id_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.groups_base_dn;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.id_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.member_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.member_of_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.name_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.port;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.search_pass;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.search_user;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.server;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.url;
+}
 var VantageLDAPService = /** @class */ (function () {
     function VantageLDAPService() {
     }
@@ -652,7 +809,7 @@ var VantageLDAPService = /** @class */ (function () {
          * @return {?}
          */
         function (res) {
-            return res.status === 200 ? true : false;
+            return res.status === 200;
         })));
     };
     __decorate([
@@ -668,8 +825,7 @@ var VantageLDAPService = /** @class */ (function () {
         TdPOST({
             path: '/',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -689,8 +845,7 @@ var VantageLDAPService = /** @class */ (function () {
         TdDELETE({
             path: '/:id',
         }),
-        __param(0, TdParam('id')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('id')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -702,8 +857,7 @@ var VantageLDAPService = /** @class */ (function () {
                 observe: 'response',
             },
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -711,7 +865,7 @@ var VantageLDAPService = /** @class */ (function () {
     VantageLDAPService = __decorate([
         TdHttp({
             baseUrl: '/api/user/ldap/config',
-            baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
         })
     ], VantageLDAPService);
     return VantageLDAPService;
@@ -735,6 +889,30 @@ var VANTAGE_LDAP_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IUser() { }
+if (false) {
+    /** @type {?|undefined} */
+    IUser.prototype.username;
+    /** @type {?|undefined} */
+    IUser.prototype.password;
+    /** @type {?|undefined} */
+    IUser.prototype.email;
+    /** @type {?|undefined} */
+    IUser.prototype.local;
+    /** @type {?|undefined} */
+    IUser.prototype.admin;
+    /** @type {?|undefined} */
+    IUser.prototype.groups;
+    /** @type {?|undefined} */
+    IUser.prototype.display_name;
+    /** @type {?|undefined} */
+    IUser.prototype.access_token;
+    /** @type {?|undefined} */
+    IUser.prototype.expires_at;
+}
 var VantageUserService = /** @class */ (function () {
     function VantageUserService() {
     }
@@ -798,7 +976,7 @@ var VantageUserService = /** @class */ (function () {
          * @return {?}
          */
         function (res) {
-            return (/** @type {?} */ (res.body));
+            return res.body;
         })));
     };
     __decorate([
@@ -822,8 +1000,7 @@ var VantageUserService = /** @class */ (function () {
                 observe: 'response',
             },
         }),
-        __param(0, TdParam('username')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('username')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [String, Observable]),
         __metadata("design:returntype", Observable)
@@ -857,6 +1034,22 @@ var VANTAGE_USER_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IGroup() { }
+if (false) {
+    /** @type {?|undefined} */
+    IGroup.prototype.name;
+    /** @type {?|undefined} */
+    IGroup.prototype.description;
+    /** @type {?|undefined} */
+    IGroup.prototype.id;
+    /** @type {?|undefined} */
+    IGroup.prototype.display_name;
+    /** @type {?|undefined} */
+    IGroup.prototype.users;
+}
 var VantageGroupService = /** @class */ (function () {
     function VantageGroupService() {
     }
@@ -941,18 +1134,22 @@ var VantageUserModule = /** @class */ (function () {
     }
     VantageUserModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                    ],
-                    providers: [
-                        VANTAGE_LDAP_PROVIDER,
-                        VANTAGE_USER_PROVIDER,
-                        VANTAGE_GROUP_PROVIDER,
-                    ],
+                    imports: [CommonModule],
+                    providers: [VANTAGE_LDAP_PROVIDER, VANTAGE_USER_PROVIDER, VANTAGE_GROUP_PROVIDER],
                 },] }
     ];
     return VantageUserModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -963,6 +1160,12 @@ var VantageError = /** @class */ (function () {
     }
     return VantageError;
 }());
+if (false) {
+    /** @type {?} */
+    VantageError.prototype.message;
+    /** @type {?} */
+    VantageError.prototype.error;
+}
 var VantageErrorService = /** @class */ (function () {
     function VantageErrorService(_dialogService, _translate) {
         this._dialogService = _dialogService;
@@ -1003,6 +1206,18 @@ var VantageErrorService = /** @class */ (function () {
     ]; };
     return VantageErrorService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._dialogService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._translate;
+}
 /**
  * @param {?} parent
  * @param {?} dialogService
@@ -1058,6 +1273,18 @@ var VantageToastService = /** @class */ (function () {
     ]; };
     return VantageToastService;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._snackBarService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._media;
+}
 /**
  * @param {?} parent
  * @param {?} snackBar
@@ -1084,20 +1311,47 @@ var VantageUserFeedbackModule = /** @class */ (function () {
     }
     VantageUserFeedbackModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                        MatSnackBarModule,
-                        CovalentDialogsModule,
-                        CovalentMediaModule,
-                    ],
-                    providers: [
-                        VANTAGE_ERROR_PROVIDER,
-                        VANTAGE_TOAST_PROVIDER,
-                    ],
+                    imports: [CommonModule, MatSnackBarModule, CovalentDialogsModule, CovalentMediaModule],
+                    providers: [VANTAGE_ERROR_PROVIDER, VANTAGE_TOAST_PROVIDER],
                 },] }
     ];
     return VantageUserFeedbackModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { LDAPEncription, SystemType, VANTAGE_SYSTEMS_TYPES, VantageAuditModule, VantageAuditService, VantageError, VantageErrorService, VantageGroupService, VantageLDAPService, VantageNotificationModule, VantageSMTPService, VantageSystemModule, VantageSystemService, VantageToastService, VantageUserFeedbackModule, VantageUserModule, VantageUserService, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa, VANTAGE_AUDIT_PROVIDER as ɵb, VANTAGE_SMTP_PROVIDER_FACTORY as ɵc, VANTAGE_SMTP_PROVIDER as ɵd, VANTAGE_SYSTEM_PROVIDER_FACTORY as ɵe, VANTAGE_SYSTEM_PROVIDER as ɵf, VANTAGE_LDAP_PROVIDER_FACTORY as ɵg, VANTAGE_LDAP_PROVIDER as ɵh, VANTAGE_GROUP_PROVIDER_FACTORY as ɵi, VANTAGE_GROUP_PROVIDER as ɵj, VANTAGE_USER_PROVIDER_FACTORY as ɵk, VANTAGE_USER_PROVIDER as ɵl, VANTAGE_ERROR_PROVIDER_FACTORY as ɵm, VANTAGE_ERROR_PROVIDER as ɵn, VANTAGE_TOAST_PROVIDER_FACTORY as ɵo, VANTAGE_TOAST_PROVIDER as ɵp };
 //# sourceMappingURL=td-vantage-ui-platform.js.map

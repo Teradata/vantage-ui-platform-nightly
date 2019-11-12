@@ -10,6 +10,16 @@ var BASE_URL = Cypress.config('baseUrl');
 // ex: http://localhost:4200
 /** @type {?} */
 var LOGIN_URL = Cypress.env('loginUrl');
+/**
+ * @record
+ */
+function ILoginCredentials() { }
+if (false) {
+    /** @type {?} */
+    ILoginCredentials.prototype.username;
+    /** @type {?} */
+    ILoginCredentials.prototype.password;
+}
 // inspired by https://vrockai.github.io/blog/2017/10/28/cypress-keycloak-intregration/
 /**
  * @param {?} __0
@@ -65,6 +75,16 @@ function _redirectToHome() {
     cy.url().should('not.include', LOGIN_URL);
     cy.url().should('include', BASE_URL);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { login, logout };
 //# sourceMappingURL=td-vantage-ui-platform-testing-cypress.js.map

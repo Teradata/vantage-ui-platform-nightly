@@ -17,11 +17,71 @@ var SystemType = {
     Presto: 'PRESTO',
 };
 /** @type {?} */
-var VANTAGE_SYSTEMS_TYPES = [
-    SystemType.Teradata,
-    SystemType.Aster,
-    SystemType.Presto,
-];
+var VANTAGE_SYSTEMS_TYPES = [SystemType.Teradata, SystemType.Aster, SystemType.Presto];
+/**
+ * @record
+ */
+function ISystemAttributes() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISystemAttributes.prototype.attributes;
+}
+/**
+ * @record
+ */
+function IAbstractSystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.host;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.port;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.system_type;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.catalog;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.schema;
+}
+/**
+ * @record
+ */
+function ISystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISystem.prototype.attributes;
+    /** @type {?|undefined} */
+    ISystem.prototype.data_center;
+    /** @type {?|undefined} */
+    ISystem.prototype.environment;
+    /** @type {?|undefined} */
+    ISystem.prototype.id;
+    /** @type {?|undefined} */
+    ISystem.prototype.nickname;
+    /** @type {?|undefined} */
+    ISystem.prototype.platform_id;
+    /** @type {?|undefined} */
+    ISystem.prototype.system_attributes;
+    /** @type {?|undefined} */
+    ISystem.prototype.version;
+}
+/**
+ * @record
+ */
+function ITestSystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    ITestSystem.prototype.account;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.default_char_set;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.default_database;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.log_mech;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.password;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.username;
+}
 var VantageSystemService = /** @class */ (function () {
     function VantageSystemService() {
     }
@@ -170,8 +230,7 @@ var VantageSystemService = /** @class */ (function () {
         TdGET({
             path: '/systems/:id',
         }),
-        __param(0, TdParam('id')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('id')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -180,8 +239,7 @@ var VantageSystemService = /** @class */ (function () {
         TdPOST({
             path: '/systems',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -201,8 +259,7 @@ var VantageSystemService = /** @class */ (function () {
         TdDELETE({
             path: '/systems/:id',
         }),
-        __param(0, TdParam('id')),
-        __param(1, TdResponse()),
+        __param(0, TdParam('id')), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [String, Observable]),
         __metadata("design:returntype", Observable)
@@ -211,8 +268,7 @@ var VantageSystemService = /** @class */ (function () {
         TdPOST({
             path: '/testsystem',
         }),
-        __param(0, TdBody()),
-        __param(1, TdResponse()),
+        __param(0, TdBody()), __param(1, TdResponse()),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
@@ -220,7 +276,7 @@ var VantageSystemService = /** @class */ (function () {
     VantageSystemService = __decorate([
         TdHttp({
             baseUrl: '/api/system',
-            baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
         })
     ], VantageSystemService);
     return VantageSystemService;
@@ -249,16 +305,27 @@ var VantageSystemModule = /** @class */ (function () {
     }
     VantageSystemModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                    ],
-                    providers: [
-                        VANTAGE_SYSTEM_PROVIDER,
-                    ],
+                    imports: [CommonModule],
+                    providers: [VANTAGE_SYSTEM_PROVIDER],
                 },] }
     ];
     return VantageSystemModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { SystemType, VANTAGE_SYSTEMS_TYPES, VantageSystemModule, VantageSystemService, VANTAGE_SYSTEM_PROVIDER_FACTORY as ɵa, VANTAGE_SYSTEM_PROVIDER as ɵb };
 //# sourceMappingURL=td-vantage-ui-platform-system.js.map

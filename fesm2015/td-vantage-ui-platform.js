@@ -14,6 +14,30 @@ import { TdMediaService, CovalentMediaModule } from '@covalent/core/media';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IAuditLog() { }
+if (false) {
+    /** @type {?|undefined} */
+    IAuditLog.prototype.action;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.component;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.correlation_id;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.details;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.id;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.logtime;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.message;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.result;
+    /** @type {?|undefined} */
+    IAuditLog.prototype.username;
+}
 let VantageAuditService = class VantageAuditService {
     /**
      * @param {?=} params
@@ -86,8 +110,7 @@ __decorate([
     TdPOST({
         path: '/audit/messages',
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -96,8 +119,7 @@ __decorate([
     TdGET({
         path: '/audit/messages/:id',
     }),
-    __param(0, TdParam('id')),
-    __param(1, TdResponse()),
+    __param(0, TdParam('id')), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -114,7 +136,7 @@ __decorate([
 VantageAuditService = __decorate([
     TdHttp({
         baseUrl: '/api/audit',
-        baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
 ], VantageAuditService);
 /**
@@ -140,12 +162,8 @@ class VantageAuditModule {
 }
 VantageAuditModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VANTAGE_AUDIT_PROVIDER,
-                ],
+                imports: [CommonModule],
+                providers: [VANTAGE_AUDIT_PROVIDER],
             },] }
 ];
 
@@ -153,6 +171,38 @@ VantageAuditModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function ISMTPConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.server;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.port;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.reply_address;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.smtp_username;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.smtp_password;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.use_ssl;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.anon_logon;
+    /** @type {?|undefined} */
+    ISMTPConfig.prototype.server_timeout;
+}
 let VantageSMTPService = class VantageSMTPService {
     /**
      * @param {?} body
@@ -200,8 +250,7 @@ __decorate([
     TdPUT({
         path: '/smtp-config',
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -236,7 +285,7 @@ __decorate([
 VantageSMTPService = __decorate([
     TdHttp({
         baseUrl: '/api/notification',
-        baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
 ], VantageSMTPService);
 /**
@@ -262,14 +311,20 @@ class VantageNotificationModule {
 }
 VantageNotificationModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VANTAGE_SMTP_PROVIDER,
-                ],
+                imports: [CommonModule],
+                providers: [VANTAGE_SMTP_PROVIDER],
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -282,11 +337,71 @@ const SystemType = {
     Presto: 'PRESTO',
 };
 /** @type {?} */
-const VANTAGE_SYSTEMS_TYPES = [
-    SystemType.Teradata,
-    SystemType.Aster,
-    SystemType.Presto,
-];
+const VANTAGE_SYSTEMS_TYPES = [SystemType.Teradata, SystemType.Aster, SystemType.Presto];
+/**
+ * @record
+ */
+function ISystemAttributes() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISystemAttributes.prototype.attributes;
+}
+/**
+ * @record
+ */
+function IAbstractSystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.host;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.port;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.system_type;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.catalog;
+    /** @type {?|undefined} */
+    IAbstractSystem.prototype.schema;
+}
+/**
+ * @record
+ */
+function ISystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    ISystem.prototype.attributes;
+    /** @type {?|undefined} */
+    ISystem.prototype.data_center;
+    /** @type {?|undefined} */
+    ISystem.prototype.environment;
+    /** @type {?|undefined} */
+    ISystem.prototype.id;
+    /** @type {?|undefined} */
+    ISystem.prototype.nickname;
+    /** @type {?|undefined} */
+    ISystem.prototype.platform_id;
+    /** @type {?|undefined} */
+    ISystem.prototype.system_attributes;
+    /** @type {?|undefined} */
+    ISystem.prototype.version;
+}
+/**
+ * @record
+ */
+function ITestSystem() { }
+if (false) {
+    /** @type {?|undefined} */
+    ITestSystem.prototype.account;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.default_char_set;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.default_database;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.log_mech;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.password;
+    /** @type {?|undefined} */
+    ITestSystem.prototype.username;
+}
 let VantageSystemService = class VantageSystemService {
     /**
      * @param {?=} response
@@ -399,8 +514,7 @@ __decorate([
     TdGET({
         path: '/systems/:id',
     }),
-    __param(0, TdParam('id')),
-    __param(1, TdResponse()),
+    __param(0, TdParam('id')), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -409,8 +523,7 @@ __decorate([
     TdPOST({
         path: '/systems',
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -430,8 +543,7 @@ __decorate([
     TdDELETE({
         path: '/systems/:id',
     }),
-    __param(0, TdParam('id')),
-    __param(1, TdResponse()),
+    __param(0, TdParam('id')), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Observable]),
     __metadata("design:returntype", Observable)
@@ -440,8 +552,7 @@ __decorate([
     TdPOST({
         path: '/testsystem',
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -449,7 +560,7 @@ __decorate([
 VantageSystemService = __decorate([
     TdHttp({
         baseUrl: '/api/system',
-        baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
 ], VantageSystemService);
 /**
@@ -475,14 +586,20 @@ class VantageSystemModule {
 }
 VantageSystemModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VANTAGE_SYSTEM_PROVIDER,
-                ],
+                imports: [CommonModule],
+                providers: [VANTAGE_SYSTEM_PROVIDER],
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -492,6 +609,46 @@ VantageSystemModule.decorators = [
 const LDAPEncription = {
     None: 'NONE',
 };
+/**
+ * @record
+ */
+function ILDAPConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.allowed_groups;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.base_dn;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.config_id;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.connectionUrl;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.email_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.encryption;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.group_id_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.groups_base_dn;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.id_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.member_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.member_of_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.name_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.port;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.search_pass;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.search_user;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.server;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.url;
+}
 let VantageLDAPService = class VantageLDAPService {
     /**
      * @param {?=} response
@@ -536,7 +693,7 @@ let VantageLDAPService = class VantageLDAPService {
          * @return {?}
          */
         (res) => {
-            return res.status === 200 ? true : false;
+            return res.status === 200;
         })));
     }
 };
@@ -553,8 +710,7 @@ __decorate([
     TdPOST({
         path: '/',
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -574,8 +730,7 @@ __decorate([
     TdDELETE({
         path: '/:id',
     }),
-    __param(0, TdParam('id')),
-    __param(1, TdResponse()),
+    __param(0, TdParam('id')), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -587,8 +742,7 @@ __decorate([
             observe: 'response',
         },
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -596,7 +750,7 @@ __decorate([
 VantageLDAPService = __decorate([
     TdHttp({
         baseUrl: '/api/user/ldap/config',
-        baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
 ], VantageLDAPService);
 /**
@@ -618,6 +772,30 @@ const VANTAGE_LDAP_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IUser() { }
+if (false) {
+    /** @type {?|undefined} */
+    IUser.prototype.username;
+    /** @type {?|undefined} */
+    IUser.prototype.password;
+    /** @type {?|undefined} */
+    IUser.prototype.email;
+    /** @type {?|undefined} */
+    IUser.prototype.local;
+    /** @type {?|undefined} */
+    IUser.prototype.admin;
+    /** @type {?|undefined} */
+    IUser.prototype.groups;
+    /** @type {?|undefined} */
+    IUser.prototype.display_name;
+    /** @type {?|undefined} */
+    IUser.prototype.access_token;
+    /** @type {?|undefined} */
+    IUser.prototype.expires_at;
+}
 let VantageUserService = class VantageUserService {
     /**
      * get all users
@@ -661,7 +839,7 @@ let VantageUserService = class VantageUserService {
          * @return {?}
          */
         (res) => {
-            return (/** @type {?} */ (res.body));
+            return res.body;
         })));
     }
 };
@@ -686,8 +864,7 @@ __decorate([
             observe: 'response',
         },
     }),
-    __param(0, TdParam('username')),
-    __param(1, TdResponse()),
+    __param(0, TdParam('username')), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Observable]),
     __metadata("design:returntype", Observable)
@@ -719,6 +896,22 @@ const VANTAGE_USER_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IGroup() { }
+if (false) {
+    /** @type {?|undefined} */
+    IGroup.prototype.name;
+    /** @type {?|undefined} */
+    IGroup.prototype.description;
+    /** @type {?|undefined} */
+    IGroup.prototype.id;
+    /** @type {?|undefined} */
+    IGroup.prototype.display_name;
+    /** @type {?|undefined} */
+    IGroup.prototype.users;
+}
 let VantageGroupService = class VantageGroupService {
     /**
      * get groups in paginated form via query string
@@ -790,14 +983,8 @@ class VantageUserModule {
 }
 VantageUserModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VANTAGE_LDAP_PROVIDER,
-                    VANTAGE_USER_PROVIDER,
-                    VANTAGE_GROUP_PROVIDER,
-                ],
+                imports: [CommonModule],
+                providers: [VANTAGE_LDAP_PROVIDER, VANTAGE_USER_PROVIDER, VANTAGE_GROUP_PROVIDER],
             },] }
 ];
 
@@ -805,7 +992,23 @@ VantageUserModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class VantageError {
+}
+if (false) {
+    /** @type {?} */
+    VantageError.prototype.message;
+    /** @type {?} */
+    VantageError.prototype.error;
 }
 class VantageErrorService {
     /**
@@ -823,7 +1026,7 @@ class VantageErrorService {
     open(error) {
         if (error) {
             /** @type {?} */
-            let config = {
+            const config = {
                 title: this._translate.instant('THERE_WAS_A_PROBLEM'),
                 message: error.message,
                 disableClose: true,
@@ -846,6 +1049,18 @@ VantageErrorService.ctorParameters = () => [
     { type: TdDialogService },
     { type: TranslateService }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._dialogService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._translate;
+}
 /**
  * @param {?} parent
  * @param {?} dialogService
@@ -898,6 +1113,18 @@ VantageToastService.ctorParameters = () => [
     { type: MatSnackBar },
     { type: TdMediaService }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._snackBarService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._media;
+}
 /**
  * @param {?} parent
  * @param {?} snackBar
@@ -923,18 +1150,45 @@ class VantageUserFeedbackModule {
 }
 VantageUserFeedbackModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    MatSnackBarModule,
-                    CovalentDialogsModule,
-                    CovalentMediaModule,
-                ],
-                providers: [
-                    VANTAGE_ERROR_PROVIDER,
-                    VANTAGE_TOAST_PROVIDER,
-                ],
+                imports: [CommonModule, MatSnackBarModule, CovalentDialogsModule, CovalentMediaModule],
+                providers: [VANTAGE_ERROR_PROVIDER, VANTAGE_TOAST_PROVIDER],
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { LDAPEncription, SystemType, VANTAGE_SYSTEMS_TYPES, VantageAuditModule, VantageAuditService, VantageError, VantageErrorService, VantageGroupService, VantageLDAPService, VantageNotificationModule, VantageSMTPService, VantageSystemModule, VantageSystemService, VantageToastService, VantageUserFeedbackModule, VantageUserModule, VantageUserService, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa, VANTAGE_AUDIT_PROVIDER as ɵb, VANTAGE_SMTP_PROVIDER_FACTORY as ɵc, VANTAGE_SMTP_PROVIDER as ɵd, VANTAGE_SYSTEM_PROVIDER_FACTORY as ɵe, VANTAGE_SYSTEM_PROVIDER as ɵf, VANTAGE_LDAP_PROVIDER_FACTORY as ɵg, VANTAGE_LDAP_PROVIDER as ɵh, VANTAGE_GROUP_PROVIDER_FACTORY as ɵi, VANTAGE_GROUP_PROVIDER as ɵj, VANTAGE_USER_PROVIDER_FACTORY as ɵk, VANTAGE_USER_PROVIDER as ɵl, VANTAGE_ERROR_PROVIDER_FACTORY as ɵm, VANTAGE_ERROR_PROVIDER as ɵn, VANTAGE_TOAST_PROVIDER_FACTORY as ɵo, VANTAGE_TOAST_PROVIDER as ɵp };
 //# sourceMappingURL=td-vantage-ui-platform.js.map

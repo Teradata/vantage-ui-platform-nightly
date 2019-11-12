@@ -14,6 +14,46 @@ import { TdGET, TdResponse, TdPOST, TdBody, TdPATCH, TdParam, TdDELETE, TdHttp, 
 const LDAPEncription = {
     None: 'NONE',
 };
+/**
+ * @record
+ */
+function ILDAPConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.allowed_groups;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.base_dn;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.config_id;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.connectionUrl;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.email_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.encryption;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.group_id_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.groups_base_dn;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.id_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.member_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.member_of_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.name_field;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.port;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.search_pass;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.search_user;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.server;
+    /** @type {?|undefined} */
+    ILDAPConfig.prototype.url;
+}
 let VantageLDAPService = class VantageLDAPService {
     /**
      * @param {?=} response
@@ -58,7 +98,7 @@ let VantageLDAPService = class VantageLDAPService {
          * @return {?}
          */
         (res) => {
-            return res.status === 200 ? true : false;
+            return res.status === 200;
         })));
     }
 };
@@ -75,8 +115,7 @@ __decorate([
     TdPOST({
         path: '/',
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -96,8 +135,7 @@ __decorate([
     TdDELETE({
         path: '/:id',
     }),
-    __param(0, TdParam('id')),
-    __param(1, TdResponse()),
+    __param(0, TdParam('id')), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -109,8 +147,7 @@ __decorate([
             observe: 'response',
         },
     }),
-    __param(0, TdBody()),
-    __param(1, TdResponse()),
+    __param(0, TdBody()), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
@@ -118,7 +155,7 @@ __decorate([
 VantageLDAPService = __decorate([
     TdHttp({
         baseUrl: '/api/user/ldap/config',
-        baseHeaders: new HttpHeaders({ 'Accept': 'application/json' }),
+        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
 ], VantageLDAPService);
 /**
@@ -140,6 +177,30 @@ const VANTAGE_LDAP_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IUser() { }
+if (false) {
+    /** @type {?|undefined} */
+    IUser.prototype.username;
+    /** @type {?|undefined} */
+    IUser.prototype.password;
+    /** @type {?|undefined} */
+    IUser.prototype.email;
+    /** @type {?|undefined} */
+    IUser.prototype.local;
+    /** @type {?|undefined} */
+    IUser.prototype.admin;
+    /** @type {?|undefined} */
+    IUser.prototype.groups;
+    /** @type {?|undefined} */
+    IUser.prototype.display_name;
+    /** @type {?|undefined} */
+    IUser.prototype.access_token;
+    /** @type {?|undefined} */
+    IUser.prototype.expires_at;
+}
 let VantageUserService = class VantageUserService {
     /**
      * get all users
@@ -183,7 +244,7 @@ let VantageUserService = class VantageUserService {
          * @return {?}
          */
         (res) => {
-            return (/** @type {?} */ (res.body));
+            return res.body;
         })));
     }
 };
@@ -208,8 +269,7 @@ __decorate([
             observe: 'response',
         },
     }),
-    __param(0, TdParam('username')),
-    __param(1, TdResponse()),
+    __param(0, TdParam('username')), __param(1, TdResponse()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Observable]),
     __metadata("design:returntype", Observable)
@@ -241,6 +301,22 @@ const VANTAGE_USER_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IGroup() { }
+if (false) {
+    /** @type {?|undefined} */
+    IGroup.prototype.name;
+    /** @type {?|undefined} */
+    IGroup.prototype.description;
+    /** @type {?|undefined} */
+    IGroup.prototype.id;
+    /** @type {?|undefined} */
+    IGroup.prototype.display_name;
+    /** @type {?|undefined} */
+    IGroup.prototype.users;
+}
 let VantageGroupService = class VantageGroupService {
     /**
      * get groups in paginated form via query string
@@ -312,16 +388,25 @@ class VantageUserModule {
 }
 VantageUserModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                ],
-                providers: [
-                    VANTAGE_LDAP_PROVIDER,
-                    VANTAGE_USER_PROVIDER,
-                    VANTAGE_GROUP_PROVIDER,
-                ],
+                imports: [CommonModule],
+                providers: [VANTAGE_LDAP_PROVIDER, VANTAGE_USER_PROVIDER, VANTAGE_GROUP_PROVIDER],
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { LDAPEncription, VantageGroupService, VantageLDAPService, VantageUserModule, VantageUserService, VANTAGE_LDAP_PROVIDER_FACTORY as ɵa, VANTAGE_LDAP_PROVIDER as ɵb, VANTAGE_GROUP_PROVIDER_FACTORY as ɵc, VANTAGE_GROUP_PROVIDER as ɵd, VANTAGE_USER_PROVIDER_FACTORY as ɵe, VANTAGE_USER_PROVIDER as ɵf };
 //# sourceMappingURL=td-vantage-ui-platform-user.js.map

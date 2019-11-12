@@ -11,6 +11,12 @@ import { CommonModule } from '@angular/common';
  */
 class VantageError {
 }
+if (false) {
+    /** @type {?} */
+    VantageError.prototype.message;
+    /** @type {?} */
+    VantageError.prototype.error;
+}
 class VantageErrorService {
     /**
      * @param {?} _dialogService
@@ -27,7 +33,7 @@ class VantageErrorService {
     open(error) {
         if (error) {
             /** @type {?} */
-            let config = {
+            const config = {
                 title: this._translate.instant('THERE_WAS_A_PROBLEM'),
                 message: error.message,
                 disableClose: true,
@@ -50,6 +56,18 @@ VantageErrorService.ctorParameters = () => [
     { type: TdDialogService },
     { type: TranslateService }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._dialogService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageErrorService.prototype._translate;
+}
 /**
  * @param {?} parent
  * @param {?} dialogService
@@ -102,6 +120,18 @@ VantageToastService.ctorParameters = () => [
     { type: MatSnackBar },
     { type: TdMediaService }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._snackBarService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageToastService.prototype._media;
+}
 /**
  * @param {?} parent
  * @param {?} snackBar
@@ -127,18 +157,35 @@ class VantageUserFeedbackModule {
 }
 VantageUserFeedbackModule.decorators = [
     { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    MatSnackBarModule,
-                    CovalentDialogsModule,
-                    CovalentMediaModule,
-                ],
-                providers: [
-                    VANTAGE_ERROR_PROVIDER,
-                    VANTAGE_TOAST_PROVIDER,
-                ],
+                imports: [CommonModule, MatSnackBarModule, CovalentDialogsModule, CovalentMediaModule],
+                providers: [VANTAGE_ERROR_PROVIDER, VANTAGE_TOAST_PROVIDER],
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { VantageError, VantageErrorService, VantageToastService, VantageUserFeedbackModule, VANTAGE_ERROR_PROVIDER_FACTORY as ɵa, VANTAGE_ERROR_PROVIDER as ɵb, VANTAGE_TOAST_PROVIDER_FACTORY as ɵc, VANTAGE_TOAST_PROVIDER as ɵd };
 //# sourceMappingURL=td-vantage-ui-platform-utilities.js.map
