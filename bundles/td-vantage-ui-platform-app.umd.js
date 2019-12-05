@@ -285,6 +285,8 @@
         IApp.prototype.system_id;
         /** @type {?|undefined} */
         IApp.prototype.containerPort;
+        /** @type {?|undefined} */
+        IApp.prototype.favorite;
     }
     /**
      * @record

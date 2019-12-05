@@ -42,6 +42,7 @@ export interface IApp {
     exposedPorts?: any[];
     system_id?: string;
     containerPort?: number;
+    favorite?: boolean;
 }
 export interface IAppConfiguration {
     id: string;
