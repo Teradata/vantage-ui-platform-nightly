@@ -161,7 +161,7 @@ let VantageSessionService = class VantageSessionService {
      * @return {?}
      */
     logout() {
-        window.location.href = '/api/user/logout';
+        window.location.href = '/api/user/logout?nonce=' + Math.floor(1000000000 + Math.random() * 9000000000);
     }
     /**
      * gets the current sso logged in users information
@@ -287,7 +287,9 @@ class VantageAuthenticationGuard {
         (e) => {
             // if not logged in, go ahead and log in...otherwise logout
             // append the current path so we get redirected back upon login
-            e.status === UNAUTHORIZED ? (window.location.href = '/start-login') : this._sessionService.logout();
+            e.status === UNAUTHORIZED
+                ? (window.location.href = '/start-login?nonce=' + Math.floor(1000000000 + Math.random() * 9000000000))
+                : this._sessionService.logout();
             throw e;
         })), map((/**
          * @return {?}

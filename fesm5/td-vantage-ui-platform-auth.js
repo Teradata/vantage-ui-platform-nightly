@@ -182,7 +182,7 @@ var VantageSessionService = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        window.location.href = '/api/user/logout';
+        window.location.href = '/api/user/logout?nonce=' + Math.floor(1000000000 + Math.random() * 9000000000);
     };
     /**
      * gets the current sso logged in users information
@@ -330,7 +330,9 @@ var VantageAuthenticationGuard = /** @class */ (function () {
         function (e) {
             // if not logged in, go ahead and log in...otherwise logout
             // append the current path so we get redirected back upon login
-            e.status === UNAUTHORIZED ? (window.location.href = '/start-login') : _this._sessionService.logout();
+            e.status === UNAUTHORIZED
+                ? (window.location.href = '/start-login?nonce=' + Math.floor(1000000000 + Math.random() * 9000000000))
+                : _this._sessionService.logout();
             throw e;
         })), map((/**
          * @return {?}
