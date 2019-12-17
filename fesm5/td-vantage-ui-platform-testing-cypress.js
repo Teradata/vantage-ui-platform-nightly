@@ -75,6 +75,14 @@ function _redirectToHome() {
     cy.url().should('not.include', LOGIN_URL);
     cy.url().should('include', BASE_URL);
 }
+/** @type {?} */
+var SSO_COOKIES = ['USER_SSO_ID', 'XSRF-TOKEN'];
+/**
+ * @return {?}
+ */
+function whiteListSSOCookies() {
+    Cypress.Cookies.defaults({ whitelist: SSO_COOKIES });
+}
 
 /**
  * @fileoverview added by tsickle
@@ -86,5 +94,5 @@ function _redirectToHome() {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { login, logout };
+export { SSO_COOKIES, login, logout, whiteListSSOCookies };
 //# sourceMappingURL=td-vantage-ui-platform-testing-cypress.js.map

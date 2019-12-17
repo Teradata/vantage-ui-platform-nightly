@@ -81,9 +81,19 @@
         cy.url().should('not.include', LOGIN_URL);
         cy.url().should('include', BASE_URL);
     }
+    /** @type {?} */
+    var SSO_COOKIES = ['USER_SSO_ID', 'XSRF-TOKEN'];
+    /**
+     * @return {?}
+     */
+    function whiteListSSOCookies() {
+        Cypress.Cookies.defaults({ whitelist: SSO_COOKIES });
+    }
 
+    exports.SSO_COOKIES = SSO_COOKIES;
     exports.login = login;
     exports.logout = logout;
+    exports.whiteListSSOCookies = whiteListSSOCookies;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
