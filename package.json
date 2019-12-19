@@ -28,8 +28,5 @@
   "fesm2015": "fesm2015/td-vantage-ui-platform.js",
   "typings": "td-vantage-ui-platform.d.ts",
   "metadata": "td-vantage-ui-platform.metadata.json",
-  "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.0"
-  }
+  "sideEffects": false
 }
