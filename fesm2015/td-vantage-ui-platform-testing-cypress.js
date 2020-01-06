@@ -82,6 +82,46 @@ const SSO_COOKIES = ['USER_SSO_ID', 'XSRF-TOKEN'];
 function whiteListSSOCookies() {
     Cypress.Cookies.defaults({ whitelist: SSO_COOKIES });
 }
+/**
+ * @return {?}
+ */
+function waitForAngular() {
+    cy.get('[ng-version]').should('exist');
+    return cy.window().then((/**
+     * @param {?} win
+     * @return {?}
+     */
+    (win) => {
+        return new Cypress.Promise((/**
+         * @param {?} resolve
+         * @param {?} reject
+         * @return {?}
+         */
+        (resolve, reject) => {
+            /** @type {?} */
+            const testabilities = win['getAllAngularTestabilities']();
+            if (!testabilities) {
+                return reject(new Error('No testabilities. Is Angular loaded?'));
+            }
+            /** @type {?} */
+            let count = testabilities.length;
+            testabilities.forEach((/**
+             * @param {?} testability
+             * @return {?}
+             */
+            (testability) => testability.whenStable((/**
+             * @return {?}
+             */
+            () => {
+                count--;
+                if (count !== 0) {
+                    return;
+                }
+                resolve();
+            }))));
+        }));
+    }));
+}
 
 /**
  * @fileoverview added by tsickle
@@ -93,5 +133,5 @@ function whiteListSSOCookies() {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { SSO_COOKIES, login, logout, whiteListSSOCookies };
+export { SSO_COOKIES, login, logout, waitForAngular, whiteListSSOCookies };
 //# sourceMappingURL=td-vantage-ui-platform-testing-cypress.js.map

@@ -89,10 +89,53 @@
     function whiteListSSOCookies() {
         Cypress.Cookies.defaults({ whitelist: SSO_COOKIES });
     }
+    /**
+     * @return {?}
+     */
+    function waitForAngular() {
+        cy.get('[ng-version]').should('exist');
+        return cy.window().then((/**
+         * @param {?} win
+         * @return {?}
+         */
+        function (win) {
+            return new Cypress.Promise((/**
+             * @param {?} resolve
+             * @param {?} reject
+             * @return {?}
+             */
+            function (resolve, reject) {
+                /** @type {?} */
+                var testabilities = win['getAllAngularTestabilities']();
+                if (!testabilities) {
+                    return reject(new Error('No testabilities. Is Angular loaded?'));
+                }
+                /** @type {?} */
+                var count = testabilities.length;
+                testabilities.forEach((/**
+                 * @param {?} testability
+                 * @return {?}
+                 */
+                function (testability) {
+                    return testability.whenStable((/**
+                     * @return {?}
+                     */
+                    function () {
+                        count--;
+                        if (count !== 0) {
+                            return;
+                        }
+                        resolve();
+                    }));
+                }));
+            }));
+        }));
+    }
 
     exports.SSO_COOKIES = SSO_COOKIES;
     exports.login = login;
     exports.logout = logout;
+    exports.waitForAngular = waitForAngular;
     exports.whiteListSSOCookies = whiteListSSOCookies;
 
     Object.defineProperty(exports, '__esModule', { value: true });
