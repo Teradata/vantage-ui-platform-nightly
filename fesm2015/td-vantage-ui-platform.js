@@ -1,9 +1,9 @@
-import { Optional, SkipSelf, NgModule, Injectable } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Optional, SkipSelf, NgModule, Injectable, Inject, RendererFactory2, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
 import { HttpParams, HttpHeaders } from '@angular/common/http';
-import { of, Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { of, Observable, BehaviorSubject, fromEvent } from 'rxjs';
+import { map, catchError, filter } from 'rxjs/operators';
 import { TdGET, TdQueryParams, TdResponse, TdPOST, TdBody, TdParam, TdHttp, TdPUT, TdDELETE, TdPATCH } from '@covalent/http';
 import { TdDialogService, CovalentDialogsModule } from '@covalent/core/dialogs';
 import { TranslateService } from '@ngx-translate/core';
@@ -1169,6 +1169,122 @@ VantageUserFeedbackModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const THEME_LOCAL_STORAGE_KEY = 'vantage.theme';
+/** @enum {string} */
+const VantageTheme = {
+    DARK: 'dark-theme',
+    LIGHT: 'light-theme',
+};
+class VantageThemeService {
+    /**
+     * @param {?} _document
+     * @param {?} rendererFactory
+     */
+    constructor(_document, rendererFactory) {
+        this._document = _document;
+        this.rendererFactory = rendererFactory;
+        this._activeThemeSubject = new BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
+        this.activeTheme$ = this._activeThemeSubject.asObservable();
+        this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
+        fromEvent(window, 'storage')
+            .pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => event.key === THEME_LOCAL_STORAGE_KEY)))
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => this.applyTheme((/** @type {?} */ (event.newValue)))));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    get activeTheme() {
+        return this._activeThemeSubject.getValue();
+    }
+    /**
+     * @private
+     * @param {?} theme
+     * @return {?}
+     */
+    set activeTheme(theme) {
+        this._activeThemeSubject.next(theme);
+    }
+    /**
+     * @return {?}
+     */
+    get darkThemeIsActive() {
+        return this.activeTheme === VantageTheme.DARK;
+    }
+    /**
+     * @return {?}
+     */
+    get lightThemeIsActive() {
+        return this.activeTheme === VantageTheme.LIGHT;
+    }
+    /**
+     * @return {?}
+     */
+    applyLightTheme() {
+        this.applyTheme(VantageTheme.LIGHT);
+    }
+    /**
+     * @return {?}
+     */
+    applyDarkTheme() {
+        this.applyTheme(VantageTheme.DARK);
+    }
+    /**
+     * @private
+     * @param {?} theme
+     * @return {?}
+     */
+    applyTheme(theme) {
+        this._renderer2.removeClass(this._document.querySelector('html'), theme === VantageTheme.DARK ? VantageTheme.LIGHT : VantageTheme.DARK);
+        localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
+        this._renderer2.addClass(this._document.querySelector('html'), theme);
+        this.activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
+    }
+}
+VantageThemeService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+/** @nocollapse */
+VantageThemeService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: RendererFactory2 }
+];
+/** @nocollapse */ VantageThemeService.ɵprov = ɵɵdefineInjectable({ factory: function VantageThemeService_Factory() { return new VantageThemeService(ɵɵinject(DOCUMENT), ɵɵinject(RendererFactory2)); }, token: VantageThemeService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype._renderer2;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype._activeThemeSubject;
+    /** @type {?} */
+    VantageThemeService.prototype.activeTheme$;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype._document;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype.rendererFactory;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1190,5 +1306,10 @@ VantageUserFeedbackModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { LDAPEncription, SystemType, VANTAGE_SYSTEMS_TYPES, VantageAuditModule, VantageAuditService, VantageError, VantageErrorService, VantageGroupService, VantageLDAPService, VantageNotificationModule, VantageSMTPService, VantageSystemModule, VantageSystemService, VantageToastService, VantageUserFeedbackModule, VantageUserModule, VantageUserService, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa, VANTAGE_AUDIT_PROVIDER as ɵb, VANTAGE_SMTP_PROVIDER_FACTORY as ɵc, VANTAGE_SMTP_PROVIDER as ɵd, VANTAGE_SYSTEM_PROVIDER_FACTORY as ɵe, VANTAGE_SYSTEM_PROVIDER as ɵf, VANTAGE_LDAP_PROVIDER_FACTORY as ɵg, VANTAGE_LDAP_PROVIDER as ɵh, VANTAGE_GROUP_PROVIDER_FACTORY as ɵi, VANTAGE_GROUP_PROVIDER as ɵj, VANTAGE_USER_PROVIDER_FACTORY as ɵk, VANTAGE_USER_PROVIDER as ɵl, VANTAGE_ERROR_PROVIDER_FACTORY as ɵm, VANTAGE_ERROR_PROVIDER as ɵn, VANTAGE_TOAST_PROVIDER_FACTORY as ɵo, VANTAGE_TOAST_PROVIDER as ɵp };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { LDAPEncription, SystemType, VANTAGE_SYSTEMS_TYPES, VantageAuditModule, VantageAuditService, VantageError, VantageErrorService, VantageGroupService, VantageLDAPService, VantageNotificationModule, VantageSMTPService, VantageSystemModule, VantageSystemService, VantageTheme, VantageThemeService, VantageToastService, VantageUserFeedbackModule, VantageUserModule, VantageUserService, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa, VANTAGE_AUDIT_PROVIDER as ɵb, VANTAGE_SMTP_PROVIDER_FACTORY as ɵc, VANTAGE_SMTP_PROVIDER as ɵd, VANTAGE_SYSTEM_PROVIDER_FACTORY as ɵe, VANTAGE_SYSTEM_PROVIDER as ɵf, VANTAGE_LDAP_PROVIDER_FACTORY as ɵg, VANTAGE_LDAP_PROVIDER as ɵh, VANTAGE_GROUP_PROVIDER_FACTORY as ɵi, VANTAGE_GROUP_PROVIDER as ɵj, VANTAGE_USER_PROVIDER_FACTORY as ɵk, VANTAGE_USER_PROVIDER as ɵl, VANTAGE_ERROR_PROVIDER_FACTORY as ɵm, VANTAGE_ERROR_PROVIDER as ɵn, VANTAGE_TOAST_PROVIDER_FACTORY as ɵo, VANTAGE_TOAST_PROVIDER as ɵp };
 //# sourceMappingURL=td-vantage-ui-platform.js.map

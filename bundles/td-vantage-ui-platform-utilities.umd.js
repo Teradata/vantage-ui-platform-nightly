@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@covalent/core/dialogs'), require('@ngx-translate/core'), require('@angular/material/snack-bar'), require('@covalent/core/media'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/utilities', ['exports', '@angular/core', '@covalent/core/dialogs', '@ngx-translate/core', '@angular/material/snack-bar', '@covalent/core/media', '@angular/common'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].utilities = {}), global.ng.core, global.covalent.core.dialogs, global['ngx-translate'].core, global.ng.material['snack-bar'], global.covalent.core.media, global.ng.common));
-}(this, (function (exports, core, dialogs, core$1, snackBar, media, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@covalent/core/dialogs'), require('@ngx-translate/core'), require('@angular/material/snack-bar'), require('@covalent/core/media'), require('@angular/common'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/utilities', ['exports', '@angular/core', '@covalent/core/dialogs', '@ngx-translate/core', '@angular/material/snack-bar', '@covalent/core/media', '@angular/common', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].utilities = {}), global.ng.core, global.covalent.core.dialogs, global['ngx-translate'].core, global.ng.material['snack-bar'], global.covalent.core.media, global.ng.common, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, core, dialogs, core$1, snackBar, media, common, rxjs, operators) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -171,8 +171,162 @@
         return VantageUserFeedbackModule;
     }());
 
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var THEME_LOCAL_STORAGE_KEY = 'vantage.theme';
+    /** @enum {string} */
+    var VantageTheme = {
+        DARK: 'dark-theme',
+        LIGHT: 'light-theme',
+    };
+    var VantageThemeService = /** @class */ (function () {
+        function VantageThemeService(_document, rendererFactory) {
+            var _this = this;
+            this._document = _document;
+            this.rendererFactory = rendererFactory;
+            this._activeThemeSubject = new rxjs.BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
+            this.activeTheme$ = this._activeThemeSubject.asObservable();
+            this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
+            rxjs.fromEvent(window, 'storage')
+                .pipe(operators.filter((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return event.key === THEME_LOCAL_STORAGE_KEY; })))
+                .subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return _this.applyTheme((/** @type {?} */ (event.newValue))); }));
+        }
+        Object.defineProperty(VantageThemeService.prototype, "activeTheme", {
+            get: /**
+             * @private
+             * @return {?}
+             */
+            function () {
+                return this._activeThemeSubject.getValue();
+            },
+            set: /**
+             * @private
+             * @param {?} theme
+             * @return {?}
+             */
+            function (theme) {
+                this._activeThemeSubject.next(theme);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VantageThemeService.prototype, "darkThemeIsActive", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.activeTheme === VantageTheme.DARK;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VantageThemeService.prototype, "lightThemeIsActive", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.activeTheme === VantageTheme.LIGHT;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        VantageThemeService.prototype.applyLightTheme = /**
+         * @return {?}
+         */
+        function () {
+            this.applyTheme(VantageTheme.LIGHT);
+        };
+        /**
+         * @return {?}
+         */
+        VantageThemeService.prototype.applyDarkTheme = /**
+         * @return {?}
+         */
+        function () {
+            this.applyTheme(VantageTheme.DARK);
+        };
+        /**
+         * @private
+         * @param {?} theme
+         * @return {?}
+         */
+        VantageThemeService.prototype.applyTheme = /**
+         * @private
+         * @param {?} theme
+         * @return {?}
+         */
+        function (theme) {
+            this._renderer2.removeClass(this._document.querySelector('html'), theme === VantageTheme.DARK ? VantageTheme.LIGHT : VantageTheme.DARK);
+            localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
+            this._renderer2.addClass(this._document.querySelector('html'), theme);
+            this.activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
+        };
+        VantageThemeService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root',
+                    },] }
+        ];
+        /** @nocollapse */
+        VantageThemeService.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: core.RendererFactory2 }
+        ]; };
+        /** @nocollapse */ VantageThemeService.ɵprov = core.ɵɵdefineInjectable({ factory: function VantageThemeService_Factory() { return new VantageThemeService(core.ɵɵinject(common.DOCUMENT), core.ɵɵinject(core.RendererFactory2)); }, token: VantageThemeService, providedIn: "root" });
+        return VantageThemeService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype._renderer2;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype._activeThemeSubject;
+        /** @type {?} */
+        VantageThemeService.prototype.activeTheme$;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype._document;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype.rendererFactory;
+    }
+
     exports.VantageError = VantageError;
     exports.VantageErrorService = VantageErrorService;
+    exports.VantageTheme = VantageTheme;
+    exports.VantageThemeService = VantageThemeService;
     exports.VantageToastService = VantageToastService;
     exports.VantageUserFeedbackModule = VantageUserFeedbackModule;
     exports.ɵa = VANTAGE_ERROR_PROVIDER_FACTORY;

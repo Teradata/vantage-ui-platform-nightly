@@ -1509,6 +1509,158 @@
         return VantageUserFeedbackModule;
     }());
 
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var THEME_LOCAL_STORAGE_KEY = 'vantage.theme';
+    /** @enum {string} */
+    var VantageTheme = {
+        DARK: 'dark-theme',
+        LIGHT: 'light-theme',
+    };
+    var VantageThemeService = /** @class */ (function () {
+        function VantageThemeService(_document, rendererFactory) {
+            var _this = this;
+            this._document = _document;
+            this.rendererFactory = rendererFactory;
+            this._activeThemeSubject = new rxjs.BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
+            this.activeTheme$ = this._activeThemeSubject.asObservable();
+            this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
+            rxjs.fromEvent(window, 'storage')
+                .pipe(operators.filter((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return event.key === THEME_LOCAL_STORAGE_KEY; })))
+                .subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return _this.applyTheme((/** @type {?} */ (event.newValue))); }));
+        }
+        Object.defineProperty(VantageThemeService.prototype, "activeTheme", {
+            get: /**
+             * @private
+             * @return {?}
+             */
+            function () {
+                return this._activeThemeSubject.getValue();
+            },
+            set: /**
+             * @private
+             * @param {?} theme
+             * @return {?}
+             */
+            function (theme) {
+                this._activeThemeSubject.next(theme);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VantageThemeService.prototype, "darkThemeIsActive", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.activeTheme === VantageTheme.DARK;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VantageThemeService.prototype, "lightThemeIsActive", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.activeTheme === VantageTheme.LIGHT;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        VantageThemeService.prototype.applyLightTheme = /**
+         * @return {?}
+         */
+        function () {
+            this.applyTheme(VantageTheme.LIGHT);
+        };
+        /**
+         * @return {?}
+         */
+        VantageThemeService.prototype.applyDarkTheme = /**
+         * @return {?}
+         */
+        function () {
+            this.applyTheme(VantageTheme.DARK);
+        };
+        /**
+         * @private
+         * @param {?} theme
+         * @return {?}
+         */
+        VantageThemeService.prototype.applyTheme = /**
+         * @private
+         * @param {?} theme
+         * @return {?}
+         */
+        function (theme) {
+            this._renderer2.removeClass(this._document.querySelector('html'), theme === VantageTheme.DARK ? VantageTheme.LIGHT : VantageTheme.DARK);
+            localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
+            this._renderer2.addClass(this._document.querySelector('html'), theme);
+            this.activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
+        };
+        VantageThemeService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root',
+                    },] }
+        ];
+        /** @nocollapse */
+        VantageThemeService.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: core.RendererFactory2 }
+        ]; };
+        /** @nocollapse */ VantageThemeService.ɵprov = core.ɵɵdefineInjectable({ factory: function VantageThemeService_Factory() { return new VantageThemeService(core.ɵɵinject(common.DOCUMENT), core.ɵɵinject(core.RendererFactory2)); }, token: VantageThemeService, providedIn: "root" });
+        return VantageThemeService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype._renderer2;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype._activeThemeSubject;
+        /** @type {?} */
+        VantageThemeService.prototype.activeTheme$;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype._document;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageThemeService.prototype.rendererFactory;
+    }
+
     exports.LDAPEncription = LDAPEncription;
     exports.SystemType = SystemType;
     exports.VANTAGE_SYSTEMS_TYPES = VANTAGE_SYSTEMS_TYPES;
@@ -1522,6 +1674,8 @@
     exports.VantageSMTPService = VantageSMTPService;
     exports.VantageSystemModule = VantageSystemModule;
     exports.VantageSystemService = VantageSystemService;
+    exports.VantageTheme = VantageTheme;
+    exports.VantageThemeService = VantageThemeService;
     exports.VantageToastService = VantageToastService;
     exports.VantageUserFeedbackModule = VantageUserFeedbackModule;
     exports.VantageUserModule = VantageUserModule;

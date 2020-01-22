@@ -1,9 +1,11 @@
-import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule, Inject, RendererFactory2, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
 import { TdDialogService, CovalentDialogsModule } from '@covalent/core/dialogs';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TdMediaService, CovalentMediaModule } from '@covalent/core/media';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { BehaviorSubject, fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -186,6 +188,143 @@ var VantageUserFeedbackModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var THEME_LOCAL_STORAGE_KEY = 'vantage.theme';
+/** @enum {string} */
+var VantageTheme = {
+    DARK: 'dark-theme',
+    LIGHT: 'light-theme',
+};
+var VantageThemeService = /** @class */ (function () {
+    function VantageThemeService(_document, rendererFactory) {
+        var _this = this;
+        this._document = _document;
+        this.rendererFactory = rendererFactory;
+        this._activeThemeSubject = new BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
+        this.activeTheme$ = this._activeThemeSubject.asObservable();
+        this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
+        fromEvent(window, 'storage')
+            .pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.key === THEME_LOCAL_STORAGE_KEY; })))
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return _this.applyTheme((/** @type {?} */ (event.newValue))); }));
+    }
+    Object.defineProperty(VantageThemeService.prototype, "activeTheme", {
+        get: /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            return this._activeThemeSubject.getValue();
+        },
+        set: /**
+         * @private
+         * @param {?} theme
+         * @return {?}
+         */
+        function (theme) {
+            this._activeThemeSubject.next(theme);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VantageThemeService.prototype, "darkThemeIsActive", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.activeTheme === VantageTheme.DARK;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VantageThemeService.prototype, "lightThemeIsActive", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.activeTheme === VantageTheme.LIGHT;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    VantageThemeService.prototype.applyLightTheme = /**
+     * @return {?}
+     */
+    function () {
+        this.applyTheme(VantageTheme.LIGHT);
+    };
+    /**
+     * @return {?}
+     */
+    VantageThemeService.prototype.applyDarkTheme = /**
+     * @return {?}
+     */
+    function () {
+        this.applyTheme(VantageTheme.DARK);
+    };
+    /**
+     * @private
+     * @param {?} theme
+     * @return {?}
+     */
+    VantageThemeService.prototype.applyTheme = /**
+     * @private
+     * @param {?} theme
+     * @return {?}
+     */
+    function (theme) {
+        this._renderer2.removeClass(this._document.querySelector('html'), theme === VantageTheme.DARK ? VantageTheme.LIGHT : VantageTheme.DARK);
+        localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
+        this._renderer2.addClass(this._document.querySelector('html'), theme);
+        this.activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
+    };
+    VantageThemeService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    /** @nocollapse */
+    VantageThemeService.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: RendererFactory2 }
+    ]; };
+    /** @nocollapse */ VantageThemeService.ɵprov = ɵɵdefineInjectable({ factory: function VantageThemeService_Factory() { return new VantageThemeService(ɵɵinject(DOCUMENT), ɵɵinject(RendererFactory2)); }, token: VantageThemeService, providedIn: "root" });
+    return VantageThemeService;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype._renderer2;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype._activeThemeSubject;
+    /** @type {?} */
+    VantageThemeService.prototype.activeTheme$;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype._document;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype.rendererFactory;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -197,5 +336,10 @@ var VantageUserFeedbackModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VantageError, VantageErrorService, VantageToastService, VantageUserFeedbackModule, VANTAGE_ERROR_PROVIDER_FACTORY as ɵa, VANTAGE_ERROR_PROVIDER as ɵb, VANTAGE_TOAST_PROVIDER_FACTORY as ɵc, VANTAGE_TOAST_PROVIDER as ɵd };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { VantageError, VantageErrorService, VantageTheme, VantageThemeService, VantageToastService, VantageUserFeedbackModule, VANTAGE_ERROR_PROVIDER_FACTORY as ɵa, VANTAGE_ERROR_PROVIDER as ɵb, VANTAGE_TOAST_PROVIDER_FACTORY as ɵc, VANTAGE_TOAST_PROVIDER as ɵd };
 //# sourceMappingURL=td-vantage-ui-platform-utilities.js.map
