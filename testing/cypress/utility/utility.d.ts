@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 export interface ILoginCredentials {
     username: string;
     password: string;
