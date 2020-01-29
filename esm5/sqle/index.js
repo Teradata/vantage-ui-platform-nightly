@@ -1,0 +1,9 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { VANTAGE_QUERY_PROVIDER_FACTORY, VantageQueryService, VANTAGE_QUERY_PROVIDER } from './query.service';
+export { VANTAGE_DICTIONARY_PROVIDER_FACTORY, sysDatabases, VantageDictionaryService, VANTAGE_DICTIONARY_PROVIDER } from './dictionary.service';
+export { VANTAGE_CONNECTION_PROVIDER_FACTORY, VantageConnectionService, VANTAGE_CONNECTION_PROVIDER } from './connection.service';
+export { VantageSQLEModule } from './sqle.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AdGQtdmFudGFnZS91aS1wbGF0Zm9ybS9zcWxlLyIsInNvdXJjZXMiOlsiaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLDRGQUFjLGlCQUFpQixDQUFDO0FBQ2hDLHlIQUFjLHNCQUFzQixDQUFDO0FBQ3JDLDJHQUFjLHNCQUFzQixDQUFDO0FBQ3JDLGtDQUFjLGVBQWUsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCAqIGZyb20gJy4vcXVlcnkuc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL2RpY3Rpb25hcnkuc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL2Nvbm5lY3Rpb24uc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL3NxbGUubW9kdWxlJztcbiJdfQ==

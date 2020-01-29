@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/td-vantage-ui-platform-sqle.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-sqle.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-sqle.js",
+  "esm5": "../esm5/sqle/td-vantage-ui-platform-sqle.js",
+  "esm2015": "../esm2015/sqle/td-vantage-ui-platform-sqle.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-sqle.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-sqle.js",
+  "typings": "td-vantage-ui-platform-sqle.d.ts",
+  "metadata": "td-vantage-ui-platform-sqle.metadata.json",
+  "sideEffects": false,
+  "name": "@td-vantage/ui-platform/sqle"
+}
