@@ -2,7 +2,9 @@ import { Provider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 declare enum SystemType {
-    Teradata = "TERADATA"
+    Teradata = "TERADATA",
+    Aster = "ASTER",
+    Presto = "PRESTO"
 }
 interface ISystemAttributes {
     attributes?: any;

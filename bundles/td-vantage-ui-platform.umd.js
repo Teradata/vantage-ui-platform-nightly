@@ -1349,6 +1349,9 @@
     /** @enum {string} */
     var SystemType$1 = {
         Teradata: 'TERADATA',
+        // TODO: remove the following 2
+        Aster: 'ASTER',
+        Presto: 'PRESTO',
     };
     /**
      * @record

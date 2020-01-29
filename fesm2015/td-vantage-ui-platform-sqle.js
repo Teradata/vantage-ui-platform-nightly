@@ -11,6 +11,9 @@ import { CommonModule } from '@angular/common';
 /** @enum {string} */
 const SystemType = {
     Teradata: 'TERADATA',
+    // TODO: remove the following 2
+    Aster: 'ASTER',
+    Presto: 'PRESTO',
 };
 /**
  * @record

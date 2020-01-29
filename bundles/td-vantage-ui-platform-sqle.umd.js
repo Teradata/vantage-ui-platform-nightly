@@ -208,6 +208,9 @@
     /** @enum {string} */
     var SystemType = {
         Teradata: 'TERADATA',
+        // TODO: remove the following 2
+        Aster: 'ASTER',
+        Presto: 'PRESTO',
     };
     /**
      * @record
