@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/td-vantage-ui-platform-theme.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-theme.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-theme.js",
+  "esm5": "../esm5/theme/td-vantage-ui-platform-theme.js",
+  "esm2015": "../esm2015/theme/td-vantage-ui-platform-theme.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-theme.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-theme.js",
+  "typings": "td-vantage-ui-platform-theme.d.ts",
+  "metadata": "td-vantage-ui-platform-theme.metadata.json",
+  "sideEffects": false,
+  "name": "@td-vantage/ui-platform/theme"
+}
