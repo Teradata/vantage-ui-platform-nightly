@@ -3214,6 +3214,16 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     /** @type {?} */
     var THEME_LOCAL_STORAGE_KEY = 'vantage.theme';
     /** @enum {string} */
@@ -3222,10 +3232,10 @@
         LIGHT: 'light-theme',
     };
     var VantageThemeService = /** @class */ (function () {
-        function VantageThemeService(_document, rendererFactory) {
+        function VantageThemeService(rendererFactory, _document) {
             var _this = this;
-            this._document = _document;
             this.rendererFactory = rendererFactory;
+            this._document = _document;
             this._activeThemeSubject = new rxjs.BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
             this.activeTheme$ = this._activeThemeSubject.asObservable();
             this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
@@ -3299,6 +3309,15 @@
             this.applyTheme(VantageTheme.DARK);
         };
         /**
+         * @return {?}
+         */
+        VantageThemeService.prototype.toggleTheme = /**
+         * @return {?}
+         */
+        function () {
+            this.activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
+        };
+        /**
          * @private
          * @param {?} theme
          * @return {?}
@@ -3315,16 +3334,13 @@
             this.activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
         };
         VantageThemeService.decorators = [
-            { type: core.Injectable, args: [{
-                        providedIn: 'root',
-                    },] }
+            { type: core.Injectable }
         ];
         /** @nocollapse */
         VantageThemeService.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
-            { type: core.RendererFactory2 }
+            { type: core.RendererFactory2 },
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
-        /** @nocollapse */ VantageThemeService.ɵprov = core.ɵɵdefineInjectable({ factory: function VantageThemeService_Factory() { return new VantageThemeService(core.ɵɵinject(common.DOCUMENT), core.ɵɵinject(core.RendererFactory2)); }, token: VantageThemeService, providedIn: "root" });
         return VantageThemeService;
     }());
     if (false) {
@@ -3344,13 +3360,45 @@
          * @type {?}
          * @private
          */
-        VantageThemeService.prototype._document;
+        VantageThemeService.prototype.rendererFactory;
         /**
          * @type {?}
          * @private
          */
-        VantageThemeService.prototype.rendererFactory;
+        VantageThemeService.prototype._document;
     }
+    /**
+     * @param {?} parent
+     * @param {?} rendererFactory
+     * @param {?} _document
+     * @return {?}
+     */
+    function VANTAGE_THEME_PROVIDER_FACTORY(parent, rendererFactory, _document) {
+        return parent || new VantageThemeService(rendererFactory, _document);
+    }
+    /** @type {?} */
+    var VANTAGE_THEME_PROVIDER = {
+        // If there is already a service available, use that. Otherwise, provide a new one.
+        provide: VantageThemeService,
+        deps: [[new core.Optional(), new core.SkipSelf(), VantageThemeService], [core.RendererFactory2], [common.DOCUMENT]],
+        useFactory: VANTAGE_THEME_PROVIDER_FACTORY,
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var VantageThemeModule = /** @class */ (function () {
+        function VantageThemeModule() {
+        }
+        VantageThemeModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [common.CommonModule],
+                        providers: [VANTAGE_THEME_PROVIDER],
+                    },] }
+        ];
+        return VantageThemeModule;
+    }());
 
     exports.LDAPEncription = LDAPEncription;
     exports.SystemType = SystemType;
@@ -3361,6 +3409,8 @@
     exports.VANTAGE_QUERY_PROVIDER = VANTAGE_QUERY_PROVIDER;
     exports.VANTAGE_QUERY_PROVIDER_FACTORY = VANTAGE_QUERY_PROVIDER_FACTORY;
     exports.VANTAGE_SYSTEMS_TYPES = VANTAGE_SYSTEMS_TYPES;
+    exports.VANTAGE_THEME_PROVIDER = VANTAGE_THEME_PROVIDER;
+    exports.VANTAGE_THEME_PROVIDER_FACTORY = VANTAGE_THEME_PROVIDER_FACTORY;
     exports.VantageAuditModule = VantageAuditModule;
     exports.VantageAuditService = VantageAuditService;
     exports.VantageConnectionService = VantageConnectionService;
@@ -3376,6 +3426,7 @@
     exports.VantageSystemModule = VantageSystemModule;
     exports.VantageSystemService = VantageSystemService;
     exports.VantageTheme = VantageTheme;
+    exports.VantageThemeModule = VantageThemeModule;
     exports.VantageThemeService = VantageThemeService;
     exports.VantageToastService = VantageToastService;
     exports.VantageUserFeedbackModule = VantageUserFeedbackModule;

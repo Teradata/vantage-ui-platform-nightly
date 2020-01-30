@@ -1,4 +1,4 @@
-import { Optional, SkipSelf, NgModule, Injectable, Inject, RendererFactory2, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
+import { Optional, SkipSelf, NgModule, Injectable, RendererFactory2, Inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { __decorate, __param, __metadata, __awaiter } from 'tslib';
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
@@ -2781,6 +2781,16 @@ VantageUserFeedbackModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 const THEME_LOCAL_STORAGE_KEY = 'vantage.theme';
 /** @enum {string} */
@@ -2790,12 +2800,12 @@ const VantageTheme = {
 };
 class VantageThemeService {
     /**
-     * @param {?} _document
      * @param {?} rendererFactory
+     * @param {?} _document
      */
-    constructor(_document, rendererFactory) {
-        this._document = _document;
+    constructor(rendererFactory, _document) {
         this.rendererFactory = rendererFactory;
+        this._document = _document;
         this._activeThemeSubject = new BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
         this.activeTheme$ = this._activeThemeSubject.asObservable();
         this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
@@ -2851,6 +2861,12 @@ class VantageThemeService {
         this.applyTheme(VantageTheme.DARK);
     }
     /**
+     * @return {?}
+     */
+    toggleTheme() {
+        this.activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
+    }
+    /**
      * @private
      * @param {?} theme
      * @return {?}
@@ -2863,16 +2879,13 @@ class VantageThemeService {
     }
 }
 VantageThemeService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root',
-            },] }
+    { type: Injectable }
 ];
 /** @nocollapse */
 VantageThemeService.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: RendererFactory2 }
+    { type: RendererFactory2 },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ VantageThemeService.ɵprov = ɵɵdefineInjectable({ factory: function VantageThemeService_Factory() { return new VantageThemeService(ɵɵinject(DOCUMENT), ɵɵinject(RendererFactory2)); }, token: VantageThemeService, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
@@ -2890,13 +2903,42 @@ if (false) {
      * @type {?}
      * @private
      */
-    VantageThemeService.prototype._document;
+    VantageThemeService.prototype.rendererFactory;
     /**
      * @type {?}
      * @private
      */
-    VantageThemeService.prototype.rendererFactory;
+    VantageThemeService.prototype._document;
 }
+/**
+ * @param {?} parent
+ * @param {?} rendererFactory
+ * @param {?} _document
+ * @return {?}
+ */
+function VANTAGE_THEME_PROVIDER_FACTORY(parent, rendererFactory, _document) {
+    return parent || new VantageThemeService(rendererFactory, _document);
+}
+/** @type {?} */
+const VANTAGE_THEME_PROVIDER = {
+    // If there is already a service available, use that. Otherwise, provide a new one.
+    provide: VantageThemeService,
+    deps: [[new Optional(), new SkipSelf(), VantageThemeService], [RendererFactory2], [DOCUMENT]],
+    useFactory: VANTAGE_THEME_PROVIDER_FACTORY,
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class VantageThemeModule {
+}
+VantageThemeModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule],
+                providers: [VANTAGE_THEME_PROVIDER],
+            },] }
+];
 
 /**
  * @fileoverview added by tsickle
@@ -2923,5 +2965,5 @@ if (false) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { LDAPEncription, SystemType, VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SYSTEMS_TYPES, VantageAuditModule, VantageAuditService, VantageConnectionService, VantageDictionaryService, VantageError, VantageErrorService, VantageGroupService, VantageLDAPService, VantageNotificationModule, VantageQueryService, VantageSMTPService, VantageSQLEModule, VantageSystemModule, VantageSystemService, VantageTheme, VantageThemeService, VantageToastService, VantageUserFeedbackModule, VantageUserModule, VantageUserService, sysDatabases, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa, VANTAGE_AUDIT_PROVIDER as ɵb, VANTAGE_SMTP_PROVIDER_FACTORY as ɵc, VANTAGE_SMTP_PROVIDER as ɵd, VANTAGE_SYSTEM_PROVIDER_FACTORY as ɵe, VANTAGE_SYSTEM_PROVIDER as ɵf, VANTAGE_LDAP_PROVIDER_FACTORY as ɵg, VANTAGE_LDAP_PROVIDER as ɵh, VANTAGE_GROUP_PROVIDER_FACTORY as ɵi, VANTAGE_GROUP_PROVIDER as ɵj, VANTAGE_USER_PROVIDER_FACTORY as ɵk, VANTAGE_USER_PROVIDER as ɵl, VANTAGE_ERROR_PROVIDER_FACTORY as ɵm, VANTAGE_ERROR_PROVIDER as ɵn, VANTAGE_TOAST_PROVIDER_FACTORY as ɵo, VANTAGE_TOAST_PROVIDER as ɵp };
+export { LDAPEncription, SystemType, VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SYSTEMS_TYPES, VANTAGE_THEME_PROVIDER, VANTAGE_THEME_PROVIDER_FACTORY, VantageAuditModule, VantageAuditService, VantageConnectionService, VantageDictionaryService, VantageError, VantageErrorService, VantageGroupService, VantageLDAPService, VantageNotificationModule, VantageQueryService, VantageSMTPService, VantageSQLEModule, VantageSystemModule, VantageSystemService, VantageTheme, VantageThemeModule, VantageThemeService, VantageToastService, VantageUserFeedbackModule, VantageUserModule, VantageUserService, sysDatabases, VANTAGE_AUDIT_PROVIDER_FACTORY as ɵa, VANTAGE_AUDIT_PROVIDER as ɵb, VANTAGE_SMTP_PROVIDER_FACTORY as ɵc, VANTAGE_SMTP_PROVIDER as ɵd, VANTAGE_SYSTEM_PROVIDER_FACTORY as ɵe, VANTAGE_SYSTEM_PROVIDER as ɵf, VANTAGE_LDAP_PROVIDER_FACTORY as ɵg, VANTAGE_LDAP_PROVIDER as ɵh, VANTAGE_GROUP_PROVIDER_FACTORY as ɵi, VANTAGE_GROUP_PROVIDER as ɵj, VANTAGE_USER_PROVIDER_FACTORY as ɵk, VANTAGE_USER_PROVIDER as ɵl, VANTAGE_ERROR_PROVIDER_FACTORY as ɵm, VANTAGE_ERROR_PROVIDER as ɵn, VANTAGE_TOAST_PROVIDER_FACTORY as ɵo, VANTAGE_TOAST_PROVIDER as ɵp };
 //# sourceMappingURL=td-vantage-ui-platform.js.map

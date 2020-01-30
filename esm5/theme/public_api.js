@@ -1,0 +1,7 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { VantageThemeModule } from './theme.module';
+export { VANTAGE_THEME_PROVIDER_FACTORY, VantageTheme, VantageThemeService, VANTAGE_THEME_PROVIDER } from './theme.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B0ZC12YW50YWdlL3VpLXBsYXRmb3JtLyIsInNvdXJjZXMiOlsidGhlbWUvcHVibGljX2FwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0FBQUEsbUNBQWMsZ0JBQWdCLENBQUM7QUFDL0IsMEdBQWMsaUJBQWlCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgKiBmcm9tICcuL3RoZW1lLm1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL3RoZW1lLnNlcnZpY2UnO1xuIl19
