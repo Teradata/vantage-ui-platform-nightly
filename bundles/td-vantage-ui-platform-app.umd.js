@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('rxjs'), require('rxjs/operators'), require('@covalent/http')) :
-    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/app', ['exports', '@angular/core', '@angular/common', '@angular/common/http', 'rxjs', 'rxjs/operators', '@covalent/http'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].app = {}), global.ng.core, global.ng.common, global.ng.common.http, global.rxjs, global.rxjs.operators, global.covalent.http));
-}(this, (function (exports, core, common, http, rxjs, operators, http$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('@covalent/http'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/app', ['exports', '@angular/core', '@angular/common', '@angular/common/http', '@covalent/http', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].app = {}), global.ng.core, global.ng.common, global.ng.common.http, global.covalent.http, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, core, common, http, http$1, rxjs, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -209,7 +209,6 @@
     var AppType = {
         SQL: 'sql',
         BTEQ: 'bteq',
-        JAVA: 'java',
         CUSTOM: 'custom',
     };
     /**
@@ -318,15 +317,15 @@
         /** @type {?|undefined} */
         IAppPermissions.prototype.groups;
     }
-    var VantageAppsService = /** @class */ (function () {
-        function VantageAppsService() {
+    var VantageAppService = /** @class */ (function () {
+        function VantageAppService() {
         }
         /**
          * @param {?=} params
          * @param {?=} response
          * @return {?}
          */
-        VantageAppsService.prototype.query = /**
+        VantageAppService.prototype.query = /**
          * @param {?=} params
          * @param {?=} response
          * @return {?}
@@ -348,7 +347,7 @@
          * @param {?=} response
          * @return {?}
          */
-        VantageAppsService.prototype.get = /**
+        VantageAppService.prototype.get = /**
          * @param {?} id
          * @param {?=} response
          * @return {?}
@@ -361,7 +360,7 @@
          * @param {?=} response
          * @return {?}
          */
-        VantageAppsService.prototype.create = /**
+        VantageAppService.prototype.create = /**
          * @param {?} body
          * @param {?=} response
          * @return {?}
@@ -375,7 +374,7 @@
          * @param {?=} response
          * @return {?}
          */
-        VantageAppsService.prototype.update = /**
+        VantageAppService.prototype.update = /**
          * @param {?} id
          * @param {?} body
          * @param {?=} response
@@ -389,7 +388,7 @@
          * @param {?=} response
          * @return {?}
          */
-        VantageAppsService.prototype.delete = /**
+        VantageAppService.prototype.delete = /**
          * @param {?} id
          * @param {?=} response
          * @return {?}
@@ -403,7 +402,7 @@
          * @param {?=} response
          * @return {?}
          */
-        VantageAppsService.prototype.uploadFile = /**
+        VantageAppService.prototype.uploadFile = /**
          * @param {?} id
          * @param {?} formData
          * @param {?=} response
@@ -418,7 +417,7 @@
                 return true;
             })));
         };
-        VantageAppsService.decorators = [
+        VantageAppService.decorators = [
             { type: core.Injectable }
         ];
         __decorate([
@@ -434,7 +433,7 @@
             __metadata("design:paramtypes", [http.HttpParams,
                 rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
-        ], VantageAppsService.prototype, "query", null);
+        ], VantageAppService.prototype, "query", null);
         __decorate([
             http$1.TdGET({
                 path: '/apps/:id',
@@ -443,7 +442,7 @@
             __metadata("design:type", Function),
             __metadata("design:paramtypes", [String, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
-        ], VantageAppsService.prototype, "get", null);
+        ], VantageAppService.prototype, "get", null);
         __decorate([
             http$1.TdPOST({
                 path: '/apps',
@@ -452,7 +451,7 @@
             __metadata("design:type", Function),
             __metadata("design:paramtypes", [Object, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
-        ], VantageAppsService.prototype, "create", null);
+        ], VantageAppService.prototype, "create", null);
         __decorate([
             http$1.TdPATCH({
                 path: '/apps/:id',
@@ -461,7 +460,7 @@
             __metadata("design:type", Function),
             __metadata("design:paramtypes", [String, Object, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
-        ], VantageAppsService.prototype, "update", null);
+        ], VantageAppService.prototype, "update", null);
         __decorate([
             http$1.TdDELETE({
                 path: '/apps/:id',
@@ -470,7 +469,7 @@
             __metadata("design:type", Function),
             __metadata("design:paramtypes", [String, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
-        ], VantageAppsService.prototype, "delete", null);
+        ], VantageAppService.prototype, "delete", null);
         __decorate([
             http$1.TdPOST({
                 path: '/apps/:id/container',
@@ -482,28 +481,28 @@
             __metadata("design:paramtypes", [String, FormData,
                 rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
-        ], VantageAppsService.prototype, "uploadFile", null);
-        VantageAppsService = __decorate([
+        ], VantageAppService.prototype, "uploadFile", null);
+        VantageAppService = __decorate([
             http$1.TdHttp({
                 baseUrl: '/api/app',
                 baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
             })
-        ], VantageAppsService);
-        return VantageAppsService;
+        ], VantageAppService);
+        return VantageAppService;
     }());
     /**
      * @param {?} parent
      * @return {?}
      */
-    function VANTAGE_APPS_PROVIDER_FACTORY(parent) {
-        return parent || new VantageAppsService();
+    function VANTAGE_APP_PROVIDER_FACTORY(parent) {
+        return parent || new VantageAppService();
     }
     /** @type {?} */
-    var VANTAGE_APPS_PROVIDER = {
+    var VANTAGE_APP_PROVIDER = {
         // If there is already a service available, use that. Otherwise, provide a new one.
-        provide: VantageAppsService,
-        deps: [[new core.Optional(), new core.SkipSelf(), VantageAppsService]],
-        useFactory: VANTAGE_APPS_PROVIDER_FACTORY,
+        provide: VantageAppService,
+        deps: [[new core.Optional(), new core.SkipSelf(), VantageAppService]],
+        useFactory: VANTAGE_APP_PROVIDER_FACTORY,
     };
 
     /**
@@ -595,7 +594,7 @@
         VantageAppModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [common.CommonModule],
-                        providers: [VANTAGE_APPS_PROVIDER, VANTAGE_TAGS_PROVIDER],
+                        providers: [VANTAGE_APP_PROVIDER, VANTAGE_TAGS_PROVIDER],
                     },] }
         ];
         return VantageAppModule;
@@ -603,10 +602,10 @@
 
     exports.AppType = AppType;
     exports.VantageAppModule = VantageAppModule;
-    exports.VantageAppsService = VantageAppsService;
+    exports.VantageAppService = VantageAppService;
     exports.VantageTagsService = VantageTagsService;
-    exports.ɵa = VANTAGE_APPS_PROVIDER_FACTORY;
-    exports.ɵb = VANTAGE_APPS_PROVIDER;
+    exports.ɵa = VANTAGE_APP_PROVIDER_FACTORY;
+    exports.ɵb = VANTAGE_APP_PROVIDER;
     exports.ɵc = VANTAGE_TAGS_PROVIDER_FACTORY;
     exports.ɵd = VANTAGE_TAGS_PROVIDER;
 

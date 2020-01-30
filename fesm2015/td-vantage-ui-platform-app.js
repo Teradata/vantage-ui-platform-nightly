@@ -2,9 +2,9 @@ import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
 import { HttpParams, HttpHeaders } from '@angular/common/http';
+import { TdGET, TdQueryParams, TdResponse, TdParam, TdPOST, TdBody, TdPATCH, TdDELETE, TdHttp } from '@covalent/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TdGET, TdQueryParams, TdResponse, TdParam, TdPOST, TdBody, TdPATCH, TdDELETE, TdHttp } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
@@ -14,7 +14,6 @@ import { TdGET, TdQueryParams, TdResponse, TdParam, TdPOST, TdBody, TdPATCH, TdD
 const AppType = {
     SQL: 'sql',
     BTEQ: 'bteq',
-    JAVA: 'java',
     CUSTOM: 'custom',
 };
 /**
@@ -123,7 +122,7 @@ if (false) {
     /** @type {?|undefined} */
     IAppPermissions.prototype.groups;
 }
-let VantageAppsService = class VantageAppsService {
+let VantageAppService = class VantageAppService {
     /**
      * @param {?=} params
      * @param {?=} response
@@ -190,7 +189,7 @@ let VantageAppsService = class VantageAppsService {
         })));
     }
 };
-VantageAppsService.decorators = [
+VantageAppService.decorators = [
     { type: Injectable }
 ];
 __decorate([
@@ -206,7 +205,7 @@ __decorate([
     __metadata("design:paramtypes", [HttpParams,
         Observable]),
     __metadata("design:returntype", Observable)
-], VantageAppsService.prototype, "query", null);
+], VantageAppService.prototype, "query", null);
 __decorate([
     TdGET({
         path: '/apps/:id',
@@ -215,7 +214,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Observable]),
     __metadata("design:returntype", Observable)
-], VantageAppsService.prototype, "get", null);
+], VantageAppService.prototype, "get", null);
 __decorate([
     TdPOST({
         path: '/apps',
@@ -224,7 +223,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
-], VantageAppsService.prototype, "create", null);
+], VantageAppService.prototype, "create", null);
 __decorate([
     TdPATCH({
         path: '/apps/:id',
@@ -233,7 +232,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object, Observable]),
     __metadata("design:returntype", Observable)
-], VantageAppsService.prototype, "update", null);
+], VantageAppService.prototype, "update", null);
 __decorate([
     TdDELETE({
         path: '/apps/:id',
@@ -242,7 +241,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Observable]),
     __metadata("design:returntype", Observable)
-], VantageAppsService.prototype, "delete", null);
+], VantageAppService.prototype, "delete", null);
 __decorate([
     TdPOST({
         path: '/apps/:id/container',
@@ -254,26 +253,26 @@ __decorate([
     __metadata("design:paramtypes", [String, FormData,
         Observable]),
     __metadata("design:returntype", Observable)
-], VantageAppsService.prototype, "uploadFile", null);
-VantageAppsService = __decorate([
+], VantageAppService.prototype, "uploadFile", null);
+VantageAppService = __decorate([
     TdHttp({
         baseUrl: '/api/app',
         baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
     })
-], VantageAppsService);
+], VantageAppService);
 /**
  * @param {?} parent
  * @return {?}
  */
-function VANTAGE_APPS_PROVIDER_FACTORY(parent) {
-    return parent || new VantageAppsService();
+function VANTAGE_APP_PROVIDER_FACTORY(parent) {
+    return parent || new VantageAppService();
 }
 /** @type {?} */
-const VANTAGE_APPS_PROVIDER = {
+const VANTAGE_APP_PROVIDER = {
     // If there is already a service available, use that. Otherwise, provide a new one.
-    provide: VantageAppsService,
-    deps: [[new Optional(), new SkipSelf(), VantageAppsService]],
-    useFactory: VANTAGE_APPS_PROVIDER_FACTORY,
+    provide: VantageAppService,
+    deps: [[new Optional(), new SkipSelf(), VantageAppService]],
+    useFactory: VANTAGE_APP_PROVIDER_FACTORY,
 };
 
 /**
@@ -356,7 +355,7 @@ class VantageAppModule {
 VantageAppModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule],
-                providers: [VANTAGE_APPS_PROVIDER, VANTAGE_TAGS_PROVIDER],
+                providers: [VANTAGE_APP_PROVIDER, VANTAGE_TAGS_PROVIDER],
             },] }
 ];
 
@@ -375,5 +374,5 @@ VantageAppModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AppType, VantageAppModule, VantageAppsService, VantageTagsService, VANTAGE_APPS_PROVIDER_FACTORY as ɵa, VANTAGE_APPS_PROVIDER as ɵb, VANTAGE_TAGS_PROVIDER_FACTORY as ɵc, VANTAGE_TAGS_PROVIDER as ɵd };
+export { AppType, VantageAppModule, VantageAppService, VantageTagsService, VANTAGE_APP_PROVIDER_FACTORY as ɵa, VANTAGE_APP_PROVIDER as ɵb, VANTAGE_TAGS_PROVIDER_FACTORY as ɵc, VANTAGE_TAGS_PROVIDER as ɵd };
 //# sourceMappingURL=td-vantage-ui-platform-app.js.map

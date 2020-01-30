@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 export declare enum AppType {
     SQL = "sql",
     BTEQ = "bteq",
-    JAVA = "java",
     CUSTOM = "custom"
 }
 export interface IApp {
@@ -57,7 +56,7 @@ export interface IAppPermissions {
     users?: string[];
     groups?: string[];
 }
-export declare class VantageAppsService {
+export declare class VantageAppService {
     query(params?: HttpParams, response?: Observable<HttpResponse<any>>): Observable<{
         total: number;
         data: IApp[];
@@ -68,5 +67,5 @@ export declare class VantageAppsService {
     delete(id: string, response?: Observable<IApp>): Observable<IApp>;
     uploadFile(id: string, formData: FormData, response?: Observable<HttpResponse<any>>): Observable<boolean>;
 }
-export declare function VANTAGE_APPS_PROVIDER_FACTORY(parent: VantageAppsService): VantageAppsService;
-export declare const VANTAGE_APPS_PROVIDER: Provider;
+export declare function VANTAGE_APP_PROVIDER_FACTORY(parent: VantageAppService): VantageAppService;
+export declare const VANTAGE_APP_PROVIDER: Provider;
