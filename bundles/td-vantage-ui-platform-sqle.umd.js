@@ -205,59 +205,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @enum {string} */
-    var SystemType = {
-        Teradata: 'TERADATA',
-        // TODO: remove the following 2
-        Aster: 'ASTER',
-        Presto: 'PRESTO',
-    };
-    /**
-     * @record
-     */
-    function ISystemAttributes() { }
-    if (false) {
-        /** @type {?|undefined} */
-        ISystemAttributes.prototype.attributes;
-    }
-    /**
-     * @record
-     */
-    function IAbstractSystem() { }
-    if (false) {
-        /** @type {?|undefined} */
-        IAbstractSystem.prototype.host;
-        /** @type {?|undefined} */
-        IAbstractSystem.prototype.port;
-        /** @type {?|undefined} */
-        IAbstractSystem.prototype.system_type;
-        /** @type {?|undefined} */
-        IAbstractSystem.prototype.catalog;
-        /** @type {?|undefined} */
-        IAbstractSystem.prototype.schema;
-    }
-    /**
-     * @record
-     */
-    function ISystem() { }
-    if (false) {
-        /** @type {?|undefined} */
-        ISystem.prototype.attributes;
-        /** @type {?|undefined} */
-        ISystem.prototype.data_center;
-        /** @type {?|undefined} */
-        ISystem.prototype.environment;
-        /** @type {?|undefined} */
-        ISystem.prototype.id;
-        /** @type {?|undefined} */
-        ISystem.prototype.nickname;
-        /** @type {?|undefined} */
-        ISystem.prototype.platform_id;
-        /** @type {?|undefined} */
-        ISystem.prototype.system_attributes;
-        /** @type {?|undefined} */
-        ISystem.prototype.version;
-    }
     /**
      * @record
      */

@@ -1,31 +1,7 @@
 import { Provider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-declare enum SystemType {
-    Teradata = "TERADATA",
-    Aster = "ASTER",
-    Presto = "PRESTO"
-}
-interface ISystemAttributes {
-    attributes?: any;
-}
-interface IAbstractSystem {
-    host?: string;
-    port?: number;
-    system_type?: SystemType;
-    catalog?: string;
-    schema?: string;
-}
-interface ISystem extends IAbstractSystem {
-    attributes?: string;
-    data_center?: string;
-    environment?: string;
-    id?: string;
-    nickname?: string;
-    platform_id?: number;
-    system_attributes?: ISystemAttributes;
-    version?: string;
-}
+import { ISystem } from '@td-vantage/ui-platform/system';
 export interface IQueryPayload {
     query: string;
     session?: string;
@@ -79,4 +55,3 @@ export declare class VantageQueryService {
 }
 export declare function VANTAGE_QUERY_PROVIDER_FACTORY(parent: VantageQueryService, httpClient: HttpClient): VantageQueryService;
 export declare const VANTAGE_QUERY_PROVIDER: Provider;
-export {};

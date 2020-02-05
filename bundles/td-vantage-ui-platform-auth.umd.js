@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('rxjs'), require('rxjs/operators'), require('@covalent/http'), require('@angular/router')) :
-    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/auth', ['exports', '@angular/core', '@angular/common', '@angular/common/http', 'rxjs', 'rxjs/operators', '@covalent/http', '@angular/router'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].auth = {}), global.ng.core, global.ng.common, global.ng.common.http, global.rxjs, global.rxjs.operators, global.covalent.http, global.ng.router));
-}(this, (function (exports, core, common, http, rxjs, operators, http$1, router) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/common/http'), require('rxjs'), require('rxjs/operators'), require('@covalent/http'), require('@angular/router'), require('@td-vantage/ui-platform/utilities')) :
+    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/auth', ['exports', '@angular/core', '@angular/common', '@angular/common/http', 'rxjs', 'rxjs/operators', '@covalent/http', '@angular/router', '@td-vantage/ui-platform/utilities'], factory) :
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].auth = {}), global.ng.core, global.ng.common, global.ng.common.http, global.rxjs, global.rxjs.operators, global.covalent.http, global.ng.router, global['td-vantage']['ui-platform'].utilities));
+}(this, (function (exports, core, common, http, rxjs, operators, http$1, router, utilities) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -292,30 +292,6 @@
     /**
      * @record
      */
-    function IUser() { }
-    if (false) {
-        /** @type {?|undefined} */
-        IUser.prototype.username;
-        /** @type {?|undefined} */
-        IUser.prototype.password;
-        /** @type {?|undefined} */
-        IUser.prototype.email;
-        /** @type {?|undefined} */
-        IUser.prototype.local;
-        /** @type {?|undefined} */
-        IUser.prototype.admin;
-        /** @type {?|undefined} */
-        IUser.prototype.groups;
-        /** @type {?|undefined} */
-        IUser.prototype.display_name;
-        /** @type {?|undefined} */
-        IUser.prototype.access_token;
-        /** @type {?|undefined} */
-        IUser.prototype.expires_at;
-    }
-    /**
-     * @record
-     */
     function ISessionUser() { }
     if (false) {
         /** @type {?|undefined} */
@@ -514,10 +490,8 @@
          */
         function (next, state) {
             var _this = this;
-            return this._sessionService
-                .getInfo()
-                .pipe(operators.timeout(5000))
-                .pipe(operators.catchError((/**
+            utilities.showPreLoader();
+            return this._sessionService.getInfo().pipe(operators.timeout(5000), operators.catchError((/**
              * @param {?} e
              * @return {?}
              */
@@ -531,9 +505,10 @@
             })), operators.map((/**
              * @return {?}
              */
-            function () {
-                return true;
-            })));
+            function () { return true; })), operators.finalize((/**
+             * @return {?}
+             */
+            function () { return utilities.hidePreLoader(); })));
         };
         VantageAuthenticationGuard.decorators = [
             { type: core.Injectable }

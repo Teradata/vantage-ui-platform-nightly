@@ -1,16 +1,6 @@
 import { Provider } from '@angular/core';
 import { Observable } from 'rxjs';
-export interface IUser {
-    username?: string;
-    password?: string;
-    email?: string;
-    local?: boolean;
-    admin?: boolean;
-    groups?: string[];
-    display_name?: string;
-    access_token?: string;
-    expires_at?: number;
-}
+import { IUser } from '@td-vantage/ui-platform/user';
 export interface ISessionUser {
     user?: string;
     valid?: boolean;

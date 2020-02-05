@@ -171,10 +171,52 @@
         return VantageUserFeedbackModule;
     }());
 
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    // TD_PRE_LOADER_COUNT variable is defined inside pre-loader.html
+    /**
+     * @return {?}
+     */
+    function showPreLoader() {
+        if (((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT !== undefined) {
+            ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT++;
+            updatePreLoaderVisibility();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    function hidePreLoader() {
+        if (((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT !== undefined) {
+            ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT--;
+            updatePreLoaderVisibility();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    function updatePreLoaderVisibility() {
+        /** @type {?} */
+        var loader = document.getElementById('td-pre-loader');
+        if (loader) {
+            loader.style.height = ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT > 0 ? '100%' : '0';
+            loader.style.opacity = ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT > 0 ? '1' : '0';
+        }
+    }
+
     exports.VantageError = VantageError;
     exports.VantageErrorService = VantageErrorService;
     exports.VantageToastService = VantageToastService;
     exports.VantageUserFeedbackModule = VantageUserFeedbackModule;
+    exports.hidePreLoader = hidePreLoader;
+    exports.showPreLoader = showPreLoader;
     exports.ɵa = VANTAGE_ERROR_PROVIDER_FACTORY;
     exports.ɵb = VANTAGE_ERROR_PROVIDER;
     exports.ɵc = VANTAGE_TOAST_PROVIDER_FACTORY;

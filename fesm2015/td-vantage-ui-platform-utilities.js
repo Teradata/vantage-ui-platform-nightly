@@ -171,6 +171,36 @@ VantageUserFeedbackModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TD_PRE_LOADER_COUNT variable is defined inside pre-loader.html
+/**
+ * @return {?}
+ */
+function showPreLoader() {
+    if (((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT !== undefined) {
+        ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT++;
+        updatePreLoaderVisibility();
+    }
+}
+/**
+ * @return {?}
+ */
+function hidePreLoader() {
+    if (((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT !== undefined) {
+        ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT--;
+        updatePreLoaderVisibility();
+    }
+}
+/**
+ * @return {?}
+ */
+function updatePreLoaderVisibility() {
+    /** @type {?} */
+    const loader = document.getElementById('td-pre-loader');
+    if (loader) {
+        loader.style.height = ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT > 0 ? '100%' : '0';
+        loader.style.opacity = ((/** @type {?} */ (window))).TD_PRE_LOADER_COUNT > 0 ? '1' : '0';
+    }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -187,5 +217,10 @@ VantageUserFeedbackModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VantageError, VantageErrorService, VantageToastService, VantageUserFeedbackModule, VANTAGE_ERROR_PROVIDER_FACTORY as ɵa, VANTAGE_ERROR_PROVIDER as ɵb, VANTAGE_TOAST_PROVIDER_FACTORY as ɵc, VANTAGE_TOAST_PROVIDER as ɵd };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { VantageError, VantageErrorService, VantageToastService, VantageUserFeedbackModule, hidePreLoader, showPreLoader, VANTAGE_ERROR_PROVIDER_FACTORY as ɵa, VANTAGE_ERROR_PROVIDER as ɵb, VANTAGE_TOAST_PROVIDER_FACTORY as ɵc, VANTAGE_TOAST_PROVIDER as ɵd };
 //# sourceMappingURL=td-vantage-ui-platform-utilities.js.map

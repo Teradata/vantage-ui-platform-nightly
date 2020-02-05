@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap, catchError, timeout } from 'rxjs/operators';
+import { map, switchMap, tap, catchError, timeout, finalize } from 'rxjs/operators';
 import { TdPOST, TdBody, TdResponse, TdHttp, TdGET, TdParam } from '@covalent/http';
 import { Router } from '@angular/router';
+import { showPreLoader, hidePreLoader } from '@td-vantage/ui-platform/utilities';
 
 /**
  * @fileoverview added by tsickle
@@ -95,30 +96,6 @@ var VANTAGE_TOKEN_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/**
- * @record
- */
-function IUser() { }
-if (false) {
-    /** @type {?|undefined} */
-    IUser.prototype.username;
-    /** @type {?|undefined} */
-    IUser.prototype.password;
-    /** @type {?|undefined} */
-    IUser.prototype.email;
-    /** @type {?|undefined} */
-    IUser.prototype.local;
-    /** @type {?|undefined} */
-    IUser.prototype.admin;
-    /** @type {?|undefined} */
-    IUser.prototype.groups;
-    /** @type {?|undefined} */
-    IUser.prototype.display_name;
-    /** @type {?|undefined} */
-    IUser.prototype.access_token;
-    /** @type {?|undefined} */
-    IUser.prototype.expires_at;
-}
 /**
  * @record
  */
@@ -320,10 +297,8 @@ var VantageAuthenticationGuard = /** @class */ (function () {
      */
     function (next, state) {
         var _this = this;
-        return this._sessionService
-            .getInfo()
-            .pipe(timeout(5000))
-            .pipe(catchError((/**
+        showPreLoader();
+        return this._sessionService.getInfo().pipe(timeout(5000), catchError((/**
          * @param {?} e
          * @return {?}
          */
@@ -337,9 +312,10 @@ var VantageAuthenticationGuard = /** @class */ (function () {
         })), map((/**
          * @return {?}
          */
-        function () {
-            return true;
-        })));
+        function () { return true; })), finalize((/**
+         * @return {?}
+         */
+        function () { return hidePreLoader(); })));
     };
     VantageAuthenticationGuard.decorators = [
         { type: Injectable }
