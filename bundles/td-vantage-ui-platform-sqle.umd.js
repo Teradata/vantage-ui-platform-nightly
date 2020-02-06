@@ -1728,7 +1728,12 @@
              * @return {?}
              */
             function () {
-                return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+                try {
+                    return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+                }
+                catch (_a) {
+                    return undefined;
+                }
             },
             enumerable: true,
             configurable: true
