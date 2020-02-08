@@ -28,6 +28,8 @@ if (false) {
     /** @type {?|undefined} */
     IApp.prototype.app_code;
     /** @type {?|undefined} */
+    IApp.prototype.app_state;
+    /** @type {?|undefined} */
     IApp.prototype.collaborators;
     /** @type {?|undefined} */
     IApp.prototype.color;
