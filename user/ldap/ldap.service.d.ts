@@ -22,7 +22,8 @@ export interface ILDAPConfig {
     server?: string;
     url?: string;
 }
-export declare class VantageLDAPService {
+declare const VantageLDAPService_base: new (...args: any[]) => any;
+export declare class VantageLDAPService extends VantageLDAPService_base {
     query(response?: Observable<ILDAPConfig[]>): Observable<ILDAPConfig[]>;
     create(body: ILDAPConfig, response?: Observable<ILDAPConfig>): Observable<ILDAPConfig>;
     update(id: string | number, body: ILDAPConfig, response?: Observable<ILDAPConfig>): Observable<ILDAPConfig>;
@@ -31,3 +32,4 @@ export declare class VantageLDAPService {
 }
 export declare function VANTAGE_LDAP_PROVIDER_FACTORY(parent: VantageLDAPService): VantageLDAPService;
 export declare const VANTAGE_LDAP_PROVIDER: Provider;
+export {};

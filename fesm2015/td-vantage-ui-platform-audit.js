@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
-import { HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { TdGET, TdQueryParams, TdResponse, TdPOST, TdBody, TdParam, TdHttp } from '@covalent/http';
+import { mixinHttp, TdGET, TdQueryParams, TdResponse, TdPOST, TdBody, TdParam } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
@@ -34,7 +34,11 @@ if (false) {
     /** @type {?|undefined} */
     IAuditLog.prototype.username;
 }
-let VantageAuditService = class VantageAuditService {
+class VantageAuditService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/audit',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
     /**
      * @param {?=} params
      * @param {?=} response
@@ -87,7 +91,10 @@ let VantageAuditService = class VantageAuditService {
             return !!res;
         })));
     }
-};
+}
+VantageAuditService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdGET({
         path: '/audit/messages',
@@ -129,12 +136,6 @@ __decorate([
     __metadata("design:paramtypes", [Observable]),
     __metadata("design:returntype", Observable)
 ], VantageAuditService.prototype, "health", null);
-VantageAuditService = __decorate([
-    TdHttp({
-        baseUrl: '/api/audit',
-        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-    })
-], VantageAuditService);
 /**
  * @param {?} parent
  * @return {?}

@@ -5,7 +5,8 @@ export interface ITag {
     tag_id?: string;
     tag?: string;
 }
-export declare class VantageTagsService {
+declare const VantageTagsService_base: new (...args: any[]) => any;
+export declare class VantageTagsService extends VantageTagsService_base {
     query(params?: HttpParams, response?: Observable<HttpResponse<any>>): Observable<{
         total: number;
         data: ITag[];
@@ -13,3 +14,4 @@ export declare class VantageTagsService {
 }
 export declare function VANTAGE_TAGS_PROVIDER_FACTORY(parent: VantageTagsService): VantageTagsService;
 export declare const VANTAGE_TAGS_PROVIDER: Provider;
+export {};

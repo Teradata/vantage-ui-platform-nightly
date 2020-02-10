@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, Injectable, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { __decorate, __param, __metadata } from 'tslib';
+import { __extends, __decorate, __param, __metadata } from 'tslib';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, tap, catchError, timeout, finalize } from 'rxjs/operators';
-import { TdPOST, TdBody, TdResponse, TdHttp, TdGET, TdParam } from '@covalent/http';
+import { TdPOST, TdBody, TdResponse, mixinHttp, TdGET, TdParam } from '@covalent/http';
 import { Router } from '@angular/router';
 import { showPreLoader, hidePreLoader } from '@td-vantage/ui-platform/utilities';
 
@@ -30,8 +30,10 @@ if (false) {
     /** @type {?|undefined} */
     IToken.prototype.token_in;
 }
-var VantageTokenService = /** @class */ (function () {
+var VantageTokenService = /** @class */ (function (_super) {
+    __extends(VantageTokenService, _super);
     function VantageTokenService() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?} user
@@ -56,6 +58,9 @@ var VantageTokenService = /** @class */ (function () {
             return { data: data, token: token };
         })));
     };
+    VantageTokenService.decorators = [
+        { type: Injectable }
+    ];
     __decorate([
         TdPOST({
             path: '/token',
@@ -69,14 +74,15 @@ var VantageTokenService = /** @class */ (function () {
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
     ], VantageTokenService.prototype, "create", null);
-    VantageTokenService = __decorate([
-        TdHttp({
-            baseUrl: '/api/user',
-            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-        })
-    ], VantageTokenService);
     return VantageTokenService;
-}());
+}(mixinHttp(/** @class */ (function () {
+    function class_1() {
+    }
+    return class_1;
+}()), {
+    baseUrl: '/api/user',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+})));
 /**
  * @param {?} parent
  * @return {?}
@@ -112,8 +118,10 @@ if (false) {
     /** @type {?|undefined} */
     ISessionUser.prototype.expires_at;
 }
-var VantageSessionService = /** @class */ (function () {
+var VantageSessionService = /** @class */ (function (_super) {
+    __extends(VantageSessionService, _super);
     function VantageSessionService() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Object.defineProperty(VantageSessionService.prototype, "user", {
         get: /**
@@ -217,6 +225,9 @@ var VantageSessionService = /** @class */ (function () {
             return res.body;
         })));
     };
+    VantageSessionService.decorators = [
+        { type: Injectable }
+    ];
     __decorate([
         TdPOST({
             path: '/token/validity?fields=user,groups',
@@ -242,16 +253,17 @@ var VantageSessionService = /** @class */ (function () {
         __metadata("design:paramtypes", [String, Observable]),
         __metadata("design:returntype", Observable)
     ], VantageSessionService.prototype, "_getUser", null);
-    VantageSessionService = __decorate([
-        TdHttp({
-            baseUrl: '/api/user',
-            baseHeaders: new HttpHeaders({
-                Accept: 'application/json',
-            }),
-        })
-    ], VantageSessionService);
     return VantageSessionService;
-}());
+}(mixinHttp(/** @class */ (function () {
+    function class_1() {
+    }
+    return class_1;
+}()), {
+    baseUrl: '/api/user',
+    baseHeaders: new HttpHeaders({
+        Accept: 'application/json',
+    }),
+})));
 if (false) {
     /**
      * @type {?}

@@ -35,7 +35,8 @@ export interface ITestSystem extends IAbstractSystem {
     password?: string;
     username?: string;
 }
-export declare class VantageSystemService {
+declare const VantageSystemService_base: new (...args: any[]) => any;
+export declare class VantageSystemService extends VantageSystemService_base {
     health(response?: Observable<HttpResponse<any>>): Observable<boolean>;
     query(params?: HttpParams, response?: Observable<HttpResponse<any>>): Observable<{
         total: number;
@@ -49,3 +50,4 @@ export declare class VantageSystemService {
 }
 export declare function VANTAGE_SYSTEM_PROVIDER_FACTORY(parent: VantageSystemService): VantageSystemService;
 export declare const VANTAGE_SYSTEM_PROVIDER: Provider;
+export {};

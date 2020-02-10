@@ -1,8 +1,8 @@
 import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
-import { HttpParams, HttpHeaders } from '@angular/common/http';
-import { TdGET, TdQueryParams, TdResponse, TdParam, TdPOST, TdBody, TdPATCH, TdDELETE, TdHttp } from '@covalent/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { mixinHttp, TdGET, TdQueryParams, TdResponse, TdParam, TdPOST, TdBody, TdPATCH, TdDELETE } from '@covalent/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -124,7 +124,11 @@ if (false) {
     /** @type {?|undefined} */
     IAppPermissions.prototype.groups;
 }
-let VantageAppService = class VantageAppService {
+class VantageAppService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/app',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
     /**
      * @param {?=} params
      * @param {?=} response
@@ -190,7 +194,7 @@ let VantageAppService = class VantageAppService {
             return true;
         })));
     }
-};
+}
 VantageAppService.decorators = [
     { type: Injectable }
 ];
@@ -256,12 +260,6 @@ __decorate([
         Observable]),
     __metadata("design:returntype", Observable)
 ], VantageAppService.prototype, "uploadFile", null);
-VantageAppService = __decorate([
-    TdHttp({
-        baseUrl: '/api/app',
-        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-    })
-], VantageAppService);
 /**
  * @param {?} parent
  * @return {?}
@@ -291,7 +289,11 @@ if (false) {
     /** @type {?|undefined} */
     ITag.prototype.tag;
 }
-let VantageTagsService = class VantageTagsService {
+class VantageTagsService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/app',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
     /**
      * @param {?=} params
      * @param {?=} response
@@ -309,7 +311,7 @@ let VantageTagsService = class VantageTagsService {
             };
         })));
     }
-};
+}
 VantageTagsService.decorators = [
     { type: Injectable }
 ];
@@ -327,12 +329,6 @@ __decorate([
         Observable]),
     __metadata("design:returntype", Observable)
 ], VantageTagsService.prototype, "query", null);
-VantageTagsService = __decorate([
-    TdHttp({
-        baseUrl: '/api/app',
-        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-    })
-], VantageTagsService);
 /**
  * @param {?} parent
  * @return {?}

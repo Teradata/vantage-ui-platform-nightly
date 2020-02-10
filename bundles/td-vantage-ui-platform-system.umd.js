@@ -277,8 +277,10 @@
         /** @type {?|undefined} */
         ITestSystem.prototype.username;
     }
-    var VantageSystemService = /** @class */ (function () {
+    var VantageSystemService = /** @class */ (function (_super) {
+        __extends(VantageSystemService, _super);
         function VantageSystemService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?=} response
@@ -398,6 +400,9 @@
                 return true;
             })));
         };
+        VantageSystemService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdGET({
                 path: '/health',
@@ -468,14 +473,15 @@
             __metadata("design:paramtypes", [Object, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageSystemService.prototype, "test", null);
-        VantageSystemService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/system',
-                baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
-            })
-        ], VantageSystemService);
         return VantageSystemService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/system',
+        baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
+    })));
     /**
      * @param {?} parent
      * @return {?}

@@ -249,8 +249,10 @@
         /** @type {?|undefined} */
         ILDAPConfig.prototype.url;
     }
-    var VantageLDAPService = /** @class */ (function () {
+    var VantageLDAPService = /** @class */ (function (_super) {
+        __extends(VantageLDAPService, _super);
         function VantageLDAPService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?=} response
@@ -323,6 +325,9 @@
                 return res.status === 200;
             })));
         };
+        VantageLDAPService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdGET({
                 path: '/',
@@ -373,14 +378,15 @@
             __metadata("design:paramtypes", [Object, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageLDAPService.prototype, "test", null);
-        VantageLDAPService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/user/ldap/config',
-                baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
-            })
-        ], VantageLDAPService);
         return VantageLDAPService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/user/ldap/config',
+        baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
+    })));
     /**
      * @param {?} parent
      * @return {?}
@@ -424,8 +430,10 @@
         /** @type {?|undefined} */
         IUser.prototype.expires_at;
     }
-    var VantageUserService = /** @class */ (function () {
+    var VantageUserService = /** @class */ (function (_super) {
+        __extends(VantageUserService, _super);
         function VantageUserService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * get all users
@@ -490,6 +498,9 @@
                 return res.body;
             })));
         };
+        VantageUserService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdGET({
                 path: '/users',
@@ -516,16 +527,17 @@
             __metadata("design:paramtypes", [String, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageUserService.prototype, "get", null);
-        VantageUserService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/user',
-                baseHeaders: new http.HttpHeaders({
-                    Accept: 'application/json',
-                }),
-            })
-        ], VantageUserService);
         return VantageUserService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/user',
+        baseHeaders: new http.HttpHeaders({
+            Accept: 'application/json',
+        }),
+    })));
     /**
      * @param {?} parent
      * @return {?}
@@ -561,8 +573,10 @@
         /** @type {?|undefined} */
         IGroup.prototype.users;
     }
-    var VantageGroupService = /** @class */ (function () {
+    var VantageGroupService = /** @class */ (function (_super) {
+        __extends(VantageGroupService, _super);
         function VantageGroupService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * get groups in paginated form via query string
@@ -597,6 +611,9 @@
                 };
             })));
         };
+        VantageGroupService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdGET({
                 path: '/groups',
@@ -611,16 +628,17 @@
                 rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageGroupService.prototype, "query", null);
-        VantageGroupService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/user',
-                baseHeaders: new http.HttpHeaders({
-                    Accept: 'application/json',
-                }),
-            })
-        ], VantageGroupService);
         return VantageGroupService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/user',
+        baseHeaders: new http.HttpHeaders({
+            Accept: 'application/json',
+        }),
+    })));
     /**
      * @param {?} parent
      * @return {?}

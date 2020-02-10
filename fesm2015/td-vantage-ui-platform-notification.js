@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
 import { HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { TdPUT, TdBody, TdResponse, TdGET, TdDELETE, TdHttp } from '@covalent/http';
+import { mixinHttp, TdPUT, TdBody, TdResponse, TdGET, TdDELETE } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
@@ -32,7 +32,11 @@ if (false) {
     /** @type {?|undefined} */
     ISMTPConfig.prototype.server_timeout;
 }
-let VantageSMTPService = class VantageSMTPService {
+class VantageSMTPService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/notification',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
     /**
      * @param {?} body
      * @param {?=} response
@@ -74,7 +78,10 @@ let VantageSMTPService = class VantageSMTPService {
             return !!res;
         })));
     }
-};
+}
+VantageSMTPService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdPUT({
         path: '/smtp-config',
@@ -111,12 +118,6 @@ __decorate([
     __metadata("design:paramtypes", [Observable]),
     __metadata("design:returntype", Observable)
 ], VantageSMTPService.prototype, "health", null);
-VantageSMTPService = __decorate([
-    TdHttp({
-        baseUrl: '/api/notification',
-        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-    })
-], VantageSMTPService);
 /**
  * @param {?} parent
  * @return {?}

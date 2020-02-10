@@ -11,9 +11,10 @@ export declare class VantageThemeService {
     private readonly _activeThemeSubject;
     readonly activeTheme$: Observable<VantageTheme>;
     constructor(rendererFactory: RendererFactory2, _document: any);
-    private activeTheme;
-    readonly darkThemeIsActive: boolean;
-    readonly lightThemeIsActive: boolean;
+    private get activeTheme();
+    private set activeTheme(value);
+    get darkThemeIsActive(): boolean;
+    get lightThemeIsActive(): boolean;
     applyLightTheme(): void;
     applyDarkTheme(): void;
     toggleTheme(): void;

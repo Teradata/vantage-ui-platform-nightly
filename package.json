@@ -11,13 +11,14 @@
   "license": "MIT",
   "author": "Teradata UI Team",
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@angular/cdk": "^8.0.0",
-    "@angular/material": "^8.0.0",
-    "@covalent/core": "^2.0.2",
-    "@covalent/http": "^2.0.2",
-    "@ngx-translate/core": "^11.0.1"
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0",
+    "@angular/cdk": "^9.0.0",
+    "@angular/material": "^9.0.0",
+    "@covalent/core": "^3.0.0-0",
+    "@covalent/http": "^3.0.0-0",
+    "@ngx-translate/core": "^12.0.0",
+    "tslib": "^1.10.0"
   },
   "main": "bundles/td-vantage-ui-platform.umd.js",
   "module": "fesm5/td-vantage-ui-platform.js",

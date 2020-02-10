@@ -12,7 +12,8 @@ export interface IUser {
     access_token?: string;
     expires_at?: number;
 }
-export declare class VantageUserService {
+declare const VantageUserService_base: new (...args: any[]) => any;
+export declare class VantageUserService extends VantageUserService_base {
     /**
      * get all users
      */
@@ -27,3 +28,4 @@ export declare class VantageUserService {
 }
 export declare function VANTAGE_USER_PROVIDER_FACTORY(parent: VantageUserService): VantageUserService;
 export declare const VANTAGE_USER_PROVIDER: Provider;
+export {};

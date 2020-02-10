@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, Injectable, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, tap, catchError, timeout, finalize } from 'rxjs/operators';
-import { TdPOST, TdBody, TdResponse, TdHttp, TdGET, TdParam } from '@covalent/http';
+import { mixinHttp, TdPOST, TdBody, TdResponse, TdGET, TdParam } from '@covalent/http';
 import { Router } from '@angular/router';
 import { showPreLoader, hidePreLoader } from '@td-vantage/ui-platform/utilities';
 
@@ -30,7 +30,11 @@ if (false) {
     /** @type {?|undefined} */
     IToken.prototype.token_in;
 }
-let VantageTokenService = class VantageTokenService {
+class VantageTokenService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/user',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
     /**
      * @param {?} user
      * @param {?=} response
@@ -49,7 +53,10 @@ let VantageTokenService = class VantageTokenService {
             return { data, token };
         })));
     }
-};
+}
+VantageTokenService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdPOST({
         path: '/token',
@@ -63,12 +70,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
 ], VantageTokenService.prototype, "create", null);
-VantageTokenService = __decorate([
-    TdHttp({
-        baseUrl: '/api/user',
-        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-    })
-], VantageTokenService);
 /**
  * @param {?} parent
  * @return {?}
@@ -104,7 +105,13 @@ if (false) {
     /** @type {?|undefined} */
     ISessionUser.prototype.expires_at;
 }
-let VantageSessionService = class VantageSessionService {
+class VantageSessionService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/user',
+    baseHeaders: new HttpHeaders({
+        Accept: 'application/json',
+    }),
+}) {
     /**
      * @return {?}
      */
@@ -177,7 +184,10 @@ let VantageSessionService = class VantageSessionService {
             return res.body;
         })));
     }
-};
+}
+VantageSessionService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdPOST({
         path: '/token/validity?fields=user,groups',
@@ -203,14 +213,6 @@ __decorate([
     __metadata("design:paramtypes", [String, Observable]),
     __metadata("design:returntype", Observable)
 ], VantageSessionService.prototype, "_getUser", null);
-VantageSessionService = __decorate([
-    TdHttp({
-        baseUrl: '/api/user',
-        baseHeaders: new HttpHeaders({
-            Accept: 'application/json',
-        }),
-    })
-], VantageSessionService);
 if (false) {
     /**
      * @type {?}

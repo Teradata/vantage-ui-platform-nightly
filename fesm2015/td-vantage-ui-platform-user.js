@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { TdGET, TdResponse, TdPOST, TdBody, TdPATCH, TdParam, TdDELETE, TdHttp, TdQueryParams } from '@covalent/http';
+import { mixinHttp, TdGET, TdResponse, TdPOST, TdBody, TdPATCH, TdParam, TdDELETE, TdQueryParams } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
@@ -54,7 +54,11 @@ if (false) {
     /** @type {?|undefined} */
     ILDAPConfig.prototype.url;
 }
-let VantageLDAPService = class VantageLDAPService {
+class VantageLDAPService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/user/ldap/config',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
     /**
      * @param {?=} response
      * @return {?}
@@ -101,7 +105,10 @@ let VantageLDAPService = class VantageLDAPService {
             return res.status === 200;
         })));
     }
-};
+}
+VantageLDAPService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdGET({
         path: '/',
@@ -152,12 +159,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
 ], VantageLDAPService.prototype, "test", null);
-VantageLDAPService = __decorate([
-    TdHttp({
-        baseUrl: '/api/user/ldap/config',
-        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-    })
-], VantageLDAPService);
 /**
  * @param {?} parent
  * @return {?}
@@ -201,7 +202,13 @@ if (false) {
     /** @type {?|undefined} */
     IUser.prototype.expires_at;
 }
-let VantageUserService = class VantageUserService {
+class VantageUserService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/user',
+    baseHeaders: new HttpHeaders({
+        Accept: 'application/json',
+    }),
+}) {
     /**
      * get all users
      * @param {?=} queryParams
@@ -247,7 +254,10 @@ let VantageUserService = class VantageUserService {
             return res.body;
         })));
     }
-};
+}
+VantageUserService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdGET({
         path: '/users',
@@ -274,14 +284,6 @@ __decorate([
     __metadata("design:paramtypes", [String, Observable]),
     __metadata("design:returntype", Observable)
 ], VantageUserService.prototype, "get", null);
-VantageUserService = __decorate([
-    TdHttp({
-        baseUrl: '/api/user',
-        baseHeaders: new HttpHeaders({
-            Accept: 'application/json',
-        }),
-    })
-], VantageUserService);
 /**
  * @param {?} parent
  * @return {?}
@@ -317,7 +319,13 @@ if (false) {
     /** @type {?|undefined} */
     IGroup.prototype.users;
 }
-let VantageGroupService = class VantageGroupService {
+class VantageGroupService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/user',
+    baseHeaders: new HttpHeaders({
+        Accept: 'application/json',
+    }),
+}) {
     /**
      * get groups in paginated form via query string
      * @param {?=} queryParams
@@ -342,7 +350,10 @@ let VantageGroupService = class VantageGroupService {
             };
         })));
     }
-};
+}
+VantageGroupService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdGET({
         path: '/groups',
@@ -357,14 +368,6 @@ __decorate([
         Observable]),
     __metadata("design:returntype", Observable)
 ], VantageGroupService.prototype, "query", null);
-VantageGroupService = __decorate([
-    TdHttp({
-        baseUrl: '/api/user',
-        baseHeaders: new HttpHeaders({
-            Accept: 'application/json',
-        }),
-    })
-], VantageGroupService);
 /**
  * @param {?} parent
  * @return {?}

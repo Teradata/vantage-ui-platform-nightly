@@ -12,7 +12,8 @@ export interface IAuditLog {
     result?: boolean;
     username?: string;
 }
-export declare class VantageAuditService {
+declare const VantageAuditService_base: new (...args: any[]) => any;
+export declare class VantageAuditService extends VantageAuditService_base {
     query(params?: HttpParams, response?: Observable<HttpResponse<any>>): Observable<{
         total: number;
         data: IAuditLog[];
@@ -23,3 +24,4 @@ export declare class VantageAuditService {
 }
 export declare function VANTAGE_AUDIT_PROVIDER_FACTORY(parent: VantageAuditService): VantageAuditService;
 export declare const VANTAGE_AUDIT_PROVIDER: Provider;
+export {};

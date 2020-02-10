@@ -9,7 +9,8 @@ export interface IToken {
     expires_in?: number;
     token_in?: string;
 }
-export declare class VantageTokenService {
+declare const VantageTokenService_base: new (...args: any[]) => any;
+export declare class VantageTokenService extends VantageTokenService_base {
     create(user: {
         username: string;
         password: string;
@@ -17,3 +18,4 @@ export declare class VantageTokenService {
 }
 export declare function VANTAGE_TOKEN_PROVIDER_FACTORY(parent: VantageTokenService): VantageTokenService;
 export declare const VANTAGE_TOKEN_PROVIDER: Provider;
+export {};

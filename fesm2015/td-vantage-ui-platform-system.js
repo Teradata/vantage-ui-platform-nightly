@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __decorate, __param, __metadata } from 'tslib';
-import { HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { TdGET, TdResponse, TdQueryParams, TdParam, TdPOST, TdBody, TdPUT, TdDELETE, TdHttp } from '@covalent/http';
+import { mixinHttp, TdGET, TdResponse, TdQueryParams, TdParam, TdPOST, TdBody, TdPUT, TdDELETE } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
@@ -82,7 +82,11 @@ if (false) {
     /** @type {?|undefined} */
     ITestSystem.prototype.username;
 }
-let VantageSystemService = class VantageSystemService {
+class VantageSystemService extends mixinHttp(class {
+}, {
+    baseUrl: '/api/system',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
     /**
      * @param {?=} response
      * @return {?}
@@ -166,7 +170,10 @@ let VantageSystemService = class VantageSystemService {
             return true;
         })));
     }
-};
+}
+VantageSystemService.decorators = [
+    { type: Injectable }
+];
 __decorate([
     TdGET({
         path: '/health',
@@ -237,12 +244,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, Observable]),
     __metadata("design:returntype", Observable)
 ], VantageSystemService.prototype, "test", null);
-VantageSystemService = __decorate([
-    TdHttp({
-        baseUrl: '/api/system',
-        baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-    })
-], VantageSystemService);
 /**
  * @param {?} parent
  * @return {?}

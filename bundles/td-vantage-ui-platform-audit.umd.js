@@ -229,8 +229,10 @@
         /** @type {?|undefined} */
         IAuditLog.prototype.username;
     }
-    var VantageAuditService = /** @class */ (function () {
+    var VantageAuditService = /** @class */ (function (_super) {
+        __extends(VantageAuditService, _super);
         function VantageAuditService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?=} params
@@ -303,6 +305,9 @@
                 return !!res;
             })));
         };
+        VantageAuditService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdGET({
                 path: '/audit/messages',
@@ -344,14 +349,15 @@
             __metadata("design:paramtypes", [rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageAuditService.prototype, "health", null);
-        VantageAuditService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/audit',
-                baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
-            })
-        ], VantageAuditService);
         return VantageAuditService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/audit',
+        baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
+    })));
     /**
      * @param {?} parent
      * @return {?}

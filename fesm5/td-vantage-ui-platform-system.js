@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { __decorate, __param, __metadata } from 'tslib';
+import { __extends, __decorate, __param, __metadata } from 'tslib';
 import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { TdGET, TdResponse, TdQueryParams, TdParam, TdPOST, TdBody, TdPUT, TdDELETE, TdHttp } from '@covalent/http';
+import { TdGET, TdResponse, TdQueryParams, TdParam, TdPOST, TdBody, TdPUT, TdDELETE, mixinHttp } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
@@ -82,8 +82,10 @@ if (false) {
     /** @type {?|undefined} */
     ITestSystem.prototype.username;
 }
-var VantageSystemService = /** @class */ (function () {
+var VantageSystemService = /** @class */ (function (_super) {
+    __extends(VantageSystemService, _super);
     function VantageSystemService() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?=} response
@@ -203,6 +205,9 @@ var VantageSystemService = /** @class */ (function () {
             return true;
         })));
     };
+    VantageSystemService.decorators = [
+        { type: Injectable }
+    ];
     __decorate([
         TdGET({
             path: '/health',
@@ -273,14 +278,15 @@ var VantageSystemService = /** @class */ (function () {
         __metadata("design:paramtypes", [Object, Observable]),
         __metadata("design:returntype", Observable)
     ], VantageSystemService.prototype, "test", null);
-    VantageSystemService = __decorate([
-        TdHttp({
-            baseUrl: '/api/system',
-            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-        })
-    ], VantageSystemService);
     return VantageSystemService;
-}());
+}(mixinHttp(/** @class */ (function () {
+    function class_1() {
+    }
+    return class_1;
+}()), {
+    baseUrl: '/api/system',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+})));
 /**
  * @param {?} parent
  * @return {?}

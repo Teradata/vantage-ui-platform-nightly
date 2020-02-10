@@ -8,7 +8,8 @@ export interface IGroup {
     display_name?: string;
     users?: string[];
 }
-export declare class VantageGroupService {
+declare const VantageGroupService_base: new (...args: any[]) => any;
+export declare class VantageGroupService extends VantageGroupService_base {
     /**
      * get groups in paginated form via query string
      */
@@ -19,3 +20,4 @@ export declare class VantageGroupService {
 }
 export declare function VANTAGE_GROUP_PROVIDER_FACTORY(parent: VantageGroupService): VantageGroupService;
 export declare const VANTAGE_GROUP_PROVIDER: Provider;
+export {};

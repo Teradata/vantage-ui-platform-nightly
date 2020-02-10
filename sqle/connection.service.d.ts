@@ -3,7 +3,7 @@ import { ISQLEConnection, VantageQueryService } from './query.service';
 export declare class VantageConnectionService {
     private _queryService;
     constructor(_queryService: VantageQueryService);
-    readonly current: ISQLEConnection;
+    get current(): ISQLEConnection;
     disconnect(): void;
     connect(connection: ISQLEConnection): Promise<void>;
     private store;

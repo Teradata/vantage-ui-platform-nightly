@@ -8,9 +8,10 @@ export interface ISessionUser {
     groups?: string[];
     expires_at?: string;
 }
-export declare class VantageSessionService {
+declare const VantageSessionService_base: new (...args: any[]) => any;
+export declare class VantageSessionService extends VantageSessionService_base {
     private _user;
-    readonly user: IUser;
+    get user(): IUser;
     getInfo(): Observable<IUser>;
     logout(): void;
     /**
@@ -24,3 +25,4 @@ export declare class VantageSessionService {
 }
 export declare function VANTAGE_SESSION_PROVIDER_FACTORY(parent: VantageSessionService): VantageSessionService;
 export declare const VANTAGE_SESSION_PROVIDER: Provider;
+export {};

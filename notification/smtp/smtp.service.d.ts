@@ -11,7 +11,8 @@ export interface ISMTPConfig {
     anon_logon?: boolean;
     server_timeout?: number;
 }
-export declare class VantageSMTPService {
+declare const VantageSMTPService_base: new (...args: any[]) => any;
+export declare class VantageSMTPService extends VantageSMTPService_base {
     create(body: ISMTPConfig, response?: Observable<ISMTPConfig>): Observable<ISMTPConfig>;
     query(response?: Observable<ISMTPConfig>): Observable<ISMTPConfig>;
     delete(response?: Observable<void>): Observable<void>;
@@ -19,3 +20,4 @@ export declare class VantageSMTPService {
 }
 export declare function VANTAGE_SMTP_PROVIDER_FACTORY(parent: VantageSMTPService): VantageSMTPService;
 export declare const VANTAGE_SMTP_PROVIDER: Provider;
+export {};

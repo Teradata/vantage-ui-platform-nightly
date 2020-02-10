@@ -319,8 +319,10 @@
         /** @type {?|undefined} */
         IAppPermissions.prototype.groups;
     }
-    var VantageAppService = /** @class */ (function () {
+    var VantageAppService = /** @class */ (function (_super) {
+        __extends(VantageAppService, _super);
         function VantageAppService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?=} params
@@ -484,14 +486,15 @@
                 rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageAppService.prototype, "uploadFile", null);
-        VantageAppService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/app',
-                baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
-            })
-        ], VantageAppService);
         return VantageAppService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/app',
+        baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
+    })));
     /**
      * @param {?} parent
      * @return {?}
@@ -521,8 +524,10 @@
         /** @type {?|undefined} */
         ITag.prototype.tag;
     }
-    var VantageTagsService = /** @class */ (function () {
+    var VantageTagsService = /** @class */ (function (_super) {
+        __extends(VantageTagsService, _super);
         function VantageTagsService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?=} params
@@ -563,14 +568,15 @@
                 rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageTagsService.prototype, "query", null);
-        VantageTagsService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/app',
-                baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
-            })
-        ], VantageTagsService);
         return VantageTagsService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/app',
+        baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
+    })));
     /**
      * @param {?} parent
      * @return {?}

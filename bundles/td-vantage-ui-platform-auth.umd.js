@@ -223,8 +223,10 @@
         /** @type {?|undefined} */
         IToken.prototype.token_in;
     }
-    var VantageTokenService = /** @class */ (function () {
+    var VantageTokenService = /** @class */ (function (_super) {
+        __extends(VantageTokenService, _super);
         function VantageTokenService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?} user
@@ -249,6 +251,9 @@
                 return { data: data, token: token };
             })));
         };
+        VantageTokenService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdPOST({
                 path: '/token',
@@ -262,14 +267,15 @@
             __metadata("design:paramtypes", [Object, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageTokenService.prototype, "create", null);
-        VantageTokenService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/user',
-                baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
-            })
-        ], VantageTokenService);
         return VantageTokenService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/user',
+        baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
+    })));
     /**
      * @param {?} parent
      * @return {?}
@@ -305,8 +311,10 @@
         /** @type {?|undefined} */
         ISessionUser.prototype.expires_at;
     }
-    var VantageSessionService = /** @class */ (function () {
+    var VantageSessionService = /** @class */ (function (_super) {
+        __extends(VantageSessionService, _super);
         function VantageSessionService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         Object.defineProperty(VantageSessionService.prototype, "user", {
             get: /**
@@ -410,6 +418,9 @@
                 return res.body;
             })));
         };
+        VantageSessionService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdPOST({
                 path: '/token/validity?fields=user,groups',
@@ -435,16 +446,17 @@
             __metadata("design:paramtypes", [String, rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageSessionService.prototype, "_getUser", null);
-        VantageSessionService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/user',
-                baseHeaders: new http.HttpHeaders({
-                    Accept: 'application/json',
-                }),
-            })
-        ], VantageSessionService);
         return VantageSessionService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/user',
+        baseHeaders: new http.HttpHeaders({
+            Accept: 'application/json',
+        }),
+    })));
     if (false) {
         /**
          * @type {?}

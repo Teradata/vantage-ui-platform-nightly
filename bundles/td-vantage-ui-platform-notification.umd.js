@@ -227,8 +227,10 @@
         /** @type {?|undefined} */
         ISMTPConfig.prototype.server_timeout;
     }
-    var VantageSMTPService = /** @class */ (function () {
+    var VantageSMTPService = /** @class */ (function (_super) {
+        __extends(VantageSMTPService, _super);
         function VantageSMTPService() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @param {?} body
@@ -288,6 +290,9 @@
                 return !!res;
             })));
         };
+        VantageSMTPService.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             http$1.TdPUT({
                 path: '/smtp-config',
@@ -324,14 +329,15 @@
             __metadata("design:paramtypes", [rxjs.Observable]),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageSMTPService.prototype, "health", null);
-        VantageSMTPService = __decorate([
-            http$1.TdHttp({
-                baseUrl: '/api/notification',
-                baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
-            })
-        ], VantageSMTPService);
         return VantageSMTPService;
-    }());
+    }(http$1.mixinHttp(/** @class */ (function () {
+        function class_1() {
+        }
+        return class_1;
+    }()), {
+        baseUrl: '/api/notification',
+        baseHeaders: new http.HttpHeaders({ Accept: 'application/json' }),
+    })));
     /**
      * @param {?} parent
      * @return {?}

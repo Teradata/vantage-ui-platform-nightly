@@ -1,10 +1,10 @@
-import { Optional, SkipSelf, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { __decorate, __param, __metadata } from 'tslib';
+import { __extends, __decorate, __param, __metadata } from 'tslib';
 import { HttpParams, HttpHeaders } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { TdGET, TdQueryParams, TdResponse, TdPOST, TdBody, TdParam, TdHttp } from '@covalent/http';
+import { TdGET, TdQueryParams, TdResponse, TdPOST, TdBody, TdParam, mixinHttp } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
@@ -34,8 +34,10 @@ if (false) {
     /** @type {?|undefined} */
     IAuditLog.prototype.username;
 }
-var VantageAuditService = /** @class */ (function () {
+var VantageAuditService = /** @class */ (function (_super) {
+    __extends(VantageAuditService, _super);
     function VantageAuditService() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @param {?=} params
@@ -108,6 +110,9 @@ var VantageAuditService = /** @class */ (function () {
             return !!res;
         })));
     };
+    VantageAuditService.decorators = [
+        { type: Injectable }
+    ];
     __decorate([
         TdGET({
             path: '/audit/messages',
@@ -149,14 +154,15 @@ var VantageAuditService = /** @class */ (function () {
         __metadata("design:paramtypes", [Observable]),
         __metadata("design:returntype", Observable)
     ], VantageAuditService.prototype, "health", null);
-    VantageAuditService = __decorate([
-        TdHttp({
-            baseUrl: '/api/audit',
-            baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
-        })
-    ], VantageAuditService);
     return VantageAuditService;
-}());
+}(mixinHttp(/** @class */ (function () {
+    function class_1() {
+    }
+    return class_1;
+}()), {
+    baseUrl: '/api/audit',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+})));
 /**
  * @param {?} parent
  * @return {?}

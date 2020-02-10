@@ -57,7 +57,8 @@ export interface IAppPermissions {
     users?: string[];
     groups?: string[];
 }
-export declare class VantageAppService {
+declare const VantageAppService_base: new (...args: any[]) => any;
+export declare class VantageAppService extends VantageAppService_base {
     query(params?: HttpParams, response?: Observable<HttpResponse<any>>): Observable<{
         total: number;
         data: IApp[];
@@ -70,3 +71,4 @@ export declare class VantageAppService {
 }
 export declare function VANTAGE_APP_PROVIDER_FACTORY(parent: VantageAppService): VantageAppService;
 export declare const VANTAGE_APP_PROVIDER: Provider;
+export {};
