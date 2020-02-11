@@ -1,7 +1,6 @@
 import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { catchError, map, switchMap, timeout, retry } from 'rxjs/operators';
-import { __awaiter, __generator } from 'tslib';
+import { catchError, map, switchMap, tap, mapTo } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -1559,26 +1558,15 @@ var VantageConnectionService = /** @class */ (function () {
      * @return {?}
      */
     function (connection) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        // clear connection before starting a new one
-                        this.disconnect();
-                        // test connection with SELECT 1
-                        return [4 /*yield*/, this._queryService
-                                .querySystem(connection, { query: 'SELECT 1;' })
-                                .pipe(timeout(7000), retry(1))
-                                .toPromise()];
-                    case 1:
-                        // test connection with SELECT 1
-                        _a.sent();
-                        // if successful, save
-                        this.store(connection);
-                        return [2 /*return*/];
-                }
-            });
-        });
+        var _this = this;
+        // clear connection before starting a new one
+        this.disconnect();
+        // test connection with SELECT 1
+        return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(tap((/**
+         * @return {?}
+         */
+        function () { return _this.store(connection); })), // if successful, save
+        mapTo(connection));
     };
     /**
      * @private
