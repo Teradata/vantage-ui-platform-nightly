@@ -241,14 +241,23 @@
             if (Cypress.env('record') || record) {
                 this.recording = true;
                 cy.now('log', 'Recording...');
-                cy.route({
-                    url: '/api/**',
-                    onResponse: (/**
-                     * @param {?} xhr
-                     * @return {?}
-                     */
-                    function (xhr) { return _this.recordResponse(xhr); }),
-                });
+                ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach((/**
+                 * @param {?} method
+                 * @return {?}
+                 */
+                function (method) {
+                    cy.route({
+                        url: '**',
+                        method: method,
+                        onResponse: (/**
+                         * @param {?} xhr
+                         * @return {?}
+                         */
+                        function (xhr) {
+                            _this.recordResponse(xhr);
+                        }),
+                    });
+                }));
             }
             // Conditionally turn on mocking
             if (Cypress.env('mock') || testType === TestType.unit) {
