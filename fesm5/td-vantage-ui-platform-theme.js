@@ -1,7 +1,7 @@
 import { Injectable, RendererFactory2, Inject, Optional, SkipSelf, NgModule } from '@angular/core';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { BehaviorSubject, fromEvent } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -14,6 +14,16 @@ var VantageTheme = {
     DARK: 'dark-theme',
     LIGHT: 'light-theme',
 };
+/**
+ * @record
+ */
+function IVantageThemeMap() { }
+if (false) {
+    /* Skipping unnamed member:
+    [VantageTheme.DARK]?: any;*/
+    /* Skipping unnamed member:
+    [VantageTheme.LIGHT]?: any;*/
+}
 var VantageThemeService = /** @class */ (function () {
     function VantageThemeService(rendererFactory, _document) {
         var _this = this;
@@ -21,6 +31,20 @@ var VantageThemeService = /** @class */ (function () {
         this._document = _document;
         this._activeThemeSubject = new BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
         this.activeTheme$ = this._activeThemeSubject.asObservable();
+        this.darkTheme$ = this._activeThemeSubject
+            .asObservable()
+            .pipe(map((/**
+         * @param {?} theme
+         * @return {?}
+         */
+        function (theme) { return theme === VantageTheme.DARK; })));
+        this.lightTheme$ = this._activeThemeSubject
+            .asObservable()
+            .pipe(map((/**
+         * @param {?} theme
+         * @return {?}
+         */
+        function (theme) { return theme === VantageTheme.LIGHT; })));
         this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
         fromEvent(window, 'storage')
             .pipe(filter((/**
@@ -34,7 +58,7 @@ var VantageThemeService = /** @class */ (function () {
          */
         function (event) { return _this.applyTheme((/** @type {?} */ (event.newValue))); }));
     }
-    Object.defineProperty(VantageThemeService.prototype, "activeTheme", {
+    Object.defineProperty(VantageThemeService.prototype, "_activeTheme", {
         get: /**
          * @private
          * @return {?}
@@ -58,7 +82,7 @@ var VantageThemeService = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.activeTheme === VantageTheme.DARK;
+            return this._activeTheme === VantageTheme.DARK;
         },
         enumerable: true,
         configurable: true
@@ -68,11 +92,20 @@ var VantageThemeService = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.activeTheme === VantageTheme.LIGHT;
+            return this._activeTheme === VantageTheme.LIGHT;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    VantageThemeService.prototype.activeTheme = /**
+     * @return {?}
+     */
+    function () {
+        return this._activeTheme;
+    };
     /**
      * @return {?}
      */
@@ -98,7 +131,24 @@ var VantageThemeService = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
+        this._activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
+    };
+    /**
+     * @param {?} mapObject
+     * @param {?=} fallback
+     * @return {?}
+     */
+    VantageThemeService.prototype.map = /**
+     * @param {?} mapObject
+     * @param {?=} fallback
+     * @return {?}
+     */
+    function (mapObject, fallback) {
+        return this.activeTheme$.pipe(map((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { return (value in mapObject ? mapObject[value] : fallback); })));
     };
     /**
      * @private
@@ -114,7 +164,7 @@ var VantageThemeService = /** @class */ (function () {
         this._renderer2.removeClass(this._document.querySelector('html'), theme === VantageTheme.DARK ? VantageTheme.LIGHT : VantageTheme.DARK);
         localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
         this._renderer2.addClass(this._document.querySelector('html'), theme);
-        this.activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
+        this._activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
     };
     VantageThemeService.decorators = [
         { type: Injectable }
@@ -139,6 +189,10 @@ if (false) {
     VantageThemeService.prototype._activeThemeSubject;
     /** @type {?} */
     VantageThemeService.prototype.activeTheme$;
+    /** @type {?} */
+    VantageThemeService.prototype.darkTheme$;
+    /** @type {?} */
+    VantageThemeService.prototype.lightTheme$;
     /**
      * @type {?}
      * @private

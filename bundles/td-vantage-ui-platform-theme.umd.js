@@ -15,6 +15,16 @@
         DARK: 'dark-theme',
         LIGHT: 'light-theme',
     };
+    /**
+     * @record
+     */
+    function IVantageThemeMap() { }
+    if (false) {
+        /* Skipping unnamed member:
+        [VantageTheme.DARK]?: any;*/
+        /* Skipping unnamed member:
+        [VantageTheme.LIGHT]?: any;*/
+    }
     var VantageThemeService = /** @class */ (function () {
         function VantageThemeService(rendererFactory, _document) {
             var _this = this;
@@ -22,6 +32,20 @@
             this._document = _document;
             this._activeThemeSubject = new rxjs.BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
             this.activeTheme$ = this._activeThemeSubject.asObservable();
+            this.darkTheme$ = this._activeThemeSubject
+                .asObservable()
+                .pipe(operators.map((/**
+             * @param {?} theme
+             * @return {?}
+             */
+            function (theme) { return theme === VantageTheme.DARK; })));
+            this.lightTheme$ = this._activeThemeSubject
+                .asObservable()
+                .pipe(operators.map((/**
+             * @param {?} theme
+             * @return {?}
+             */
+            function (theme) { return theme === VantageTheme.LIGHT; })));
             this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
             rxjs.fromEvent(window, 'storage')
                 .pipe(operators.filter((/**
@@ -35,7 +59,7 @@
              */
             function (event) { return _this.applyTheme((/** @type {?} */ (event.newValue))); }));
         }
-        Object.defineProperty(VantageThemeService.prototype, "activeTheme", {
+        Object.defineProperty(VantageThemeService.prototype, "_activeTheme", {
             get: /**
              * @private
              * @return {?}
@@ -59,7 +83,7 @@
              * @return {?}
              */
             function () {
-                return this.activeTheme === VantageTheme.DARK;
+                return this._activeTheme === VantageTheme.DARK;
             },
             enumerable: true,
             configurable: true
@@ -69,11 +93,20 @@
              * @return {?}
              */
             function () {
-                return this.activeTheme === VantageTheme.LIGHT;
+                return this._activeTheme === VantageTheme.LIGHT;
             },
             enumerable: true,
             configurable: true
         });
+        /**
+         * @return {?}
+         */
+        VantageThemeService.prototype.activeTheme = /**
+         * @return {?}
+         */
+        function () {
+            return this._activeTheme;
+        };
         /**
          * @return {?}
          */
@@ -99,7 +132,24 @@
          * @return {?}
          */
         function () {
-            this.activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
+            this._activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
+        };
+        /**
+         * @param {?} mapObject
+         * @param {?=} fallback
+         * @return {?}
+         */
+        VantageThemeService.prototype.map = /**
+         * @param {?} mapObject
+         * @param {?=} fallback
+         * @return {?}
+         */
+        function (mapObject, fallback) {
+            return this.activeTheme$.pipe(operators.map((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) { return (value in mapObject ? mapObject[value] : fallback); })));
         };
         /**
          * @private
@@ -115,7 +165,7 @@
             this._renderer2.removeClass(this._document.querySelector('html'), theme === VantageTheme.DARK ? VantageTheme.LIGHT : VantageTheme.DARK);
             localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
             this._renderer2.addClass(this._document.querySelector('html'), theme);
-            this.activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
+            this._activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
         };
         VantageThemeService.decorators = [
             { type: core.Injectable }
@@ -140,6 +190,10 @@
         VantageThemeService.prototype._activeThemeSubject;
         /** @type {?} */
         VantageThemeService.prototype.activeTheme$;
+        /** @type {?} */
+        VantageThemeService.prototype.darkTheme$;
+        /** @type {?} */
+        VantageThemeService.prototype.lightTheme$;
         /**
          * @type {?}
          * @private
