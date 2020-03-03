@@ -1,6 +1,8 @@
 import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { catchError, map, switchMap, tap, mapTo } from 'rxjs/operators';
+import { catchError, map, tap, mapTo, switchMap, skipWhile, take, expand } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, throwError, of, timer } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -398,6 +400,293 @@ const VANTAGE_QUERY_PROVIDER = {
     provide: VantageQueryService,
     deps: [[new Optional(), new SkipSelf(), VantageQueryService], HttpClient],
     useFactory: VANTAGE_QUERY_PROVIDER_FACTORY,
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CONNECTION_SESSION_KEY = 'vantage.editor.connection';
+class VantageConnectionService {
+    /**
+     * @param {?} _queryService
+     */
+    constructor(_queryService) {
+        this._queryService = _queryService;
+    }
+    /**
+     * @return {?}
+     */
+    get current() {
+        try {
+            return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+        }
+        catch (_a) {
+            return undefined;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    disconnect() {
+        sessionStorage.removeItem(CONNECTION_SESSION_KEY);
+    }
+    /**
+     * @param {?} connection
+     * @return {?}
+     */
+    connect(connection) {
+        // clear connection before starting a new one
+        this.disconnect();
+        // test connection with SELECT 1
+        return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(tap((/**
+         * @return {?}
+         */
+        () => this.store(connection))), // if successful, save
+        mapTo(connection));
+    }
+    /**
+     * @private
+     * @param {?} __0
+     * @return {?}
+     */
+    store({ system, creds }) {
+        sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify({ system, creds }));
+    }
+}
+VantageConnectionService.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+VantageConnectionService.ctorParameters = () => [
+    { type: VantageQueryService }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageConnectionService.prototype._queryService;
+}
+/**
+ * @param {?} parent
+ * @param {?} queryService
+ * @return {?}
+ */
+function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService) {
+    return parent || new VantageConnectionService(queryService);
+}
+/** @type {?} */
+const VANTAGE_CONNECTION_PROVIDER = {
+    // If there is already a service available, use that. Otherwise, provide a new one.
+    provide: VantageConnectionService,
+    deps: [[new Optional(), new SkipSelf(), VantageConnectionService], VantageQueryService],
+    useFactory: VANTAGE_CONNECTION_PROVIDER_FACTORY,
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function ISpooledQueryError() { }
+if (false) {
+    /** @type {?} */
+    ISpooledQueryError.prototype.id;
+    /** @type {?} */
+    ISpooledQueryError.prototype.detailMessage;
+}
+/** @type {?} */
+const MAX_INTERVAL = 10000;
+/** @type {?} */
+const BASE_INTERVAL = 2000;
+/** @enum {string} */
+const SpooledQueryState = {
+    QUEUED: 'QUEUED',
+    PENDING: 'PENDING',
+    SUBMITTED: 'SUBMITTED',
+    RESPONDING: 'RESPONDING',
+    SPOOLING: 'SPOOLING',
+    RESULT_SET_READY: 'RESULT_SET_READY',
+};
+class VantageSpooledQueryService {
+    /**
+     * @param {?} connectionService
+     * @param {?} queryService
+     * @param {?} translate
+     */
+    constructor(connectionService, queryService, translate) {
+        this.connectionService = connectionService;
+        this.queryService = queryService;
+        this.translate = translate;
+        this.queryStatus = new BehaviorSubject(undefined);
+        this.queryStatus$ = this.queryStatus.asObservable();
+        this.queryStack = [];
+    }
+    /**
+     * @return {?}
+     */
+    cancelLastQuery() {
+        /** @type {?} */
+        const thisQuery = this.queryStack.pop();
+        return this.deleteSpooledQuery(thisQuery);
+    }
+    /**
+     * @return {?}
+     */
+    getRunningInfo() {
+        return this.queryStatus$;
+    }
+    /**
+     * @param {?} payload
+     * @return {?}
+     */
+    querySystem(payload) {
+        return this.queryService.querySystem(this.connectionService.current, Object.assign(Object.assign({}, payload), { spooledResultSet: true })).pipe(tap((/**
+         * @param {?} res
+         * @return {?}
+         */
+        (res) => this.queryStack.push(res.id))), switchMap((/**
+         * @param {?} res
+         * @return {?}
+         */
+        (res) => this.exponentialBackOffInterval(MAX_INTERVAL, res.id))), switchMap((/**
+         * @param {?} id
+         * @return {?}
+         */
+        (id) => this.queryService.getQuery(this.connectionService.current, id.toString()).pipe(map((/**
+         * @param {?} query
+         * @return {?}
+         */
+        (query) => query.queryState)), tap((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => this.queryStatus.next(val))), map((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => [id, val]))))), skipWhile((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ([id, status]) => status !== SpooledQueryState.RESULT_SET_READY)), take(1), switchMap((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ([id]) => this.queryService.getQueryResult(this.connectionService.current, id).pipe(map((/**
+         * @param {?} val
+         * @return {?}
+         */
+        (val) => [id, val])), tap((/**
+         * @return {?}
+         */
+        () => this.queryStack.pop())), catchError((/**
+         * @param {?} res
+         * @return {?}
+         */
+        (res) => {
+            return throwError((/** @type {?} */ (Object.assign(Object.assign(Object.assign({}, res), { id }), { detailMessage: `Error ${res.error.error}: ${res.error.message}` }))));
+        }))))), map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ([id, results]) => results)));
+    }
+    /**
+     * @param {?} maxInterval
+     * @param {?} returnVal
+     * @return {?}
+     */
+    exponentialBackOffInterval(maxInterval, returnVal) {
+        return of(0).pipe(expand((/**
+         * @param {?} iteration
+         * @return {?}
+         */
+        (iteration) => timer(this.calcInterval(iteration, maxInterval)).pipe(mapTo(iteration + 1)))), mapTo(returnVal));
+    }
+    /**
+     * @param {?} iteration
+     * @param {?} maxInterval
+     * @return {?}
+     */
+    calcInterval(iteration, maxInterval) {
+        /** @type {?} */
+        const expo = 1.4;
+        /** @type {?} */
+        const interval = Math.pow(expo, iteration) * BASE_INTERVAL;
+        return Math.min(interval, maxInterval);
+    }
+    /**
+     * @param {?} queryId
+     * @return {?}
+     */
+    deleteSpooledQuery(queryId) {
+        this.queryService.deleteQuery(this.connectionService.current, queryId).subscribe(undefined, (/**
+         * @param {?} err
+         * @return {?}
+         */
+        (err) => {
+            throw new Error(this.translate.instant('SPOOLED_QUERY_COULD_NOT_BE_DELETED', { error: JSON.stringify(err) }));
+        }));
+    }
+}
+VantageSpooledQueryService.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+VantageSpooledQueryService.ctorParameters = () => [
+    { type: VantageConnectionService },
+    { type: VantageQueryService },
+    { type: TranslateService }
+];
+if (false) {
+    /** @type {?} */
+    VantageSpooledQueryService.prototype.queryStatus;
+    /** @type {?} */
+    VantageSpooledQueryService.prototype.queryStatus$;
+    /** @type {?} */
+    VantageSpooledQueryService.prototype.queryStack;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageSpooledQueryService.prototype.connectionService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageSpooledQueryService.prototype.queryService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageSpooledQueryService.prototype.translate;
+}
+/**
+ * @param {?} parent
+ * @param {?} connectionService
+ * @param {?} queryService
+ * @param {?} translate
+ * @return {?}
+ */
+function VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY(parent, connectionService, queryService, translate) {
+    return parent || new VantageSpooledQueryService(connectionService, queryService, translate);
+}
+/** @type {?} */
+const VANTAGE_SPOOLED_QUERY_PROVIDER = {
+    // If there is already a service available, use that. Otherwise, provide a new one.
+    provide: VantageSpooledQueryService,
+    deps: [
+        [new Optional(), new SkipSelf(), VantageSpooledQueryService],
+        VantageConnectionService,
+        VantageQueryService,
+        TranslateService,
+    ],
+    useFactory: VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY,
 };
 
 /**
@@ -1467,95 +1756,17 @@ const VANTAGE_DICTIONARY_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const CONNECTION_SESSION_KEY = 'vantage.editor.connection';
-class VantageConnectionService {
-    /**
-     * @param {?} _queryService
-     */
-    constructor(_queryService) {
-        this._queryService = _queryService;
-    }
-    /**
-     * @return {?}
-     */
-    get current() {
-        try {
-            return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
-        }
-        catch (_a) {
-            return undefined;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    disconnect() {
-        sessionStorage.removeItem(CONNECTION_SESSION_KEY);
-    }
-    /**
-     * @param {?} connection
-     * @return {?}
-     */
-    connect(connection) {
-        // clear connection before starting a new one
-        this.disconnect();
-        // test connection with SELECT 1
-        return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(tap((/**
-         * @return {?}
-         */
-        () => this.store(connection))), // if successful, save
-        mapTo(connection));
-    }
-    /**
-     * @private
-     * @param {?} __0
-     * @return {?}
-     */
-    store({ system, creds }) {
-        sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify({ system, creds }));
-    }
-}
-VantageConnectionService.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-VantageConnectionService.ctorParameters = () => [
-    { type: VantageQueryService }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    VantageConnectionService.prototype._queryService;
-}
-/**
- * @param {?} parent
- * @param {?} queryService
- * @return {?}
- */
-function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService) {
-    return parent || new VantageConnectionService(queryService);
-}
-/** @type {?} */
-const VANTAGE_CONNECTION_PROVIDER = {
-    // If there is already a service available, use that. Otherwise, provide a new one.
-    provide: VantageConnectionService,
-    deps: [[new Optional(), new SkipSelf(), VantageConnectionService], VantageQueryService],
-    useFactory: VANTAGE_CONNECTION_PROVIDER_FACTORY,
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 class VantageSQLEModule {
 }
 VantageSQLEModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule],
-                providers: [VANTAGE_CONNECTION_PROVIDER, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_QUERY_PROVIDER],
+                providers: [
+                    VANTAGE_CONNECTION_PROVIDER,
+                    VANTAGE_DICTIONARY_PROVIDER,
+                    VANTAGE_QUERY_PROVIDER,
+                    VANTAGE_SPOOLED_QUERY_PROVIDER,
+                ],
             },] }
 ];
 
@@ -1569,5 +1780,5 @@ VantageSQLEModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageDictionaryService, VantageQueryService, VantageSQLEModule, sysDatabases };
+export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, sysDatabases };
 //# sourceMappingURL=td-vantage-ui-platform-sqle.js.map

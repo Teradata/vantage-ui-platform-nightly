@@ -1,8 +1,205 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@angular/common'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.ng.common));
-}(this, (function (exports, core, http, operators, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@ngx-translate/core'), require('rxjs'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@ngx-translate/core', 'rxjs', '@angular/common'], factory) :
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.core$1, global.rxjs, global.ng.common));
+}(this, (function (exports, core, http, operators, core$1, rxjs, common) { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        if (m) return m.call(o);
+        return {
+            next: function () {
+                if (o && i >= o.length) o = void 0;
+                return { value: o && o[i++], done: !o };
+            }
+        };
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -443,6 +640,343 @@
         provide: VantageQueryService,
         deps: [[new core.Optional(), new core.SkipSelf(), VantageQueryService], http.HttpClient],
         useFactory: VANTAGE_QUERY_PROVIDER_FACTORY,
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var CONNECTION_SESSION_KEY = 'vantage.editor.connection';
+    var VantageConnectionService = /** @class */ (function () {
+        function VantageConnectionService(_queryService) {
+            this._queryService = _queryService;
+        }
+        Object.defineProperty(VantageConnectionService.prototype, "current", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                try {
+                    return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+                }
+                catch (_a) {
+                    return undefined;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        VantageConnectionService.prototype.disconnect = /**
+         * @return {?}
+         */
+        function () {
+            sessionStorage.removeItem(CONNECTION_SESSION_KEY);
+        };
+        /**
+         * @param {?} connection
+         * @return {?}
+         */
+        VantageConnectionService.prototype.connect = /**
+         * @param {?} connection
+         * @return {?}
+         */
+        function (connection) {
+            var _this = this;
+            // clear connection before starting a new one
+            this.disconnect();
+            // test connection with SELECT 1
+            return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(operators.tap((/**
+             * @return {?}
+             */
+            function () { return _this.store(connection); })), // if successful, save
+            operators.mapTo(connection));
+        };
+        /**
+         * @private
+         * @param {?} __0
+         * @return {?}
+         */
+        VantageConnectionService.prototype.store = /**
+         * @private
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
+            var system = _a.system, creds = _a.creds;
+            sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify({ system: system, creds: creds }));
+        };
+        VantageConnectionService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        VantageConnectionService.ctorParameters = function () { return [
+            { type: VantageQueryService }
+        ]; };
+        return VantageConnectionService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageConnectionService.prototype._queryService;
+    }
+    /**
+     * @param {?} parent
+     * @param {?} queryService
+     * @return {?}
+     */
+    function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService) {
+        return parent || new VantageConnectionService(queryService);
+    }
+    /** @type {?} */
+    var VANTAGE_CONNECTION_PROVIDER = {
+        // If there is already a service available, use that. Otherwise, provide a new one.
+        provide: VantageConnectionService,
+        deps: [[new core.Optional(), new core.SkipSelf(), VantageConnectionService], VantageQueryService],
+        useFactory: VANTAGE_CONNECTION_PROVIDER_FACTORY,
+    };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @record
+     */
+    function ISpooledQueryError() { }
+    if (false) {
+        /** @type {?} */
+        ISpooledQueryError.prototype.id;
+        /** @type {?} */
+        ISpooledQueryError.prototype.detailMessage;
+    }
+    /** @type {?} */
+    var MAX_INTERVAL = 10000;
+    /** @type {?} */
+    var BASE_INTERVAL = 2000;
+    /** @enum {string} */
+    var SpooledQueryState = {
+        QUEUED: 'QUEUED',
+        PENDING: 'PENDING',
+        SUBMITTED: 'SUBMITTED',
+        RESPONDING: 'RESPONDING',
+        SPOOLING: 'SPOOLING',
+        RESULT_SET_READY: 'RESULT_SET_READY',
+    };
+    var VantageSpooledQueryService = /** @class */ (function () {
+        function VantageSpooledQueryService(connectionService, queryService, translate) {
+            this.connectionService = connectionService;
+            this.queryService = queryService;
+            this.translate = translate;
+            this.queryStatus = new rxjs.BehaviorSubject(undefined);
+            this.queryStatus$ = this.queryStatus.asObservable();
+            this.queryStack = [];
+        }
+        /**
+         * @return {?}
+         */
+        VantageSpooledQueryService.prototype.cancelLastQuery = /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var thisQuery = this.queryStack.pop();
+            return this.deleteSpooledQuery(thisQuery);
+        };
+        /**
+         * @return {?}
+         */
+        VantageSpooledQueryService.prototype.getRunningInfo = /**
+         * @return {?}
+         */
+        function () {
+            return this.queryStatus$;
+        };
+        /**
+         * @param {?} payload
+         * @return {?}
+         */
+        VantageSpooledQueryService.prototype.querySystem = /**
+         * @param {?} payload
+         * @return {?}
+         */
+        function (payload) {
+            var _this = this;
+            return this.queryService.querySystem(this.connectionService.current, __assign(__assign({}, payload), { spooledResultSet: true })).pipe(operators.tap((/**
+             * @param {?} res
+             * @return {?}
+             */
+            function (res) { return _this.queryStack.push(res.id); })), operators.switchMap((/**
+             * @param {?} res
+             * @return {?}
+             */
+            function (res) { return _this.exponentialBackOffInterval(MAX_INTERVAL, res.id); })), operators.switchMap((/**
+             * @param {?} id
+             * @return {?}
+             */
+            function (id) {
+                return _this.queryService.getQuery(_this.connectionService.current, id.toString()).pipe(operators.map((/**
+                 * @param {?} query
+                 * @return {?}
+                 */
+                function (query) { return query.queryState; })), operators.tap((/**
+                 * @param {?} val
+                 * @return {?}
+                 */
+                function (val) { return _this.queryStatus.next(val); })), operators.map((/**
+                 * @param {?} val
+                 * @return {?}
+                 */
+                function (val) { return [id, val]; })));
+            })), operators.skipWhile((/**
+             * @param {?} __0
+             * @return {?}
+             */
+            function (_a) {
+                var _b = __read(_a, 2), id = _b[0], status = _b[1];
+                return status !== SpooledQueryState.RESULT_SET_READY;
+            })), operators.take(1), operators.switchMap((/**
+             * @param {?} __0
+             * @return {?}
+             */
+            function (_a) {
+                var _b = __read(_a, 1), id = _b[0];
+                return _this.queryService.getQueryResult(_this.connectionService.current, id).pipe(operators.map((/**
+                 * @param {?} val
+                 * @return {?}
+                 */
+                function (val) { return [id, val]; })), operators.tap((/**
+                 * @return {?}
+                 */
+                function () { return _this.queryStack.pop(); })), operators.catchError((/**
+                 * @param {?} res
+                 * @return {?}
+                 */
+                function (res) {
+                    return rxjs.throwError((/** @type {?} */ (__assign(__assign(__assign({}, res), { id: id }), { detailMessage: "Error " + res.error.error + ": " + res.error.message }))));
+                })));
+            })), operators.map((/**
+             * @param {?} __0
+             * @return {?}
+             */
+            function (_a) {
+                var _b = __read(_a, 2), id = _b[0], results = _b[1];
+                return results;
+            })));
+        };
+        /**
+         * @param {?} maxInterval
+         * @param {?} returnVal
+         * @return {?}
+         */
+        VantageSpooledQueryService.prototype.exponentialBackOffInterval = /**
+         * @param {?} maxInterval
+         * @param {?} returnVal
+         * @return {?}
+         */
+        function (maxInterval, returnVal) {
+            var _this = this;
+            return rxjs.of(0).pipe(operators.expand((/**
+             * @param {?} iteration
+             * @return {?}
+             */
+            function (iteration) { return rxjs.timer(_this.calcInterval(iteration, maxInterval)).pipe(operators.mapTo(iteration + 1)); })), operators.mapTo(returnVal));
+        };
+        /**
+         * @param {?} iteration
+         * @param {?} maxInterval
+         * @return {?}
+         */
+        VantageSpooledQueryService.prototype.calcInterval = /**
+         * @param {?} iteration
+         * @param {?} maxInterval
+         * @return {?}
+         */
+        function (iteration, maxInterval) {
+            /** @type {?} */
+            var expo = 1.4;
+            /** @type {?} */
+            var interval = Math.pow(expo, iteration) * BASE_INTERVAL;
+            return Math.min(interval, maxInterval);
+        };
+        /**
+         * @param {?} queryId
+         * @return {?}
+         */
+        VantageSpooledQueryService.prototype.deleteSpooledQuery = /**
+         * @param {?} queryId
+         * @return {?}
+         */
+        function (queryId) {
+            var _this = this;
+            this.queryService.deleteQuery(this.connectionService.current, queryId).subscribe(undefined, (/**
+             * @param {?} err
+             * @return {?}
+             */
+            function (err) {
+                throw new Error(_this.translate.instant('SPOOLED_QUERY_COULD_NOT_BE_DELETED', { error: JSON.stringify(err) }));
+            }));
+        };
+        VantageSpooledQueryService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        VantageSpooledQueryService.ctorParameters = function () { return [
+            { type: VantageConnectionService },
+            { type: VantageQueryService },
+            { type: core$1.TranslateService }
+        ]; };
+        return VantageSpooledQueryService;
+    }());
+    if (false) {
+        /** @type {?} */
+        VantageSpooledQueryService.prototype.queryStatus;
+        /** @type {?} */
+        VantageSpooledQueryService.prototype.queryStatus$;
+        /** @type {?} */
+        VantageSpooledQueryService.prototype.queryStack;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageSpooledQueryService.prototype.connectionService;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageSpooledQueryService.prototype.queryService;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageSpooledQueryService.prototype.translate;
+    }
+    /**
+     * @param {?} parent
+     * @param {?} connectionService
+     * @param {?} queryService
+     * @param {?} translate
+     * @return {?}
+     */
+    function VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY(parent, connectionService, queryService, translate) {
+        return parent || new VantageSpooledQueryService(connectionService, queryService, translate);
+    }
+    /** @type {?} */
+    var VANTAGE_SPOOLED_QUERY_PROVIDER = {
+        // If there is already a service available, use that. Otherwise, provide a new one.
+        provide: VantageSpooledQueryService,
+        deps: [
+            [new core.Optional(), new core.SkipSelf(), VantageSpooledQueryService],
+            VantageConnectionService,
+            VantageQueryService,
+            core$1.TranslateService,
+        ],
+        useFactory: VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY,
     };
 
     /**
@@ -1520,112 +2054,18 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @type {?} */
-    var CONNECTION_SESSION_KEY = 'vantage.editor.connection';
-    var VantageConnectionService = /** @class */ (function () {
-        function VantageConnectionService(_queryService) {
-            this._queryService = _queryService;
-        }
-        Object.defineProperty(VantageConnectionService.prototype, "current", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                try {
-                    return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
-                }
-                catch (_a) {
-                    return undefined;
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @return {?}
-         */
-        VantageConnectionService.prototype.disconnect = /**
-         * @return {?}
-         */
-        function () {
-            sessionStorage.removeItem(CONNECTION_SESSION_KEY);
-        };
-        /**
-         * @param {?} connection
-         * @return {?}
-         */
-        VantageConnectionService.prototype.connect = /**
-         * @param {?} connection
-         * @return {?}
-         */
-        function (connection) {
-            var _this = this;
-            // clear connection before starting a new one
-            this.disconnect();
-            // test connection with SELECT 1
-            return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(operators.tap((/**
-             * @return {?}
-             */
-            function () { return _this.store(connection); })), // if successful, save
-            operators.mapTo(connection));
-        };
-        /**
-         * @private
-         * @param {?} __0
-         * @return {?}
-         */
-        VantageConnectionService.prototype.store = /**
-         * @private
-         * @param {?} __0
-         * @return {?}
-         */
-        function (_a) {
-            var system = _a.system, creds = _a.creds;
-            sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify({ system: system, creds: creds }));
-        };
-        VantageConnectionService.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        VantageConnectionService.ctorParameters = function () { return [
-            { type: VantageQueryService }
-        ]; };
-        return VantageConnectionService;
-    }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        VantageConnectionService.prototype._queryService;
-    }
-    /**
-     * @param {?} parent
-     * @param {?} queryService
-     * @return {?}
-     */
-    function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService) {
-        return parent || new VantageConnectionService(queryService);
-    }
-    /** @type {?} */
-    var VANTAGE_CONNECTION_PROVIDER = {
-        // If there is already a service available, use that. Otherwise, provide a new one.
-        provide: VantageConnectionService,
-        deps: [[new core.Optional(), new core.SkipSelf(), VantageConnectionService], VantageQueryService],
-        useFactory: VANTAGE_CONNECTION_PROVIDER_FACTORY,
-    };
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var VantageSQLEModule = /** @class */ (function () {
         function VantageSQLEModule() {
         }
         VantageSQLEModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [common.CommonModule],
-                        providers: [VANTAGE_CONNECTION_PROVIDER, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_QUERY_PROVIDER],
+                        providers: [
+                            VANTAGE_CONNECTION_PROVIDER,
+                            VANTAGE_DICTIONARY_PROVIDER,
+                            VANTAGE_QUERY_PROVIDER,
+                            VANTAGE_SPOOLED_QUERY_PROVIDER,
+                        ],
                     },] }
         ];
         return VantageSQLEModule;
@@ -1637,10 +2077,13 @@
     exports.VANTAGE_DICTIONARY_PROVIDER_FACTORY = VANTAGE_DICTIONARY_PROVIDER_FACTORY;
     exports.VANTAGE_QUERY_PROVIDER = VANTAGE_QUERY_PROVIDER;
     exports.VANTAGE_QUERY_PROVIDER_FACTORY = VANTAGE_QUERY_PROVIDER_FACTORY;
+    exports.VANTAGE_SPOOLED_QUERY_PROVIDER = VANTAGE_SPOOLED_QUERY_PROVIDER;
+    exports.VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY = VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY;
     exports.VantageConnectionService = VantageConnectionService;
     exports.VantageDictionaryService = VantageDictionaryService;
     exports.VantageQueryService = VantageQueryService;
     exports.VantageSQLEModule = VantageSQLEModule;
+    exports.VantageSpooledQueryService = VantageSpooledQueryService;
     exports.sysDatabases = sysDatabases;
 
     Object.defineProperty(exports, '__esModule', { value: true });
