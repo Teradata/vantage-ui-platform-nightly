@@ -648,6 +648,17 @@
      */
     /** @type {?} */
     var CONNECTION_SESSION_KEY = 'vantage.editor.connection';
+    /**
+     * @return {?}
+     */
+    function current() {
+        try {
+            return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+        }
+        catch (_a) {
+            return undefined;
+        }
+    }
     var VantageConnectionService = /** @class */ (function () {
         function VantageConnectionService(_queryService) {
             this._queryService = _queryService;
@@ -657,12 +668,7 @@
              * @return {?}
              */
             function () {
-                try {
-                    return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
-                }
-                catch (_a) {
-                    return undefined;
-                }
+                return current();
             },
             enumerable: true,
             configurable: true
@@ -2084,6 +2090,7 @@
     exports.VantageQueryService = VantageQueryService;
     exports.VantageSQLEModule = VantageSQLEModule;
     exports.VantageSpooledQueryService = VantageSpooledQueryService;
+    exports.current = current;
     exports.sysDatabases = sysDatabases;
 
     Object.defineProperty(exports, '__esModule', { value: true });

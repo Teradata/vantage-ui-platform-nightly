@@ -409,6 +409,17 @@ const VANTAGE_QUERY_PROVIDER = {
  */
 /** @type {?} */
 const CONNECTION_SESSION_KEY = 'vantage.editor.connection';
+/**
+ * @return {?}
+ */
+function current() {
+    try {
+        return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+    }
+    catch (_a) {
+        return undefined;
+    }
+}
 class VantageConnectionService {
     /**
      * @param {?} _queryService
@@ -420,12 +431,7 @@ class VantageConnectionService {
      * @return {?}
      */
     get current() {
-        try {
-            return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
-        }
-        catch (_a) {
-            return undefined;
-        }
+        return current();
     }
     /**
      * @return {?}
@@ -1781,5 +1787,5 @@ VantageSQLEModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, sysDatabases };
+export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, current, sysDatabases };
 //# sourceMappingURL=td-vantage-ui-platform-sqle.js.map

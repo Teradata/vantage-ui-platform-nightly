@@ -1,6 +1,7 @@
 import { Provider } from '@angular/core';
 import { Observable } from 'rxjs';
 import { VantageQueryService, ISQLEConnection } from './query.service';
+export declare function current(): ISQLEConnection;
 export declare class VantageConnectionService {
     private _queryService;
     constructor(_queryService: VantageQueryService);
