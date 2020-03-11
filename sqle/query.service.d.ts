@@ -1,7 +1,7 @@
 import { Provider } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ISystem } from '@td-vantage/ui-platform/system';
+import { TdHttpService } from '@covalent/http';
 export interface IQueryPayload {
     query: string;
     session?: string;
@@ -41,8 +41,8 @@ export interface ISQLEConnection {
     creds?: string;
 }
 export declare class VantageQueryService {
-    private _httpClient;
-    constructor(_httpClient: HttpClient);
+    private _http;
+    constructor(_http: TdHttpService);
     querySystem(connection: ISQLEConnection, payload: IQueryPayload): Observable<IQueryResultSet>;
     getTableInfo(connection: ISQLEConnection, databaseName: string, tableName: string): Observable<any>;
     getViewInfo(connection: ISQLEConnection, databaseName: string, viewName: string): Observable<any>;
@@ -53,5 +53,5 @@ export declare class VantageQueryService {
     createSession(connection: ISQLEConnection): Observable<any>;
     deleteSession(connection: ISQLEConnection, sessionId: string): Observable<any>;
 }
-export declare function VANTAGE_QUERY_PROVIDER_FACTORY(parent: VantageQueryService, httpClient: HttpClient): VantageQueryService;
+export declare function VANTAGE_QUERY_PROVIDER_FACTORY(parent: VantageQueryService, tdHttpService: TdHttpService): VantageQueryService;
 export declare const VANTAGE_QUERY_PROVIDER: Provider;

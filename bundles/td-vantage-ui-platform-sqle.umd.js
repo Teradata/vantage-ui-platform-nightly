@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@ngx-translate/core'), require('rxjs'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@ngx-translate/core', 'rxjs', '@angular/common'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.core$1, global.rxjs, global.ng.common));
-}(this, (function (exports, core, http, operators, core$1, rxjs, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@covalent/http'), require('@ngx-translate/core'), require('rxjs'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@covalent/http', '@ngx-translate/core', 'rxjs', '@angular/common'], factory) :
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.covalent.http, global.core$1, global.rxjs, global.ng.common));
+}(this, (function (exports, core, http, operators, http$1, core$1, rxjs, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -284,8 +284,8 @@
         ISQLEConnection.prototype.creds;
     }
     var VantageQueryService = /** @class */ (function () {
-        function VantageQueryService(_httpClient) {
-            this._httpClient = _httpClient;
+        function VantageQueryService(_http) {
+            this._http = _http;
         }
         /**
          * @param {?} connection
@@ -311,7 +311,7 @@
             }
             payload.clientId = 'VANTAGE.EDITOR';
             /** @type {?} */
-            var request = this._httpClient.post('/api/query/tdrest/systems/' + connection.system.nickname + '/queries', payload, { headers: headers });
+            var request = this._http.post('/api/query/tdrest/systems/' + connection.system.nickname + '/queries', payload, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -347,7 +347,7 @@
                 headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
             }
             /** @type {?} */
-            var request = this._httpClient.get("/api/query/systems/" + connection.system.nickname + "/databases/" + databaseName + "/tables/" + tableName, { headers: headers });
+            var request = this._http.get("/api/query/systems/" + connection.system.nickname + "/databases/" + databaseName + "/tables/" + tableName, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -383,7 +383,7 @@
                 headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
             }
             /** @type {?} */
-            var request = this._httpClient.get("/api/query/systems/" + connection.system.nickname + "/databases/" + databaseName + "/views/" + viewName, { headers: headers });
+            var request = this._http.get("/api/query/systems/" + connection.system.nickname + "/databases/" + databaseName + "/views/" + viewName, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -417,7 +417,7 @@
                 headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
             }
             /** @type {?} */
-            var request = this._httpClient.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + requestId, { headers: headers });
+            var request = this._http.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + requestId, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -451,7 +451,7 @@
                 headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
             }
             /** @type {?} */
-            var request = this._httpClient.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries?session=' + sessionId, { headers: headers });
+            var request = this._http.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries?session=' + sessionId, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -485,7 +485,7 @@
                 headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
             }
             /** @type {?} */
-            var request = this._httpClient.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId + '/results', { headers: headers });
+            var request = this._http.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId + '/results', { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -519,7 +519,7 @@
                 headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
             }
             /** @type {?} */
-            var request = this._httpClient.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId, { headers: headers });
+            var request = this._http.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -561,7 +561,7 @@
                 payload.logMech = 'JWT';
             }
             /** @type {?} */
-            var request = this._httpClient.post('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions', payload, { headers: headers });
+            var request = this._http.post('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions', payload, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -595,7 +595,7 @@
                 headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
             }
             /** @type {?} */
-            var request = this._httpClient.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions/' + sessionId, { headers: headers });
+            var request = this._http.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions/' + sessionId, { headers: headers });
             return request.pipe(operators.catchError((/**
              * @param {?} error
              * @return {?}
@@ -615,7 +615,7 @@
         ];
         /** @nocollapse */
         VantageQueryService.ctorParameters = function () { return [
-            { type: http.HttpClient }
+            { type: http$1.TdHttpService }
         ]; };
         return VantageQueryService;
     }());
@@ -624,21 +624,21 @@
          * @type {?}
          * @private
          */
-        VantageQueryService.prototype._httpClient;
+        VantageQueryService.prototype._http;
     }
     /**
      * @param {?} parent
-     * @param {?} httpClient
+     * @param {?} tdHttpService
      * @return {?}
      */
-    function VANTAGE_QUERY_PROVIDER_FACTORY(parent, httpClient) {
-        return parent || new VantageQueryService(httpClient);
+    function VANTAGE_QUERY_PROVIDER_FACTORY(parent, tdHttpService) {
+        return parent || new VantageQueryService(tdHttpService);
     }
     /** @type {?} */
     var VANTAGE_QUERY_PROVIDER = {
         // If there is already a service available, use that. Otherwise, provide a new one.
         provide: VantageQueryService,
-        deps: [[new core.Optional(), new core.SkipSelf(), VantageQueryService], http.HttpClient],
+        deps: [[new core.Optional(), new core.SkipSelf(), VantageQueryService], http$1.TdHttpService],
         useFactory: VANTAGE_QUERY_PROVIDER_FACTORY,
     };
 

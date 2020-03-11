@@ -1,6 +1,7 @@
 import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap, mapTo, switchMap, skipWhile, take, expand } from 'rxjs/operators';
+import { TdHttpService } from '@covalent/http';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, throwError, of, timer } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -89,10 +90,10 @@ if (false) {
 }
 class VantageQueryService {
     /**
-     * @param {?} _httpClient
+     * @param {?} _http
      */
-    constructor(_httpClient) {
-        this._httpClient = _httpClient;
+    constructor(_http) {
+        this._http = _http;
     }
     /**
      * @param {?} connection
@@ -113,7 +114,7 @@ class VantageQueryService {
         }
         payload.clientId = 'VANTAGE.EDITOR';
         /** @type {?} */
-        const request = this._httpClient.post('/api/query/tdrest/systems/' + connection.system.nickname + '/queries', payload, { headers });
+        const request = this._http.post('/api/query/tdrest/systems/' + connection.system.nickname + '/queries', payload, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -143,7 +144,7 @@ class VantageQueryService {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
         }
         /** @type {?} */
-        const request = this._httpClient.get(`/api/query/systems/${connection.system.nickname}/databases/${databaseName}/tables/${tableName}`, { headers });
+        const request = this._http.get(`/api/query/systems/${connection.system.nickname}/databases/${databaseName}/tables/${tableName}`, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -173,7 +174,7 @@ class VantageQueryService {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
         }
         /** @type {?} */
-        const request = this._httpClient.get(`/api/query/systems/${connection.system.nickname}/databases/${databaseName}/views/${viewName}`, { headers });
+        const request = this._http.get(`/api/query/systems/${connection.system.nickname}/databases/${databaseName}/views/${viewName}`, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -202,7 +203,7 @@ class VantageQueryService {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
         }
         /** @type {?} */
-        const request = this._httpClient.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + requestId, { headers });
+        const request = this._http.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + requestId, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -231,7 +232,7 @@ class VantageQueryService {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
         }
         /** @type {?} */
-        const request = this._httpClient.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries?session=' + sessionId, { headers });
+        const request = this._http.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries?session=' + sessionId, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -260,7 +261,7 @@ class VantageQueryService {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
         }
         /** @type {?} */
-        const request = this._httpClient.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId + '/results', { headers });
+        const request = this._http.get('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId + '/results', { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -289,7 +290,7 @@ class VantageQueryService {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
         }
         /** @type {?} */
-        const request = this._httpClient.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId, { headers });
+        const request = this._http.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/queries/' + queryId, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -327,7 +328,7 @@ class VantageQueryService {
             payload.logMech = 'JWT';
         }
         /** @type {?} */
-        const request = this._httpClient.post('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions', payload, { headers });
+        const request = this._http.post('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions', payload, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -356,7 +357,7 @@ class VantageQueryService {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
         }
         /** @type {?} */
-        const request = this._httpClient.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions/' + sessionId, { headers });
+        const request = this._http.delete('/api/query/tdrest/systems/' + connection.system.nickname + '/sessions/' + sessionId, { headers });
         return request.pipe(catchError((/**
          * @param {?} error
          * @return {?}
@@ -377,28 +378,28 @@ VantageQueryService.decorators = [
 ];
 /** @nocollapse */
 VantageQueryService.ctorParameters = () => [
-    { type: HttpClient }
+    { type: TdHttpService }
 ];
 if (false) {
     /**
      * @type {?}
      * @private
      */
-    VantageQueryService.prototype._httpClient;
+    VantageQueryService.prototype._http;
 }
 /**
  * @param {?} parent
- * @param {?} httpClient
+ * @param {?} tdHttpService
  * @return {?}
  */
-function VANTAGE_QUERY_PROVIDER_FACTORY(parent, httpClient) {
-    return parent || new VantageQueryService(httpClient);
+function VANTAGE_QUERY_PROVIDER_FACTORY(parent, tdHttpService) {
+    return parent || new VantageQueryService(tdHttpService);
 }
 /** @type {?} */
 const VANTAGE_QUERY_PROVIDER = {
     // If there is already a service available, use that. Otherwise, provide a new one.
     provide: VantageQueryService,
-    deps: [[new Optional(), new SkipSelf(), VantageQueryService], HttpClient],
+    deps: [[new Optional(), new SkipSelf(), VantageQueryService], TdHttpService],
     useFactory: VANTAGE_QUERY_PROVIDER_FACTORY,
 };
 
