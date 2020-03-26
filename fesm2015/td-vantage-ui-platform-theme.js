@@ -1,6 +1,6 @@
 import { Injectable, RendererFactory2, Inject, Optional, SkipSelf, NgModule } from '@angular/core';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { BehaviorSubject, fromEvent } from 'rxjs';
+import { BehaviorSubject, fromEventPattern, fromEvent, merge } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 /**
@@ -32,7 +32,11 @@ class VantageThemeService {
     constructor(rendererFactory, _document) {
         this.rendererFactory = rendererFactory;
         this._document = _document;
-        this._activeThemeSubject = new BehaviorSubject((/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))));
+        this.preferDarkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        /** @type {?} */
+        const initialValue = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))) || this.checkOSPreference();
+        this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
+        this._activeThemeSubject = new BehaviorSubject(initialValue);
         this.activeTheme$ = this._activeThemeSubject.asObservable();
         this.darkTheme$ = this._activeThemeSubject
             .asObservable()
@@ -48,18 +52,34 @@ class VantageThemeService {
          * @return {?}
          */
         (theme) => theme === VantageTheme.LIGHT)));
-        this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
-        fromEvent(window, 'storage')
-            .pipe(filter((/**
+        // apply initial theme
+        this.applyTheme(initialValue, false);
+        // observe media query change events
+        /** @type {?} */
+        const mediaObserver = fromEventPattern(this.preferDarkMediaQuery.addListener.bind(this.preferDarkMediaQuery), this.preferDarkMediaQuery.removeListener.bind(this.preferDarkMediaQuery)).pipe(map((/**
          * @param {?} event
          * @return {?}
          */
-        (event) => event.key === THEME_LOCAL_STORAGE_KEY)))
-            .subscribe((/**
+        (event) => {
+            return event.matches ? VantageTheme.DARK : VantageTheme.LIGHT;
+        })));
+        // account for storage events in other browser tabs
+        /** @type {?} */
+        const storageObserver = fromEvent(window, 'storage').pipe(filter((/**
          * @param {?} event
          * @return {?}
          */
-        (event) => this.applyTheme((/** @type {?} */ (event.newValue)))));
+        (event) => event.key === THEME_LOCAL_STORAGE_KEY)), map((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => (event.newValue ? ((/** @type {?} */ (event.newValue))) : this.checkOSPreference()))));
+        // apply theme on storage or media query change
+        merge(storageObserver, mediaObserver).subscribe((/**
+         * @param {?} theme
+         * @return {?}
+         */
+        (theme) => this.applyTheme(theme)));
     }
     /**
      * @private
@@ -98,19 +118,19 @@ class VantageThemeService {
      * @return {?}
      */
     applyLightTheme() {
-        this.applyTheme(VantageTheme.LIGHT);
+        return this.applyTheme(VantageTheme.LIGHT);
     }
     /**
      * @return {?}
      */
     applyDarkTheme() {
-        this.applyTheme(VantageTheme.DARK);
+        return this.applyTheme(VantageTheme.DARK);
     }
     /**
      * @return {?}
      */
     toggleTheme() {
-        this._activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
+        return this._activeTheme === VantageTheme.DARK ? this.applyLightTheme() : this.applyDarkTheme();
     }
     /**
      * @param {?} mapObject
@@ -127,13 +147,24 @@ class VantageThemeService {
     /**
      * @private
      * @param {?} theme
+     * @param {?=} saveSetting
      * @return {?}
      */
-    applyTheme(theme) {
+    applyTheme(theme, saveSetting = true) {
         this._renderer2.removeClass(this._document.querySelector('html'), theme === VantageTheme.DARK ? VantageTheme.LIGHT : VantageTheme.DARK);
-        localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
         this._renderer2.addClass(this._document.querySelector('html'), theme);
-        this._activeTheme = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
+        if (saveSetting) {
+            localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
+        }
+        return (this._activeTheme = theme);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    checkOSPreference() {
+        // it should now be light-by-default
+        return this.preferDarkMediaQuery.matches ? VantageTheme.DARK : VantageTheme.LIGHT;
     }
 }
 VantageThemeService.decorators = [
@@ -155,6 +186,11 @@ if (false) {
      * @private
      */
     VantageThemeService.prototype._activeThemeSubject;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageThemeService.prototype.preferDarkMediaQuery;
     /** @type {?} */
     VantageThemeService.prototype.activeTheme$;
     /** @type {?} */
@@ -217,5 +253,5 @@ VantageThemeModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VANTAGE_THEME_PROVIDER, VANTAGE_THEME_PROVIDER_FACTORY, VantageTheme, VantageThemeModule, VantageThemeService };
+export { THEME_LOCAL_STORAGE_KEY, VANTAGE_THEME_PROVIDER, VANTAGE_THEME_PROVIDER_FACTORY, VantageTheme, VantageThemeModule, VantageThemeService };
 //# sourceMappingURL=td-vantage-ui-platform-theme.js.map
