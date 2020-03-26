@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@covalent/http'), require('@ngx-translate/core'), require('rxjs'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@covalent/http', '@ngx-translate/core', 'rxjs', '@angular/common'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.covalent.http, global.core$1, global.rxjs, global.ng.common));
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.covalent.http, global['ngx-translate'].core, global.rxjs, global.ng.common));
 }(this, (function (exports, core, http, operators, http$1, core$1, rxjs, common) { 'use strict';
 
     /*! *****************************************************************************

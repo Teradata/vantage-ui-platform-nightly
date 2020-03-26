@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/td-vantage-ui-platform-app-switcher.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-app-switcher.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-app-switcher.js",
+  "esm5": "../esm5/app-switcher/td-vantage-ui-platform-app-switcher.js",
+  "esm2015": "../esm2015/app-switcher/td-vantage-ui-platform-app-switcher.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-app-switcher.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-app-switcher.js",
+  "typings": "td-vantage-ui-platform-app-switcher.d.ts",
+  "metadata": "td-vantage-ui-platform-app-switcher.metadata.json",
+  "sideEffects": false,
+  "name": "@td-vantage/ui-platform/app-switcher"
+}
