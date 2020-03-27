@@ -9,7 +9,9 @@ export interface IVantageAppSwitcherItem {
 }
 export declare class VantageAppSwitcherMenuComponent {
     _themeService: VantageThemeService;
-    productList: IVantageAppSwitcherItem[];
+    products: IVantageAppSwitcherItem[];
+    otherProducts: IVantageAppSwitcherItem[];
     exploreMoreLink: string;
     constructor(_themeService: VantageThemeService);
+    _blockEvent(event: Event): void;
 }
