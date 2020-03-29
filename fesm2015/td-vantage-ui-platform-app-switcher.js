@@ -133,6 +133,8 @@ if (false) {
     IVantageAppSwitcherItem.prototype.id;
     /** @type {?} */
     IVantageAppSwitcherItem.prototype.text;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.description;
     /** @type {?} */
     IVantageAppSwitcherItem.prototype.href;
     /** @type {?|undefined} */

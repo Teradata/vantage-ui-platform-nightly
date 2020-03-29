@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 export interface IVantageAppSwitcherItem {
     id?: string;
     text: string;
+    description?: string;
     href: string;
     icon?: string;
     svgIcon?: string;
