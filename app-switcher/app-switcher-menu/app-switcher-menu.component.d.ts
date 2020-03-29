@@ -1,12 +1,5 @@
 import { VantageThemeService } from '@td-vantage/ui-platform/theme';
-export interface IVantageAppSwitcherItem {
-    text: string;
-    href: string;
-    icon?: string;
-    svgIcon?: string;
-    iconClasses?: string[];
-    divider?: boolean;
-}
+import { IVantageAppSwitcherItem } from '../services/products.service';
 export declare class VantageAppSwitcherMenuComponent {
     _themeService: VantageThemeService;
     products: IVantageAppSwitcherItem[];

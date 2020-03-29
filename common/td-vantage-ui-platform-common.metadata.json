@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":4,"metadata":{"VANTAGE_BASE_URL_TOKEN":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"InjectionToken","line":2,"character":66},"arguments":["vantage-base-url-token"]}},"origins":{"VANTAGE_BASE_URL_TOKEN":"./tokens"},"importAs":"@td-vantage/ui-platform/common"}

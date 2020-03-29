@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, NgModule, Injectable, Optional, Inject, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
@@ -9,29 +9,16 @@ import { MatListModule } from '@angular/material/list';
 import { CovalentMenuModule } from '@covalent/core/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { VantageThemeService, VantageThemeModule } from '@td-vantage/ui-platform/theme';
+import { __decorate, __metadata } from 'tslib';
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { VANTAGE_BASE_URL_TOKEN } from '@td-vantage/ui-platform/common';
+import { mixinHttp, TdGET } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/**
- * @record
- */
-function IVantageAppSwitcherItem() { }
-if (false) {
-    /** @type {?} */
-    IVantageAppSwitcherItem.prototype.text;
-    /** @type {?} */
-    IVantageAppSwitcherItem.prototype.href;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.icon;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.svgIcon;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.iconClasses;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.divider;
-}
 class VantageAppSwitcherMenuComponent {
     /**
      * @param {?} _themeService
@@ -137,6 +124,76 @@ VantageAppSwitcherModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IVantageAppSwitcherItem() { }
+if (false) {
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.id;
+    /** @type {?} */
+    IVantageAppSwitcherItem.prototype.text;
+    /** @type {?} */
+    IVantageAppSwitcherItem.prototype.href;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.icon;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.svgIcon;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.iconClasses;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.divider;
+}
+class VantageProductsService extends mixinHttp(class {
+}, {
+    baseUrl: '/assets',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+}) {
+    /**
+     * @param {?=} _baseUrlOverride
+     */
+    constructor(_baseUrlOverride) {
+        super();
+        this._baseUrlOverride = _baseUrlOverride;
+    }
+    /**
+     * @return {?}
+     */
+    get basePath() {
+        return this._baseUrlOverride;
+    }
+    /**
+     * @return {?}
+     */
+    get() {
+        return;
+    }
+}
+VantageProductsService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+/** @nocollapse */
+VantageProductsService.ctorParameters = () => [
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [VANTAGE_BASE_URL_TOKEN,] }] }
+];
+/** @nocollapse */ VantageProductsService.ɵprov = ɵɵdefineInjectable({ factory: function VantageProductsService_Factory() { return new VantageProductsService(ɵɵinject(VANTAGE_BASE_URL_TOKEN, 8)); }, token: VantageProductsService, providedIn: "root" });
+__decorate([
+    TdGET({
+        path: '/products.json',
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Observable)
+], VantageProductsService.prototype, "get", null);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageProductsService.prototype._baseUrlOverride;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -148,5 +205,10 @@ VantageAppSwitcherModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VantageAppSwitcherComponent, VantageAppSwitcherMenuComponent, VantageAppSwitcherModule };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { VantageAppSwitcherComponent, VantageAppSwitcherMenuComponent, VantageAppSwitcherModule, VantageProductsService };
 //# sourceMappingURL=td-vantage-ui-platform-app-switcher.js.map

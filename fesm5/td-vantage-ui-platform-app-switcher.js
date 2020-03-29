@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, NgModule, Injectable, Optional, Inject, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
@@ -9,29 +9,16 @@ import { MatListModule } from '@angular/material/list';
 import { CovalentMenuModule } from '@covalent/core/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { VantageThemeService, VantageThemeModule } from '@td-vantage/ui-platform/theme';
+import { __extends, __decorate, __metadata } from 'tslib';
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { VANTAGE_BASE_URL_TOKEN } from '@td-vantage/ui-platform/common';
+import { TdGET, mixinHttp } from '@covalent/http';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/**
- * @record
- */
-function IVantageAppSwitcherItem() { }
-if (false) {
-    /** @type {?} */
-    IVantageAppSwitcherItem.prototype.text;
-    /** @type {?} */
-    IVantageAppSwitcherItem.prototype.href;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.icon;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.svgIcon;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.iconClasses;
-    /** @type {?|undefined} */
-    IVantageAppSwitcherItem.prototype.divider;
-}
 var VantageAppSwitcherMenuComponent = /** @class */ (function () {
     function VantageAppSwitcherMenuComponent(_themeService) {
         this._themeService = _themeService;
@@ -145,6 +132,86 @@ var VantageAppSwitcherModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function IVantageAppSwitcherItem() { }
+if (false) {
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.id;
+    /** @type {?} */
+    IVantageAppSwitcherItem.prototype.text;
+    /** @type {?} */
+    IVantageAppSwitcherItem.prototype.href;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.icon;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.svgIcon;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.iconClasses;
+    /** @type {?|undefined} */
+    IVantageAppSwitcherItem.prototype.divider;
+}
+var VantageProductsService = /** @class */ (function (_super) {
+    __extends(VantageProductsService, _super);
+    function VantageProductsService(_baseUrlOverride) {
+        var _this = _super.call(this) || this;
+        _this._baseUrlOverride = _baseUrlOverride;
+        return _this;
+    }
+    Object.defineProperty(VantageProductsService.prototype, "basePath", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._baseUrlOverride;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    VantageProductsService.prototype.get = /**
+     * @return {?}
+     */
+    function () {
+        return;
+    };
+    VantageProductsService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    /** @nocollapse */
+    VantageProductsService.ctorParameters = function () { return [
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [VANTAGE_BASE_URL_TOKEN,] }] }
+    ]; };
+    /** @nocollapse */ VantageProductsService.ɵprov = ɵɵdefineInjectable({ factory: function VantageProductsService_Factory() { return new VantageProductsService(ɵɵinject(VANTAGE_BASE_URL_TOKEN, 8)); }, token: VantageProductsService, providedIn: "root" });
+    __decorate([
+        TdGET({
+            path: '/products.json',
+        }),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", Observable)
+    ], VantageProductsService.prototype, "get", null);
+    return VantageProductsService;
+}(mixinHttp(/** @class */ (function () {
+    function class_1() {
+    }
+    return class_1;
+}()), {
+    baseUrl: '/assets',
+    baseHeaders: new HttpHeaders({ Accept: 'application/json' }),
+})));
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageProductsService.prototype._baseUrlOverride;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -156,5 +223,10 @@ var VantageAppSwitcherModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VantageAppSwitcherComponent, VantageAppSwitcherMenuComponent, VantageAppSwitcherModule };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { VantageAppSwitcherComponent, VantageAppSwitcherMenuComponent, VantageAppSwitcherModule, VantageProductsService };
 //# sourceMappingURL=td-vantage-ui-platform-app-switcher.js.map

@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/td-vantage-ui-platform-common.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-common.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-common.js",
+  "esm5": "../esm5/common/td-vantage-ui-platform-common.js",
+  "esm2015": "../esm2015/common/td-vantage-ui-platform-common.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-common.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-common.js",
+  "typings": "td-vantage-ui-platform-common.d.ts",
+  "metadata": "td-vantage-ui-platform-common.metadata.json",
+  "sideEffects": false,
+  "name": "@td-vantage/ui-platform/common"
+}

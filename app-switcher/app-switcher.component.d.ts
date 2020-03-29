@@ -1,4 +1,4 @@
-import { IVantageAppSwitcherItem } from './app-switcher-menu/app-switcher-menu.component';
+import { IVantageAppSwitcherItem } from './services/products.service';
 export declare class VantageAppSwitcherComponent {
     products: IVantageAppSwitcherItem[];
     otherProducts: IVantageAppSwitcherItem[];
