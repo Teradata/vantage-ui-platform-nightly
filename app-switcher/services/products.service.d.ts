@@ -15,5 +15,6 @@ export declare class VantageProductsService extends VantageProductsService_base 
     get basePath(): string;
     constructor(_baseUrlOverride?: string);
     get(): Observable<IVantageAppSwitcherItem[]>;
+    getOther(): Observable<IVantageAppSwitcherItem[]>;
 }
 export {};

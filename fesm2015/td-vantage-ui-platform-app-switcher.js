@@ -170,6 +170,12 @@ class VantageProductsService extends mixinHttp(class {
     get() {
         return;
     }
+    /**
+     * @return {?}
+     */
+    getOther() {
+        return;
+    }
 }
 VantageProductsService.decorators = [
     { type: Injectable, args: [{
@@ -189,6 +195,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Observable)
 ], VantageProductsService.prototype, "get", null);
+__decorate([
+    TdGET({
+        path: '/other-products.json',
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Observable)
+], VantageProductsService.prototype, "getOther", null);
 if (false) {
     /**
      * @type {?}

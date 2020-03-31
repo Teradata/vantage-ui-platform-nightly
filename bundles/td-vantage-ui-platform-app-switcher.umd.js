@@ -366,6 +366,15 @@
         function () {
             return;
         };
+        /**
+         * @return {?}
+         */
+        VantageProductsService.prototype.getOther = /**
+         * @return {?}
+         */
+        function () {
+            return;
+        };
         VantageProductsService.decorators = [
             { type: core.Injectable, args: [{
                         providedIn: 'root',
@@ -384,6 +393,14 @@
             __metadata("design:paramtypes", []),
             __metadata("design:returntype", rxjs.Observable)
         ], VantageProductsService.prototype, "get", null);
+        __decorate([
+            http$1.TdGET({
+                path: '/other-products.json',
+            }),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", []),
+            __metadata("design:returntype", rxjs.Observable)
+        ], VantageProductsService.prototype, "getOther", null);
         return VantageProductsService;
     }(http$1.mixinHttp(/** @class */ (function () {
         function class_1() {
