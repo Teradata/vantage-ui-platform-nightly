@@ -1,11 +1,23 @@
-import { Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap, mapTo, switchMap, skipWhile, take, expand } from 'rxjs/operators';
+import { Injectable, Optional, SkipSelf, Component, NgModule } from '@angular/core';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { catchError, map, tap, mapTo, switchMap, skipWhile, take, expand, retry } from 'rxjs/operators';
 import { TdHttpService } from '@covalent/http';
-import { __assign, __read } from 'tslib';
-import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, throwError, of, timer } from 'rxjs';
+import { __assign, __read, __awaiter, __generator } from 'tslib';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject, throwError, of, timer, Subject } from 'rxjs';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { TdLoadingService, CovalentLoadingModule } from '@covalent/core/loading';
+import { VantageSystemService, VantageSystemModule } from '@td-vantage/ui-platform/system';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { CovalentMessageModule } from '@covalent/core/message';
 
 /**
  * @fileoverview added by tsickle
@@ -1866,12 +1878,225 @@ var VANTAGE_DICTIONARY_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var VantageCredentialsDialogComponent = /** @class */ (function () {
+    function VantageCredentialsDialogComponent(_dialogRef, _connectionService, _systemService, _loadingService, _translate) {
+        this._dialogRef = _dialogRef;
+        this._connectionService = _connectionService;
+        this._systemService = _systemService;
+        this._loadingService = _loadingService;
+        this._translate = _translate;
+        // listens to times we try to connect regardless
+        this._connectionAttempt$ = new Subject();
+        this.connectionAttempt$ = this._connectionAttempt$.asObservable();
+        this.basicAuthEnabled = false;
+        this.connectionType = false;
+    }
+    /**
+     * @return {?}
+     */
+    VantageCredentialsDialogComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // prepopulate connection type
+        this.connectionType = this.basicAuthEnabled;
+        // prep systems observable
+        /** @type {?} */
+        var queryParams = new HttpParams();
+        queryParams = queryParams.append('systemType', 'TERADATA');
+        this.systems$ = this._systemService.query(queryParams).pipe(retry(2), catchError((/**
+         * @return {?}
+         */
+        function () {
+            _this.errorMsg = _this._translate.instant('ERROR_RETRIEVE_DATA');
+            return of({ data: [] });
+        })), map((/**
+         * @param {?} resp
+         * @return {?}
+         */
+        function (resp) { return resp.data; })), tap((/**
+         * @param {?} systems
+         * @return {?}
+         */
+        function (systems) {
+            if (systems && systems.length) {
+                // select first system by default if no system was prepopulated
+                if (!_this.system) {
+                    _this.system = systems[0];
+                }
+                // if there is only one system and basic auth disabled, we try to connect to it automagically
+                if (systems.length === 1 && !_this.basicAuthEnabled) {
+                    _this.connect();
+                }
+            }
+        })));
+    };
+    /**
+     * @return {?}
+     */
+    VantageCredentialsDialogComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        // finallize subject
+        this._connectionAttempt$.complete();
+    };
+    /**
+     * @param {?} a
+     * @param {?} b
+     * @return {?}
+     */
+    VantageCredentialsDialogComponent.prototype.compareSystemWith = /**
+     * @param {?} a
+     * @param {?} b
+     * @return {?}
+     */
+    function (a, b) {
+        return a && b && a.nickname === b.nickname;
+    };
+    /**
+     * @return {?}
+     */
+    VantageCredentialsDialogComponent.prototype.connect = /**
+     * @return {?}
+     */
+    function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var connection, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, 3, 4]);
+                        this.errorMsg = undefined;
+                        // block users from closing the dialog while connecting
+                        this._dialogRef.disableClose = true;
+                        this._loadingService.register('system.connect');
+                        connection = this.connectionType
+                            ? { system: this.system, creds: btoa(this.username + ':' + this.password) }
+                            : { system: this.system };
+                        return [4 /*yield*/, this._connectionService.connect(connection).toPromise()];
+                    case 1:
+                        _a.sent();
+                        this._dialogRef.close(connection);
+                        return [3 /*break*/, 4];
+                    case 2:
+                        error_1 = _a.sent();
+                        this.errorMsg = error_1.message;
+                        return [3 /*break*/, 4];
+                    case 3:
+                        this._connectionAttempt$.next();
+                        // allow users to close dialog again
+                        this._dialogRef.disableClose = false;
+                        this._loadingService.resolve('system.connect');
+                        return [7 /*endfinally*/];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * @return {?}
+     */
+    VantageCredentialsDialogComponent.prototype.cancel = /**
+     * @return {?}
+     */
+    function () {
+        this._dialogRef.close();
+    };
+    VantageCredentialsDialogComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'vui-sqle-credentials-dialog',
+                    template: "<div layout=\"column\" layout-fill>\n  <ng-template tdLoading=\"system.connect\" tdLoadingStrategy=\"overlay\">\n    <div *tdLoading=\"let systems; until: systems$ | async\" flex layout=\"column\">\n      <mat-card-title>{{ 'CREATE_CONNECTION' | translate }}</mat-card-title>\n      <div *ngIf=\"errorMsg\">\n        <td-message [sublabel]=\"errorMsg\" color=\"warn\" id=\"vui-credentials-dialog-invalid-message\"></td-message>\n      </div>\n      <mat-card-content class=\"pad-top pad-right-xs pad-bottom pad-left-xs\" flex>\n        <form #form=\"ngForm\">\n          <ng-container *ngIf=\"systems?.length\">\n            <div layout=\"row\">\n              <mat-form-field class=\"vui-credentials-dialog-system\" appearance=\"outline\" flex>\n                <mat-label>\n                  {{ 'SYSTEM' | translate }}\n                </mat-label>\n                <mat-select\n                  id=\"vui-credentials-dialog-system-select\"\n                  [(ngModel)]=\"system\"\n                  name=\"system\"\n                  [compareWith]=\"compareSystemWith\"\n                  required\n                >\n                  <mat-select-trigger>\n                    <div class=\"mat-body-1\">{{ system.nickname }}</div>\n                    <div class=\"mat-caption tc\">{{ system.host }}:{{ system.port }}</div>\n                  </mat-select-trigger>\n                  <mat-option\n                    [id]=\"'vui-credentials-dialog-' + sys.nickname\"\n                    *ngFor=\"let sys of systems\"\n                    [value]=\"sys\"\n                    class=\"vui-credentials-dialog-system-option\"\n                  >\n                    <div class=\"mat-body-1\">{{ sys.nickname }}</div>\n                    <div class=\"mat-caption\">{{ sys.host }}:{{ sys.port }}</div>\n                  </mat-option>\n                </mat-select>\n              </mat-form-field>\n            </div>\n            <div *ngIf=\"basicAuthEnabled\" class=\"push-bottom\">\n              <mat-radio-group\n                id=\"vui-credentials-dialog-connection-radio\"\n                #radioGroup=\"matRadioGroup\"\n                [(ngModel)]=\"connectionType\"\n                name=\"connection\"\n                layout=\"column\"\n              >\n                <mat-radio-button class=\"push-xs\" [value]=\"false\">\n                  {{ 'USE_CURRENT_SESSION' | translate }}\n                </mat-radio-button>\n                <mat-radio-button class=\"push-xs\" [value]=\"true\">\n                  {{ 'ENTER_CREDENTIALS' | translate }}\n                </mat-radio-button>\n              </mat-radio-group>\n            </div>\n            <ng-container *ngIf=\"connectionType\">\n              <div layout=\"row\">\n                <mat-form-field appearance=\"outline\" flex>\n                  <mat-label>\n                    {{ 'USERNAME' | translate }}\n                  </mat-label>\n                  <input\n                    id=\"vui-credentials-dialog-username-input\"\n                    matInput\n                    (keyup.enter)=\"form.form.valid && connect()\"\n                    type=\"text\"\n                    [(ngModel)]=\"username\"\n                    name=\"username\"\n                    required\n                    cdkFocusInitial\n                  />\n                </mat-form-field>\n              </div>\n              <div layout=\"row\">\n                <mat-form-field appearance=\"outline\" flex>\n                  <mat-label>\n                    {{ 'PASSWORD' | translate }}\n                  </mat-label>\n                  <input\n                    id=\"vui-credentials-dialog-password-input\"\n                    matInput\n                    (keyup.enter)=\"form.form.valid && connect()\"\n                    type=\"password\"\n                    [(ngModel)]=\"password\"\n                    name=\"password\"\n                    required\n                  />\n                </mat-form-field>\n              </div>\n            </ng-container>\n          </ng-container>\n          <div\n            *ngIf=\"systems && systems.length === 0\"\n            id=\"vui-credentials-dialog-empty-state\"\n            layout=\"column\"\n            layout-align=\"center center\"\n            flex\n            class=\"bgc-surface tc-grey-500 mat-typography pad-lg\"\n            [style.height.%]=\"100\"\n          >\n            <mat-icon matListAvatar class=\"text-super push-bottom\">dns</mat-icon>\n            <h2>{{ 'NO_SYSTEMS' | translate }}</h2>\n            <h3 class=\"text-center\">{{ 'NO_SYSTEMS.NOTE' | translate }}</h3>\n          </div>\n        </form>\n      </mat-card-content>\n      <div layout=\"row\" layout-align=\"end center\" class=\"pull-right-lg\">\n        <button\n          id=\"vui-credentials-dialog-cancel-button\"\n          mat-button\n          class=\"text-upper push-right-sm\"\n          (click)=\"cancel()\"\n        >\n          {{ 'CANCEL' | translate }}\n        </button>\n        <button\n          id=\"vui-credentials-dialog-connect-button\"\n          mat-raised-button\n          [disabled]=\"!form.valid || !systems || systems?.length === 0\"\n          color=\"primary\"\n          class=\"text-upper\"\n          (click)=\"connect()\"\n        >\n          {{ 'CONNECT' | translate }}\n        </button>\n      </div>\n    </div>\n  </ng-template>\n</div>\n",
+                    styles: ["::ng-deep .vui-credentials-dialog-system .mat-form-field-infix{padding:.4em 0 .6em}::ng-deep .vui-credentials-dialog-system.mat-form-field-appearance-outline .mat-select-arrow-wrapper{-webkit-transform:translateY(-6%);transform:translateY(-6%)}::ng-deep .vui-credentials-dialog-system .vui-credentials-dialog-system-option .mat-option-text{line-height:14px}"]
+                }] }
+    ];
+    /** @nocollapse */
+    VantageCredentialsDialogComponent.ctorParameters = function () { return [
+        { type: MatDialogRef },
+        { type: VantageConnectionService },
+        { type: VantageSystemService },
+        { type: TdLoadingService },
+        { type: TranslateService }
+    ]; };
+    return VantageCredentialsDialogComponent;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageCredentialsDialogComponent.prototype._connectionAttempt$;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.connectionAttempt$;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.basicAuthEnabled;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.systems$;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.system;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.connectionType;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.username;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.password;
+    /** @type {?} */
+    VantageCredentialsDialogComponent.prototype.errorMsg;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageCredentialsDialogComponent.prototype._dialogRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageCredentialsDialogComponent.prototype._connectionService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageCredentialsDialogComponent.prototype._systemService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageCredentialsDialogComponent.prototype._loadingService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageCredentialsDialogComponent.prototype._translate;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var VantageSQLEModule = /** @class */ (function () {
     function VantageSQLEModule() {
     }
     VantageSQLEModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule],
+                    declarations: [VantageCredentialsDialogComponent],
+                    exports: [VantageCredentialsDialogComponent],
+                    imports: [
+                        CommonModule,
+                        FormsModule,
+                        MatCardModule,
+                        MatButtonModule,
+                        MatDialogModule,
+                        MatFormFieldModule,
+                        MatInputModule,
+                        MatSelectModule,
+                        MatRadioModule,
+                        MatIconModule,
+                        CovalentLoadingModule,
+                        CovalentMessageModule,
+                        VantageSystemModule,
+                        TranslateModule,
+                    ],
                     providers: [
                         VANTAGE_CONNECTION_PROVIDER,
                         VANTAGE_DICTIONARY_PROVIDER,
@@ -1893,5 +2118,5 @@ var VantageSQLEModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, current, sysDatabases };
+export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageCredentialsDialogComponent, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, current, sysDatabases };
 //# sourceMappingURL=td-vantage-ui-platform-sqle.js.map
