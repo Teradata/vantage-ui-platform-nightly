@@ -1,9 +1,9 @@
 import { Injectable, Optional, SkipSelf, Component, NgModule } from '@angular/core';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, map, tap, mapTo, switchMap, skipWhile, take, expand, retry } from 'rxjs/operators';
+import { catchError, map, timeout, retryWhen, mergeMap, tap, mapTo, switchMap, skipWhile, take, expand, retry } from 'rxjs/operators';
 import { TdHttpService } from '@covalent/http';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, throwError, of, timer, Subject } from 'rxjs';
+import { throwError, timer, BehaviorSubject, of, Subject } from 'rxjs';
 import { __awaiter } from 'tslib';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { TdLoadingService, CovalentLoadingModule } from '@covalent/core/loading';
@@ -133,7 +133,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -163,7 +163,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -193,7 +193,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -222,7 +222,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -251,7 +251,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -280,7 +280,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -309,7 +309,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -347,7 +347,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -376,7 +376,7 @@ class VantageQueryService {
          * @return {?}
          */
         (error) => {
-            throw error.error;
+            throw Object.assign({}, error.error, { httpStatus: error.status });
         })), map((/**
          * @param {?} resultSet
          * @return {?}
@@ -454,13 +454,38 @@ class VantageConnectionService {
     }
     /**
      * @param {?} connection
+     * @param {?=} opts
      * @return {?}
      */
-    connect(connection) {
+    connect(connection, opts) {
+        var _a;
         // clear connection before starting a new one
         this.disconnect();
         // test connection with SELECT 1
-        return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(tap((/**
+        return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(
+        // timeout connection if more than 7 seconds
+        timeout(((_a = opts) === null || _a === void 0 ? void 0 : _a.timeout) || 7000), 
+        // retry only after a certain number of attempts or if the error is something else than 420
+        retryWhen((/**
+         * @param {?} errors
+         * @return {?}
+         */
+        (errors) => {
+            return errors.pipe(mergeMap((/**
+             * @param {?} error
+             * @param {?} index
+             * @return {?}
+             */
+            (error, index) => {
+                var _a;
+                /** @type {?} */
+                const retryAttempt = index + 1;
+                if (retryAttempt > (((_a = opts) === null || _a === void 0 ? void 0 : _a.attempts) || 2) || error.httpStatus === 420) {
+                    return throwError(error);
+                }
+                return timer(0);
+            })));
+        })), tap((/**
          * @return {?}
          */
         () => this.store(connection))), // if successful, save

@@ -7,7 +7,10 @@ export declare class VantageConnectionService {
     constructor(_queryService: VantageQueryService);
     get current(): ISQLEConnection;
     disconnect(): void;
-    connect(connection: ISQLEConnection): Observable<ISQLEConnection>;
+    connect(connection: ISQLEConnection, opts?: {
+        timeout: number;
+        attempts: number;
+    }): Observable<ISQLEConnection>;
     private store;
 }
 export declare function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent: VantageConnectionService, queryService: VantageQueryService): VantageConnectionService;

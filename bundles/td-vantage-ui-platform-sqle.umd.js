@@ -317,7 +317,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -353,7 +353,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -389,7 +389,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -423,7 +423,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -457,7 +457,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -491,7 +491,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -525,7 +525,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -567,7 +567,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -601,7 +601,7 @@
              * @return {?}
              */
             function (error) {
-                throw error.error;
+                throw Object.assign({}, error.error, { httpStatus: error.status });
             })), operators.map((/**
              * @param {?} resultSet
              * @return {?}
@@ -684,18 +684,44 @@
         };
         /**
          * @param {?} connection
+         * @param {?=} opts
          * @return {?}
          */
         VantageConnectionService.prototype.connect = /**
          * @param {?} connection
+         * @param {?=} opts
          * @return {?}
          */
-        function (connection) {
+        function (connection, opts) {
             var _this = this;
+            var _a;
             // clear connection before starting a new one
             this.disconnect();
             // test connection with SELECT 1
-            return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(operators.tap((/**
+            return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(
+            // timeout connection if more than 7 seconds
+            operators.timeout(((_a = opts) === null || _a === void 0 ? void 0 : _a.timeout) || 7000), 
+            // retry only after a certain number of attempts or if the error is something else than 420
+            operators.retryWhen((/**
+             * @param {?} errors
+             * @return {?}
+             */
+            function (errors) {
+                return errors.pipe(operators.mergeMap((/**
+                 * @param {?} error
+                 * @param {?} index
+                 * @return {?}
+                 */
+                function (error, index) {
+                    var _a;
+                    /** @type {?} */
+                    var retryAttempt = index + 1;
+                    if (retryAttempt > (((_a = opts) === null || _a === void 0 ? void 0 : _a.attempts) || 2) || error.httpStatus === 420) {
+                        return rxjs.throwError(error);
+                    }
+                    return rxjs.timer(0);
+                })));
+            })), operators.tap((/**
              * @return {?}
              */
             function () { return _this.store(connection); })), // if successful, save
