@@ -116,13 +116,16 @@ var VantageQueryService = /** @class */ (function () {
      * @return {?}
      */
     function (connection, payload) {
+        var _a, _b, _c;
         /** @type {?} */
         var headers = new HttpHeaders()
             .append('Accept', 'application/vnd.com.teradata.rest-v1.0+json')
             .append('Content-Type', 'application/json');
         if (connection.creds) {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
-            payload.logMech = connection.system.system_attributes.attributes.log_mech || 'DEFAULT';
+            /** @type {?} */
+            var attributes = (_a = connection.system.system_attributes) === null || _a === void 0 ? void 0 : _a.attributes;
+            payload.logMech = ((_b = attributes) === null || _b === void 0 ? void 0 : _b.log_mech) || ((_c = attributes) === null || _c === void 0 ? void 0 : _c.logMech) || 'DEFAULT';
         }
         else {
             payload.logMech = 'JWT';
@@ -361,6 +364,7 @@ var VantageQueryService = /** @class */ (function () {
      * @return {?}
      */
     function (connection) {
+        var _a, _b, _c;
         /** @type {?} */
         var payload = {
             autoCommit: 'true',
@@ -373,7 +377,9 @@ var VantageQueryService = /** @class */ (function () {
             .append('Content-Type', 'application/json');
         if (connection.creds) {
             headers = headers.set('X-Auth-Credentials', 'Basic ' + connection.creds);
-            payload.logMech = connection.system.system_attributes.attributes.log_mech || 'DEFAULT';
+            /** @type {?} */
+            var attributes = (_a = connection.system.system_attributes) === null || _a === void 0 ? void 0 : _a.attributes;
+            payload.logMech = ((_b = attributes) === null || _b === void 0 ? void 0 : _b.log_mech) || ((_c = attributes) === null || _c === void 0 ? void 0 : _c.logMech) || 'DEFAULT';
         }
         else {
             payload.logMech = 'JWT';
