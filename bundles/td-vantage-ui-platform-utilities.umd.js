@@ -36,6 +36,8 @@
             if (error) {
                 /** @type {?} */
                 var config = {
+                    id: 'vui-error-dialog' + (error.error !== undefined ? "-" + error.error.toString() : ''),
+                    panelClass: 'vui-error-dialog',
                     title: this._translate.instant('THERE_WAS_A_PROBLEM'),
                     message: error.message,
                     disableClose: true,
