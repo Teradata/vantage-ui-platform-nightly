@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/td-vantage-ui-platform-account-profile.umd.js",
+  "module": "../fesm5/td-vantage-ui-platform-account-profile.js",
+  "es2015": "../fesm2015/td-vantage-ui-platform-account-profile.js",
+  "esm5": "../esm5/account-profile/td-vantage-ui-platform-account-profile.js",
+  "esm2015": "../esm2015/account-profile/td-vantage-ui-platform-account-profile.js",
+  "fesm5": "../fesm5/td-vantage-ui-platform-account-profile.js",
+  "fesm2015": "../fesm2015/td-vantage-ui-platform-account-profile.js",
+  "typings": "td-vantage-ui-platform-account-profile.d.ts",
+  "metadata": "td-vantage-ui-platform-account-profile.metadata.json",
+  "sideEffects": false,
+  "name": "@td-vantage/ui-platform/account-profile"
+}
