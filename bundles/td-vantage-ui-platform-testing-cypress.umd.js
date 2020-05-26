@@ -4,7 +4,7 @@
     (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].testing = global['td-vantage']['ui-platform'].testing || {}, global['td-vantage']['ui-platform'].testing.cypress = {}), global.moment));
 }(this, (function (exports, moment) { 'use strict';
 
-    moment = moment && moment.hasOwnProperty('default') ? moment['default'] : moment;
+    moment = moment && Object.prototype.hasOwnProperty.call(moment, 'default') ? moment['default'] : moment;
 
     /**
      * @fileoverview added by tsickle

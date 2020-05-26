@@ -17,8 +17,7 @@
     "@angular/material": "^9.0.0",
     "@covalent/core": "^3.0.0",
     "@covalent/http": "^3.0.0",
-    "@ngx-translate/core": "^12.0.0",
-    "tslib": "^1.10.0"
+    "@ngx-translate/core": "^12.0.0"
   },
   "main": "bundles/td-vantage-ui-platform.umd.js",
   "module": "fesm5/td-vantage-ui-platform.js",
@@ -29,5 +28,8 @@
   "fesm2015": "fesm2015/td-vantage-ui-platform.js",
   "typings": "td-vantage-ui-platform.d.ts",
   "metadata": "td-vantage-ui-platform.metadata.json",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
 }

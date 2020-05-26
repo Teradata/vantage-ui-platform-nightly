@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@covalent/core/dialogs'), require('@ngx-translate/core'), require('@angular/material/snack-bar'), require('@covalent/core/media'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/utilities', ['exports', '@angular/core', '@covalent/core/dialogs', '@ngx-translate/core', '@angular/material/snack-bar', '@covalent/core/media', '@angular/common'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].utilities = {}), global.ng.core, global.covalent.core.dialogs, global['ngx-translate'].core, global.ng.material['snack-bar'], global.covalent.core.media, global.ng.common));
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].utilities = {}), global.ng.core, global.covalent.core.dialogs, global['ngx-translate'].core, global.ng.material.snackBar, global.covalent.core.media, global.ng.common));
 }(this, (function (exports, core, dialogs, core$1, snackBar, media, common) { 'use strict';
 
     /**

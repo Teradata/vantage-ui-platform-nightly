@@ -1,22 +1,22 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@covalent/http'), require('@ngx-translate/core'), require('rxjs'), require('@angular/material/dialog'), require('@covalent/core/loading'), require('@td-vantage/ui-platform/system'), require('@angular/common'), require('@angular/forms'), require('@angular/material/card'), require('@angular/material/button'), require('@angular/material/form-field'), require('@angular/material/input'), require('@angular/material/select'), require('@angular/material/radio'), require('@angular/material/icon'), require('@covalent/core/message')) :
     typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@covalent/http', '@ngx-translate/core', 'rxjs', '@angular/material/dialog', '@covalent/core/loading', '@td-vantage/ui-platform/system', '@angular/common', '@angular/forms', '@angular/material/card', '@angular/material/button', '@angular/material/form-field', '@angular/material/input', '@angular/material/select', '@angular/material/radio', '@angular/material/icon', '@covalent/core/message'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.covalent.http, global['ngx-translate'].core, global.rxjs, global.ng.material.dialog, global.covalent.core.loading, global['td-vantage']['ui-platform'].system, global.ng.common, global.ng.forms, global.ng.material.card, global.ng.material.button, global.ng.material['form-field'], global.ng.material.input, global.ng.material.select, global.ng.material.radio, global.ng.material.icon, global.covalent.core.message));
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.covalent.http, global['ngx-translate'].core, global.rxjs, global.ng.material.dialog, global.covalent.core.loading, global['td-vantage']['ui-platform'].system, global.ng.common, global.ng.forms, global.ng.material.card, global.ng.material.button, global.ng.material.formField, global.ng.material.input, global.ng.material.select, global.ng.material.radio, global.ng.material.icon, global.covalent.core.message));
 }(this, (function (exports, core, http, operators, http$1, core$1, rxjs, dialog, loading, system, common, forms, card, button, formField, input, select, radio, icon, message) { 'use strict';
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -72,10 +72,11 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -108,19 +109,25 @@
         }
     }
 
+    function __createBinding(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    }
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -199,6 +206,21 @@
 
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
     }
 
     /**
@@ -2222,7 +2244,7 @@
             { type: core.Component, args: [{
                         selector: 'vui-sqle-credentials-dialog',
                         template: "<div layout=\"column\" layout-fill>\n  <ng-template tdLoading=\"system.connect\" tdLoadingStrategy=\"overlay\">\n    <div *tdLoading=\"let systems; until: systems$ | async\" flex layout=\"column\">\n      <mat-card-title>{{ 'CREATE_CONNECTION' | translate }}</mat-card-title>\n      <div *ngIf=\"errorMsg\">\n        <td-message [sublabel]=\"errorMsg\" color=\"warn\" id=\"vui-credentials-dialog-invalid-message\"></td-message>\n      </div>\n      <mat-card-content class=\"pad-top pad-right-xs pad-bottom pad-left-xs\" flex>\n        <form #form=\"ngForm\">\n          <ng-container *ngIf=\"systems?.length\">\n            <div layout=\"row\">\n              <mat-form-field class=\"vui-credentials-dialog-system\" appearance=\"outline\" flex>\n                <mat-label>\n                  {{ 'SYSTEM' | translate }}\n                </mat-label>\n                <mat-select\n                  id=\"vui-credentials-dialog-system-select\"\n                  [(ngModel)]=\"system\"\n                  name=\"system\"\n                  [compareWith]=\"compareSystemWith\"\n                  required\n                >\n                  <mat-select-trigger>\n                    <div class=\"mat-body-1\">{{ system.nickname }}</div>\n                    <div class=\"mat-caption tc\">{{ system.host }}:{{ system.port }}</div>\n                  </mat-select-trigger>\n                  <mat-option\n                    [id]=\"'vui-credentials-dialog-' + sys.nickname\"\n                    *ngFor=\"let sys of systems\"\n                    [value]=\"sys\"\n                    class=\"vui-credentials-dialog-system-option\"\n                  >\n                    <div class=\"mat-body-1\">{{ sys.nickname }}</div>\n                    <div class=\"mat-caption\">{{ sys.host }}:{{ sys.port }}</div>\n                  </mat-option>\n                </mat-select>\n              </mat-form-field>\n            </div>\n            <div *ngIf=\"basicAuthEnabled\" id=\"vui-credentials-dialog-connection\">\n              <div class=\"push-bottom\">\n                <mat-radio-group\n                  id=\"vui-credentials-dialog-connection-radio\"\n                  #radioGroup=\"matRadioGroup\"\n                  [(ngModel)]=\"connectionType\"\n                  name=\"connection\"\n                  layout=\"column\"\n                >\n                  <mat-radio-button class=\"push-xs\" [value]=\"false\">\n                    {{ 'USE_CURRENT_SESSION' | translate }}\n                  </mat-radio-button>\n                  <mat-radio-button class=\"push-xs\" [value]=\"true\">\n                    {{ 'ENTER_CREDENTIALS' | translate }}\n                  </mat-radio-button>\n                </mat-radio-group>\n              </div>\n              <ng-container *ngIf=\"connectionType\">\n                <div layout=\"row\">\n                  <mat-form-field appearance=\"outline\" flex>\n                    <mat-label>\n                      {{ 'USERNAME' | translate }}\n                    </mat-label>\n                    <input\n                      id=\"vui-credentials-dialog-username-input\"\n                      matInput\n                      (keyup.enter)=\"form.form.valid && connect()\"\n                      type=\"text\"\n                      [(ngModel)]=\"username\"\n                      name=\"username\"\n                      required\n                      cdkFocusInitial\n                    />\n                  </mat-form-field>\n                </div>\n                <div layout=\"row\">\n                  <mat-form-field appearance=\"outline\" flex>\n                    <mat-label>\n                      {{ 'PASSWORD' | translate }}\n                    </mat-label>\n                    <input\n                      id=\"vui-credentials-dialog-password-input\"\n                      matInput\n                      (keyup.enter)=\"form.form.valid && connect()\"\n                      type=\"password\"\n                      [(ngModel)]=\"password\"\n                      name=\"password\"\n                      required\n                    />\n                  </mat-form-field>\n                </div>\n              </ng-container>\n            </div>\n          </ng-container>\n          <div\n            *ngIf=\"systems && systems.length === 0\"\n            id=\"vui-credentials-dialog-empty-state\"\n            layout=\"column\"\n            layout-align=\"center center\"\n            flex\n            class=\"bgc-surface tc-grey-500 mat-typography pad-lg\"\n            [style.height.%]=\"100\"\n          >\n            <mat-icon matListAvatar class=\"text-super push-bottom\">dns</mat-icon>\n            <h2>{{ 'NO_SYSTEMS' | translate }}</h2>\n            <h3 class=\"text-center\">{{ 'NO_SYSTEMS.NOTE' | translate }}</h3>\n          </div>\n        </form>\n      </mat-card-content>\n      <div layout=\"row\" layout-align=\"end center\" class=\"pull-right-lg\">\n        <button\n          id=\"vui-credentials-dialog-cancel-button\"\n          mat-button\n          class=\"text-upper push-right-sm\"\n          (click)=\"cancel()\"\n        >\n          {{ 'CANCEL' | translate }}\n        </button>\n        <button\n          id=\"vui-credentials-dialog-connect-button\"\n          mat-raised-button\n          [disabled]=\"!form.valid || !systems || systems?.length === 0\"\n          color=\"primary\"\n          class=\"text-upper\"\n          (click)=\"connect()\"\n        >\n          {{ 'CONNECT' | translate }}\n        </button>\n      </div>\n    </div>\n  </ng-template>\n</div>\n",
-                        styles: ["::ng-deep .vui-credentials-dialog-system .mat-form-field-infix{padding:.4em 0 .6em}::ng-deep .vui-credentials-dialog-system.mat-form-field-appearance-outline .mat-select-arrow-wrapper{-webkit-transform:translateY(-6%);transform:translateY(-6%)}::ng-deep .vui-credentials-dialog-system .vui-credentials-dialog-system-option .mat-option-text{line-height:14px}"]
+                        styles: ["::ng-deep .vui-credentials-dialog-system .mat-form-field-infix{padding:.4em 0 .6em}::ng-deep .vui-credentials-dialog-system.mat-form-field-appearance-outline .mat-select-arrow-wrapper{transform:translateY(-6%)}::ng-deep .vui-credentials-dialog-system .vui-credentials-dialog-system-option .mat-option-text{line-height:14px}"]
                     }] }
         ];
         /** @nocollapse */
