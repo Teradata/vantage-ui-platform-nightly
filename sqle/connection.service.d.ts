@@ -6,7 +6,7 @@ export interface IConnectOptions {
     timeout: number;
     attempts: number;
 }
-export declare function stringify(connection: ISQLEConnection): string;
+export declare function generateConnectionKey(connection: ISQLEConnection): string;
 export declare class VantageConnectionService {
     private _queryService;
     private _sessionService;
@@ -29,7 +29,7 @@ export declare class VantageConnectionService {
     removeAll(): void;
     exists(connection: ISQLEConnection): boolean;
     isCurrent(connection: ISQLEConnection): boolean;
-    stringify(connection: ISQLEConnection): string;
+    generateKey(connection: ISQLEConnection): string;
     private _pingAndSave;
     private get _currentUsername();
     private _areEqual;

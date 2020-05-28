@@ -702,7 +702,7 @@
      * @param {?} connection
      * @return {?}
      */
-    function stringify(connection) {
+    function generateConnectionKey(connection) {
         if (connection) {
             return "" + connection.system.nickname + connection.creds;
         }
@@ -914,12 +914,12 @@
          * @param {?} connection
          * @return {?}
          */
-        VantageConnectionService.prototype.stringify = /**
+        VantageConnectionService.prototype.generateKey = /**
          * @param {?} connection
          * @return {?}
          */
         function (connection) {
-            return stringify(connection);
+            return generateConnectionKey(connection);
         };
         /**
          * @private
@@ -2684,7 +2684,7 @@
     exports.VantageQueryService = VantageQueryService;
     exports.VantageSQLEModule = VantageSQLEModule;
     exports.VantageSpooledQueryService = VantageSpooledQueryService;
-    exports.stringify = stringify;
+    exports.generateConnectionKey = generateConnectionKey;
     exports.sysDatabases = sysDatabases;
 
     Object.defineProperty(exports, '__esModule', { value: true });

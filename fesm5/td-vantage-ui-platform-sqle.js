@@ -499,7 +499,7 @@ if (false) {
  * @param {?} connection
  * @return {?}
  */
-function stringify(connection) {
+function generateConnectionKey(connection) {
     if (connection) {
         return "" + connection.system.nickname + connection.creds;
     }
@@ -711,12 +711,12 @@ var VantageConnectionService = /** @class */ (function () {
      * @param {?} connection
      * @return {?}
      */
-    VantageConnectionService.prototype.stringify = /**
+    VantageConnectionService.prototype.generateKey = /**
      * @param {?} connection
      * @return {?}
      */
     function (connection) {
-        return stringify(connection);
+        return generateConnectionKey(connection);
     };
     /**
      * @private
@@ -2477,5 +2477,5 @@ var VantageSQLEModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageCredentialsDialogComponent, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, stringify, sysDatabases };
+export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageCredentialsDialogComponent, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, generateConnectionKey, sysDatabases };
 //# sourceMappingURL=td-vantage-ui-platform-sqle.js.map
