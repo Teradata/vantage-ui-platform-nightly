@@ -3,7 +3,8 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map, timeout, retryWhen, mergeMap, tap, mapTo, switchMap, skipWhile, take, expand, retry } from 'rxjs/operators';
 import { TdHttpService } from '@covalent/http';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { throwError, timer, BehaviorSubject, of, Subject } from 'rxjs';
+import { BehaviorSubject, throwError, timer, of, Subject } from 'rxjs';
+import { VantageSessionService } from '@td-vantage/ui-platform/auth';
 import { __awaiter } from 'tslib';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { TdLoadingService, CovalentLoadingModule } from '@covalent/core/loading';
@@ -427,46 +428,212 @@ const VANTAGE_QUERY_PROVIDER = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const CONNECTION_SESSION_KEY = 'vantage.editor.connection';
+const CONNECTION_SESSION_KEY = 'vantage.connection_state';
 /**
+ * @record
+ */
+function IVantageConnectionState() { }
+if (false) {
+    /** @type {?|undefined} */
+    IVantageConnectionState.prototype.current;
+    /** @type {?} */
+    IVantageConnectionState.prototype.connections;
+    /** @type {?} */
+    IVantageConnectionState.prototype.username;
+}
+/**
+ * @record
+ */
+function IConnectOptions() { }
+if (false) {
+    /** @type {?} */
+    IConnectOptions.prototype.timeout;
+    /** @type {?} */
+    IConnectOptions.prototype.attempts;
+}
+/**
+ * @param {?} connection
  * @return {?}
  */
-function current() {
-    try {
-        return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
-    }
-    catch (_a) {
-        return undefined;
+function stringify(connection) {
+    if (connection) {
+        return `${connection.system.nickname}${connection.creds}`;
     }
 }
 class VantageConnectionService {
     /**
      * @param {?} _queryService
+     * @param {?} _sessionService
      */
-    constructor(_queryService) {
+    constructor(_queryService, _sessionService) {
         this._queryService = _queryService;
+        this._sessionService = _sessionService;
+        this._currentConnectionSubject = new BehaviorSubject(this._getConnectionState().current);
+        this._connectionsSubject = new BehaviorSubject(this._getConnectionState().connections);
+        this.currentConnection$ = this._currentConnectionSubject.asObservable();
+        this.connections$ = this._connectionsSubject.asObservable();
+        /** @type {?} */
+        const connectionState = this._getConnectionState();
+        if (connectionState && connectionState.username !== this._currentUsername) {
+            // mismatch, so clear
+            this._connections = [];
+            this._currentConnection = undefined;
+        }
+    }
+    /**
+     * @private
+     * @param {?} connection
+     * @return {?}
+     */
+    set _currentConnection(connection) {
+        this._setConnectionState({
+            current: connection,
+            connections: this._connections,
+            username: this._currentUsername,
+        });
+        this._currentConnectionSubject.next(connection);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    get _currentConnection() {
+        return this._currentConnectionSubject.getValue();
     }
     /**
      * @return {?}
      */
-    get current() {
-        return current();
+    get currentConnection() {
+        return this._currentConnection;
+    }
+    /**
+     * @private
+     * @param {?} connections
+     * @return {?}
+     */
+    set _connections(connections) {
+        this._setConnectionState({
+            current: this._currentConnection,
+            connections,
+            username: this._currentUsername,
+        });
+        this._connectionsSubject.next(connections);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    get _connections() {
+        return this._connectionsSubject.getValue();
     }
     /**
      * @return {?}
      */
-    disconnect() {
-        sessionStorage.removeItem(CONNECTION_SESSION_KEY);
+    get connections() {
+        return this._connections;
     }
     /**
      * @param {?} connection
+     * @param {?=} options
+     * @return {?}
+     */
+    addAndSetAsCurrent(connection, options) {
+        if (this._getConnectionIndex(connection) > -1) {
+            throw Error('Connection already exists');
+        }
+        else {
+            return this._pingAndSave(connection, true, options);
+        }
+    }
+    /**
+     * @param {?} connection
+     * @param {?=} options
+     * @return {?}
+     */
+    add(connection, options) {
+        if (this._getConnectionIndex(connection) > -1) {
+            throw Error('Connection already exists');
+        }
+        else {
+            return this._pingAndSave(connection, false, options);
+        }
+    }
+    /**
+     * @param {?} connection
+     * @param {?=} options
+     * @return {?}
+     */
+    setAsCurrent(connection, options) {
+        if (this._getConnectionIndex(connection) > -1) {
+            return this._pingAndSave(connection, true, options);
+        }
+        else {
+            throw Error('Connection does not exist');
+        }
+    }
+    /**
+     * @param {?} connection
+     * @return {?}
+     */
+    remove(connection) {
+        /** @type {?} */
+        const index = this._getConnectionIndex(connection);
+        if (index > -1) {
+            this._connections = [...this._connections.slice(0, index), ...this._connections.slice(index + 1)];
+            this._currentConnection =
+                this._currentConnection && this._areEqual(this._currentConnection, connection)
+                    ? undefined
+                    : this._currentConnection;
+            return connection;
+        }
+        else {
+            // connection does not exist but that is fine?
+            return undefined;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    unsetAsCurrent() {
+        this._currentConnection = undefined;
+    }
+    /**
+     * @return {?}
+     */
+    removeAll() {
+        this._connections = [];
+        this._currentConnection = undefined;
+    }
+    /**
+     * @param {?} connection
+     * @return {?}
+     */
+    exists(connection) {
+        return this._getConnectionIndex(connection) > -1;
+    }
+    /**
+     * @param {?} connection
+     * @return {?}
+     */
+    isCurrent(connection) {
+        return this._areEqual(connection, this.currentConnection);
+    }
+    /**
+     * @param {?} connection
+     * @return {?}
+     */
+    stringify(connection) {
+        return stringify(connection);
+    }
+    /**
+     * @private
+     * @param {?} connection
+     * @param {?} setAsCurrent
      * @param {?=} opts
      * @return {?}
      */
-    connect(connection, opts) {
+    _pingAndSave(connection, setAsCurrent, opts) {
         var _a;
-        // clear connection before starting a new one
-        this.disconnect();
         // test connection with SELECT 1
         return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(
         // timeout connection if more than 7 seconds
@@ -494,16 +661,78 @@ class VantageConnectionService {
         })), tap((/**
          * @return {?}
          */
-        () => this.store(connection))), // if successful, save
-        mapTo(connection));
+        () => {
+            // if successful, save
+            /** @type {?} */
+            const index = this._getConnectionIndex(connection);
+            if (index === -1) {
+                this._connections = [...this._connections, connection];
+            }
+            if (setAsCurrent) {
+                this._currentConnection = connection;
+            }
+        })), mapTo(connection));
     }
     /**
      * @private
-     * @param {?} __0
      * @return {?}
      */
-    store({ system, creds }) {
-        sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify({ system, creds }));
+    get _currentUsername() {
+        return this._sessionService.user && this._sessionService.user.username;
+    }
+    /**
+     * @private
+     * @param {?} connectionA
+     * @param {?} connectionB
+     * @return {?}
+     */
+    _areEqual(connectionA, connectionB) {
+        return connectionA.creds === connectionB.creds && connectionA.system.nickname === connectionB.system.nickname;
+    }
+    /**
+     * @private
+     * @param {?} connection
+     * @return {?}
+     */
+    _getConnectionIndex(connection) {
+        return this.connections.findIndex((/**
+         * @param {?} conn
+         * @return {?}
+         */
+        (conn) => this._areEqual(connection, conn)));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    _getConnectionState() {
+        try {
+            /** @type {?} */
+            const connectionState = JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+            if (connectionState) {
+                return connectionState;
+            }
+            return {
+                username: undefined,
+                current: undefined,
+                connections: [],
+            };
+        }
+        catch (_a) {
+            return {
+                username: undefined,
+                current: undefined,
+                connections: [],
+            };
+        }
+    }
+    /**
+     * @private
+     * @param {?} connectionState
+     * @return {?}
+     */
+    _setConnectionState(connectionState) {
+        sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify(connectionState));
     }
 }
 VantageConnectionService.decorators = [
@@ -511,28 +740,49 @@ VantageConnectionService.decorators = [
 ];
 /** @nocollapse */
 VantageConnectionService.ctorParameters = () => [
-    { type: VantageQueryService }
+    { type: VantageQueryService },
+    { type: VantageSessionService }
 ];
 if (false) {
     /**
      * @type {?}
      * @private
      */
+    VantageConnectionService.prototype._currentConnectionSubject;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageConnectionService.prototype._connectionsSubject;
+    /** @type {?} */
+    VantageConnectionService.prototype.currentConnection$;
+    /** @type {?} */
+    VantageConnectionService.prototype.connections$;
+    /**
+     * @type {?}
+     * @private
+     */
     VantageConnectionService.prototype._queryService;
+    /**
+     * @type {?}
+     * @private
+     */
+    VantageConnectionService.prototype._sessionService;
 }
 /**
  * @param {?} parent
  * @param {?} queryService
+ * @param {?} sessionService
  * @return {?}
  */
-function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService) {
-    return parent || new VantageConnectionService(queryService);
+function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService, sessionService) {
+    return parent || new VantageConnectionService(queryService, sessionService);
 }
 /** @type {?} */
 const VANTAGE_CONNECTION_PROVIDER = {
     // If there is already a service available, use that. Otherwise, provide a new one.
     provide: VantageConnectionService,
-    deps: [[new Optional(), new SkipSelf(), VantageConnectionService], VantageQueryService],
+    deps: [[new Optional(), new SkipSelf(), VantageConnectionService], VantageQueryService, VantageSessionService],
     useFactory: VANTAGE_CONNECTION_PROVIDER_FACTORY,
 };
 
@@ -596,7 +846,9 @@ class VantageSpooledQueryService {
      * @return {?}
      */
     querySystem(payload) {
-        return this.queryService.querySystem(this.connectionService.current, Object.assign(Object.assign({}, payload), { spooledResultSet: true })).pipe(tap((/**
+        return this.queryService
+            .querySystem(this.connectionService.currentConnection, Object.assign(Object.assign({}, payload), { spooledResultSet: true }))
+            .pipe(tap((/**
          * @param {?} res
          * @return {?}
          */
@@ -608,7 +860,7 @@ class VantageSpooledQueryService {
          * @param {?} id
          * @return {?}
          */
-        (id) => this.queryService.getQuery(this.connectionService.current, id.toString()).pipe(map((/**
+        (id) => this.queryService.getQuery(this.connectionService.currentConnection, id.toString()).pipe(map((/**
          * @param {?} query
          * @return {?}
          */
@@ -628,7 +880,7 @@ class VantageSpooledQueryService {
          * @param {?} __0
          * @return {?}
          */
-        ([id]) => this.queryService.getQueryResult(this.connectionService.current, id).pipe(map((/**
+        ([id]) => this.queryService.getQueryResult(this.connectionService.currentConnection, id).pipe(map((/**
          * @param {?} val
          * @return {?}
          */
@@ -676,7 +928,9 @@ class VantageSpooledQueryService {
      * @return {?}
      */
     deleteSpooledQuery(queryId) {
-        this.queryService.deleteQuery(this.connectionService.current, queryId).subscribe(undefined, (/**
+        this.queryService
+            .deleteQuery(this.connectionService.currentConnection, queryId)
+            .subscribe(undefined, (/**
          * @param {?} err
          * @return {?}
          */
@@ -1893,7 +2147,12 @@ class VantageCredentialsDialogComponent {
                 const connection = this.connectionType
                     ? { system: this.system, creds: btoa(this.username + ':' + this.password) }
                     : { system: this.system };
-                yield this._connectionService.connect(connection).toPromise();
+                if (this._connectionService.exists(connection)) {
+                    yield this._connectionService.setAsCurrent(connection).toPromise();
+                }
+                else {
+                    yield this._connectionService.addAndSetAsCurrent(connection).toPromise();
+                }
                 this._dialogRef.close(connection);
             }
             catch (error) {
@@ -2023,5 +2282,5 @@ VantageSQLEModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageCredentialsDialogComponent, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, current, sysDatabases };
+export { VANTAGE_CONNECTION_PROVIDER, VANTAGE_CONNECTION_PROVIDER_FACTORY, VANTAGE_DICTIONARY_PROVIDER, VANTAGE_DICTIONARY_PROVIDER_FACTORY, VANTAGE_QUERY_PROVIDER, VANTAGE_QUERY_PROVIDER_FACTORY, VANTAGE_SPOOLED_QUERY_PROVIDER, VANTAGE_SPOOLED_QUERY_PROVIDER_FACTORY, VantageConnectionService, VantageCredentialsDialogComponent, VantageDictionaryService, VantageQueryService, VantageSQLEModule, VantageSpooledQueryService, stringify, sysDatabases };
 //# sourceMappingURL=td-vantage-ui-platform-sqle.js.map

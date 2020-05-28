@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@covalent/http'), require('@ngx-translate/core'), require('rxjs'), require('@angular/material/dialog'), require('@covalent/core/loading'), require('@td-vantage/ui-platform/system'), require('@angular/common'), require('@angular/forms'), require('@angular/material/card'), require('@angular/material/button'), require('@angular/material/form-field'), require('@angular/material/input'), require('@angular/material/select'), require('@angular/material/radio'), require('@angular/material/icon'), require('@covalent/core/message')) :
-    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@covalent/http', '@ngx-translate/core', 'rxjs', '@angular/material/dialog', '@covalent/core/loading', '@td-vantage/ui-platform/system', '@angular/common', '@angular/forms', '@angular/material/card', '@angular/material/button', '@angular/material/form-field', '@angular/material/input', '@angular/material/select', '@angular/material/radio', '@angular/material/icon', '@covalent/core/message'], factory) :
-    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.covalent.http, global['ngx-translate'].core, global.rxjs, global.ng.material.dialog, global.covalent.core.loading, global['td-vantage']['ui-platform'].system, global.ng.common, global.ng.forms, global.ng.material.card, global.ng.material.button, global.ng.material.formField, global.ng.material.input, global.ng.material.select, global.ng.material.radio, global.ng.material.icon, global.covalent.core.message));
-}(this, (function (exports, core, http, operators, http$1, core$1, rxjs, dialog, loading, system, common, forms, card, button, formField, input, select, radio, icon, message) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('rxjs/operators'), require('@covalent/http'), require('@ngx-translate/core'), require('rxjs'), require('@td-vantage/ui-platform/auth'), require('@angular/material/dialog'), require('@covalent/core/loading'), require('@td-vantage/ui-platform/system'), require('@angular/common'), require('@angular/forms'), require('@angular/material/card'), require('@angular/material/button'), require('@angular/material/form-field'), require('@angular/material/input'), require('@angular/material/select'), require('@angular/material/radio'), require('@angular/material/icon'), require('@covalent/core/message')) :
+    typeof define === 'function' && define.amd ? define('@td-vantage/ui-platform/sqle', ['exports', '@angular/core', '@angular/common/http', 'rxjs/operators', '@covalent/http', '@ngx-translate/core', 'rxjs', '@td-vantage/ui-platform/auth', '@angular/material/dialog', '@covalent/core/loading', '@td-vantage/ui-platform/system', '@angular/common', '@angular/forms', '@angular/material/card', '@angular/material/button', '@angular/material/form-field', '@angular/material/input', '@angular/material/select', '@angular/material/radio', '@angular/material/icon', '@covalent/core/message'], factory) :
+    (global = global || self, factory((global['td-vantage'] = global['td-vantage'] || {}, global['td-vantage']['ui-platform'] = global['td-vantage']['ui-platform'] || {}, global['td-vantage']['ui-platform'].sqle = {}), global.ng.core, global.ng.common.http, global.rxjs.operators, global.covalent.http, global['ngx-translate'].core, global.rxjs, global['td-vantage']['ui-platform'].auth, global.ng.material.dialog, global.covalent.core.loading, global['td-vantage']['ui-platform'].system, global.ng.common, global.ng.forms, global.ng.material.card, global.ng.material.button, global.ng.material.formField, global.ng.material.input, global.ng.material.select, global.ng.material.radio, global.ng.material.icon, global.covalent.core.message));
+}(this, (function (exports, core, http, operators, http$1, core$1, rxjs, auth, dialog, loading, system, common, forms, card, button, formField, input, select, radio, icon, message) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -675,56 +675,269 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
-    var CONNECTION_SESSION_KEY = 'vantage.editor.connection';
+    var CONNECTION_SESSION_KEY = 'vantage.connection_state';
     /**
+     * @record
+     */
+    function IVantageConnectionState() { }
+    if (false) {
+        /** @type {?|undefined} */
+        IVantageConnectionState.prototype.current;
+        /** @type {?} */
+        IVantageConnectionState.prototype.connections;
+        /** @type {?} */
+        IVantageConnectionState.prototype.username;
+    }
+    /**
+     * @record
+     */
+    function IConnectOptions() { }
+    if (false) {
+        /** @type {?} */
+        IConnectOptions.prototype.timeout;
+        /** @type {?} */
+        IConnectOptions.prototype.attempts;
+    }
+    /**
+     * @param {?} connection
      * @return {?}
      */
-    function current() {
-        try {
-            return JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
-        }
-        catch (_a) {
-            return undefined;
+    function stringify(connection) {
+        if (connection) {
+            return "" + connection.system.nickname + connection.creds;
         }
     }
     var VantageConnectionService = /** @class */ (function () {
-        function VantageConnectionService(_queryService) {
+        function VantageConnectionService(_queryService, _sessionService) {
             this._queryService = _queryService;
+            this._sessionService = _sessionService;
+            this._currentConnectionSubject = new rxjs.BehaviorSubject(this._getConnectionState().current);
+            this._connectionsSubject = new rxjs.BehaviorSubject(this._getConnectionState().connections);
+            this.currentConnection$ = this._currentConnectionSubject.asObservable();
+            this.connections$ = this._connectionsSubject.asObservable();
+            /** @type {?} */
+            var connectionState = this._getConnectionState();
+            if (connectionState && connectionState.username !== this._currentUsername) {
+                // mismatch, so clear
+                this._connections = [];
+                this._currentConnection = undefined;
+            }
         }
-        Object.defineProperty(VantageConnectionService.prototype, "current", {
+        Object.defineProperty(VantageConnectionService.prototype, "_currentConnection", {
+            get: /**
+             * @private
+             * @return {?}
+             */
+            function () {
+                return this._currentConnectionSubject.getValue();
+            },
+            set: /**
+             * @private
+             * @param {?} connection
+             * @return {?}
+             */
+            function (connection) {
+                this._setConnectionState({
+                    current: connection,
+                    connections: this._connections,
+                    username: this._currentUsername,
+                });
+                this._currentConnectionSubject.next(connection);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VantageConnectionService.prototype, "currentConnection", {
             get: /**
              * @return {?}
              */
             function () {
-                return current();
+                return this._currentConnection;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VantageConnectionService.prototype, "_connections", {
+            get: /**
+             * @private
+             * @return {?}
+             */
+            function () {
+                return this._connectionsSubject.getValue();
+            },
+            set: /**
+             * @private
+             * @param {?} connections
+             * @return {?}
+             */
+            function (connections) {
+                this._setConnectionState({
+                    current: this._currentConnection,
+                    connections: connections,
+                    username: this._currentUsername,
+                });
+                this._connectionsSubject.next(connections);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(VantageConnectionService.prototype, "connections", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._connections;
             },
             enumerable: true,
             configurable: true
         });
         /**
+         * @param {?} connection
+         * @param {?=} options
          * @return {?}
          */
-        VantageConnectionService.prototype.disconnect = /**
+        VantageConnectionService.prototype.addAndSetAsCurrent = /**
+         * @param {?} connection
+         * @param {?=} options
          * @return {?}
          */
-        function () {
-            sessionStorage.removeItem(CONNECTION_SESSION_KEY);
+        function (connection, options) {
+            if (this._getConnectionIndex(connection) > -1) {
+                throw Error('Connection already exists');
+            }
+            else {
+                return this._pingAndSave(connection, true, options);
+            }
         };
         /**
          * @param {?} connection
-         * @param {?=} opts
+         * @param {?=} options
          * @return {?}
          */
-        VantageConnectionService.prototype.connect = /**
+        VantageConnectionService.prototype.add = /**
          * @param {?} connection
+         * @param {?=} options
+         * @return {?}
+         */
+        function (connection, options) {
+            if (this._getConnectionIndex(connection) > -1) {
+                throw Error('Connection already exists');
+            }
+            else {
+                return this._pingAndSave(connection, false, options);
+            }
+        };
+        /**
+         * @param {?} connection
+         * @param {?=} options
+         * @return {?}
+         */
+        VantageConnectionService.prototype.setAsCurrent = /**
+         * @param {?} connection
+         * @param {?=} options
+         * @return {?}
+         */
+        function (connection, options) {
+            if (this._getConnectionIndex(connection) > -1) {
+                return this._pingAndSave(connection, true, options);
+            }
+            else {
+                throw Error('Connection does not exist');
+            }
+        };
+        /**
+         * @param {?} connection
+         * @return {?}
+         */
+        VantageConnectionService.prototype.remove = /**
+         * @param {?} connection
+         * @return {?}
+         */
+        function (connection) {
+            /** @type {?} */
+            var index = this._getConnectionIndex(connection);
+            if (index > -1) {
+                this._connections = __spread(this._connections.slice(0, index), this._connections.slice(index + 1));
+                this._currentConnection =
+                    this._currentConnection && this._areEqual(this._currentConnection, connection)
+                        ? undefined
+                        : this._currentConnection;
+                return connection;
+            }
+            else {
+                // connection does not exist but that is fine?
+                return undefined;
+            }
+        };
+        /**
+         * @return {?}
+         */
+        VantageConnectionService.prototype.unsetAsCurrent = /**
+         * @return {?}
+         */
+        function () {
+            this._currentConnection = undefined;
+        };
+        /**
+         * @return {?}
+         */
+        VantageConnectionService.prototype.removeAll = /**
+         * @return {?}
+         */
+        function () {
+            this._connections = [];
+            this._currentConnection = undefined;
+        };
+        /**
+         * @param {?} connection
+         * @return {?}
+         */
+        VantageConnectionService.prototype.exists = /**
+         * @param {?} connection
+         * @return {?}
+         */
+        function (connection) {
+            return this._getConnectionIndex(connection) > -1;
+        };
+        /**
+         * @param {?} connection
+         * @return {?}
+         */
+        VantageConnectionService.prototype.isCurrent = /**
+         * @param {?} connection
+         * @return {?}
+         */
+        function (connection) {
+            return this._areEqual(connection, this.currentConnection);
+        };
+        /**
+         * @param {?} connection
+         * @return {?}
+         */
+        VantageConnectionService.prototype.stringify = /**
+         * @param {?} connection
+         * @return {?}
+         */
+        function (connection) {
+            return stringify(connection);
+        };
+        /**
+         * @private
+         * @param {?} connection
+         * @param {?} setAsCurrent
          * @param {?=} opts
          * @return {?}
          */
-        function (connection, opts) {
+        VantageConnectionService.prototype._pingAndSave = /**
+         * @private
+         * @param {?} connection
+         * @param {?} setAsCurrent
+         * @param {?=} opts
+         * @return {?}
+         */
+        function (connection, setAsCurrent, opts) {
             var _this = this;
             var _a;
-            // clear connection before starting a new one
-            this.disconnect();
             // test connection with SELECT 1
             return this._queryService.querySystem(connection, { query: 'SELECT 1;' }).pipe(
             // timeout connection if more than 7 seconds
@@ -752,29 +965,111 @@
             })), operators.tap((/**
              * @return {?}
              */
-            function () { return _this.store(connection); })), // if successful, save
-            operators.mapTo(connection));
+            function () {
+                // if successful, save
+                /** @type {?} */
+                var index = _this._getConnectionIndex(connection);
+                if (index === -1) {
+                    _this._connections = __spread(_this._connections, [connection]);
+                }
+                if (setAsCurrent) {
+                    _this._currentConnection = connection;
+                }
+            })), operators.mapTo(connection));
+        };
+        Object.defineProperty(VantageConnectionService.prototype, "_currentUsername", {
+            get: /**
+             * @private
+             * @return {?}
+             */
+            function () {
+                return this._sessionService.user && this._sessionService.user.username;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @private
+         * @param {?} connectionA
+         * @param {?} connectionB
+         * @return {?}
+         */
+        VantageConnectionService.prototype._areEqual = /**
+         * @private
+         * @param {?} connectionA
+         * @param {?} connectionB
+         * @return {?}
+         */
+        function (connectionA, connectionB) {
+            return connectionA.creds === connectionB.creds && connectionA.system.nickname === connectionB.system.nickname;
         };
         /**
          * @private
-         * @param {?} __0
+         * @param {?} connection
          * @return {?}
          */
-        VantageConnectionService.prototype.store = /**
+        VantageConnectionService.prototype._getConnectionIndex = /**
          * @private
-         * @param {?} __0
+         * @param {?} connection
          * @return {?}
          */
-        function (_a) {
-            var system = _a.system, creds = _a.creds;
-            sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify({ system: system, creds: creds }));
+        function (connection) {
+            var _this = this;
+            return this.connections.findIndex((/**
+             * @param {?} conn
+             * @return {?}
+             */
+            function (conn) { return _this._areEqual(connection, conn); }));
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        VantageConnectionService.prototype._getConnectionState = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            try {
+                /** @type {?} */
+                var connectionState = JSON.parse(sessionStorage.getItem(CONNECTION_SESSION_KEY));
+                if (connectionState) {
+                    return connectionState;
+                }
+                return {
+                    username: undefined,
+                    current: undefined,
+                    connections: [],
+                };
+            }
+            catch (_a) {
+                return {
+                    username: undefined,
+                    current: undefined,
+                    connections: [],
+                };
+            }
+        };
+        /**
+         * @private
+         * @param {?} connectionState
+         * @return {?}
+         */
+        VantageConnectionService.prototype._setConnectionState = /**
+         * @private
+         * @param {?} connectionState
+         * @return {?}
+         */
+        function (connectionState) {
+            sessionStorage.setItem(CONNECTION_SESSION_KEY, JSON.stringify(connectionState));
         };
         VantageConnectionService.decorators = [
             { type: core.Injectable }
         ];
         /** @nocollapse */
         VantageConnectionService.ctorParameters = function () { return [
-            { type: VantageQueryService }
+            { type: VantageQueryService },
+            { type: auth.VantageSessionService }
         ]; };
         return VantageConnectionService;
     }());
@@ -783,21 +1078,41 @@
          * @type {?}
          * @private
          */
+        VantageConnectionService.prototype._currentConnectionSubject;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageConnectionService.prototype._connectionsSubject;
+        /** @type {?} */
+        VantageConnectionService.prototype.currentConnection$;
+        /** @type {?} */
+        VantageConnectionService.prototype.connections$;
+        /**
+         * @type {?}
+         * @private
+         */
         VantageConnectionService.prototype._queryService;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageConnectionService.prototype._sessionService;
     }
     /**
      * @param {?} parent
      * @param {?} queryService
+     * @param {?} sessionService
      * @return {?}
      */
-    function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService) {
-        return parent || new VantageConnectionService(queryService);
+    function VANTAGE_CONNECTION_PROVIDER_FACTORY(parent, queryService, sessionService) {
+        return parent || new VantageConnectionService(queryService, sessionService);
     }
     /** @type {?} */
     var VANTAGE_CONNECTION_PROVIDER = {
         // If there is already a service available, use that. Otherwise, provide a new one.
         provide: VantageConnectionService,
-        deps: [[new core.Optional(), new core.SkipSelf(), VantageConnectionService], VantageQueryService],
+        deps: [[new core.Optional(), new core.SkipSelf(), VantageConnectionService], VantageQueryService, auth.VantageSessionService],
         useFactory: VANTAGE_CONNECTION_PROVIDER_FACTORY,
     };
 
@@ -867,7 +1182,9 @@
          */
         function (payload) {
             var _this = this;
-            return this.queryService.querySystem(this.connectionService.current, __assign(__assign({}, payload), { spooledResultSet: true })).pipe(operators.tap((/**
+            return this.queryService
+                .querySystem(this.connectionService.currentConnection, __assign(__assign({}, payload), { spooledResultSet: true }))
+                .pipe(operators.tap((/**
              * @param {?} res
              * @return {?}
              */
@@ -880,7 +1197,7 @@
              * @return {?}
              */
             function (id) {
-                return _this.queryService.getQuery(_this.connectionService.current, id.toString()).pipe(operators.map((/**
+                return _this.queryService.getQuery(_this.connectionService.currentConnection, id.toString()).pipe(operators.map((/**
                  * @param {?} query
                  * @return {?}
                  */
@@ -906,7 +1223,7 @@
              */
             function (_a) {
                 var _b = __read(_a, 1), id = _b[0];
-                return _this.queryService.getQueryResult(_this.connectionService.current, id).pipe(operators.map((/**
+                return _this.queryService.getQueryResult(_this.connectionService.currentConnection, id).pipe(operators.map((/**
                  * @param {?} val
                  * @return {?}
                  */
@@ -974,7 +1291,9 @@
          */
         function (queryId) {
             var _this = this;
-            this.queryService.deleteQuery(this.connectionService.current, queryId).subscribe(undefined, (/**
+            this.queryService
+                .deleteQuery(this.connectionService.currentConnection, queryId)
+                .subscribe(undefined, (/**
              * @param {?} err
              * @return {?}
              */
@@ -2203,7 +2522,7 @@
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 2, 3, 4]);
+                            _a.trys.push([0, 5, 6, 7]);
                             this.errorMsg = undefined;
                             // block users from closing the dialog while connecting
                             this._dialogRef.disableClose = true;
@@ -2211,22 +2530,29 @@
                             connection = this.connectionType
                                 ? { system: this.system, creds: btoa(this.username + ':' + this.password) }
                                 : { system: this.system };
-                            return [4 /*yield*/, this._connectionService.connect(connection).toPromise()];
+                            if (!this._connectionService.exists(connection)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this._connectionService.setAsCurrent(connection).toPromise()];
                         case 1:
                             _a.sent();
-                            this._dialogRef.close(connection);
                             return [3 /*break*/, 4];
-                        case 2:
+                        case 2: return [4 /*yield*/, this._connectionService.addAndSetAsCurrent(connection).toPromise()];
+                        case 3:
+                            _a.sent();
+                            _a.label = 4;
+                        case 4:
+                            this._dialogRef.close(connection);
+                            return [3 /*break*/, 7];
+                        case 5:
                             error_1 = _a.sent();
                             this.errorMsg = error_1.message;
-                            return [3 /*break*/, 4];
-                        case 3:
+                            return [3 /*break*/, 7];
+                        case 6:
                             this._connectionAttempt$.next();
                             // allow users to close dialog again
                             this._dialogRef.disableClose = false;
                             this._loadingService.resolve('system.connect');
                             return [7 /*endfinally*/];
-                        case 4: return [2 /*return*/];
+                        case 7: return [2 /*return*/];
                     }
                 });
             });
@@ -2358,7 +2684,7 @@
     exports.VantageQueryService = VantageQueryService;
     exports.VantageSQLEModule = VantageSQLEModule;
     exports.VantageSpooledQueryService = VantageSpooledQueryService;
-    exports.current = current;
+    exports.stringify = stringify;
     exports.sysDatabases = sysDatabases;
 
     Object.defineProperty(exports, '__esModule', { value: true });
