@@ -1,0 +1,7 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { VantageUserProfileComponent } from './user-profile.component';
+export { VantageUserProfileModule } from './user-profile.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B0ZC12YW50YWdlL3VpLXBsYXRmb3JtL3VzZXItcHJvZmlsZS8iLCJzb3VyY2VzIjpbInB1YmxpY19hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLDRDQUFjLDBCQUEwQixDQUFDO0FBQ3pDLHlDQUFjLHVCQUF1QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSAnLi91c2VyLXByb2ZpbGUuY29tcG9uZW50JztcbmV4cG9ydCAqIGZyb20gJy4vdXNlci1wcm9maWxlLm1vZHVsZSc7XG4iXX0=
