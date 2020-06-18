@@ -11,6 +11,7 @@ export interface IQueryPayload {
     format?: string;
     includeColumns?: boolean;
     includeColumnsTypes?: boolean;
+    outputNumbersAsStrings?: boolean;
     spooledResultSet?: boolean;
     clientId?: string;
 }

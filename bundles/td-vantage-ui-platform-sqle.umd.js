@@ -249,6 +249,8 @@
         /** @type {?|undefined} */
         IQueryPayload.prototype.includeColumnsTypes;
         /** @type {?|undefined} */
+        IQueryPayload.prototype.outputNumbersAsStrings;
+        /** @type {?|undefined} */
         IQueryPayload.prototype.spooledResultSet;
         /** @type {?|undefined} */
         IQueryPayload.prototype.clientId;
