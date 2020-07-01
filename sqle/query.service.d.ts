@@ -27,9 +27,11 @@ export interface IQueryResultSetResult {
     resultSet: boolean;
     rowCount: number;
     rowLimitExceeded: boolean;
-    columns?: {
-        [name: string]: string;
-    }[];
+    columns?: IQueryResultSetColumn[];
+}
+export interface IQueryResultSetColumn {
+    name: string;
+    type: string;
 }
 export interface IQueryInfo {
     success?: boolean;

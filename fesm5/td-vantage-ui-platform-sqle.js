@@ -83,6 +83,16 @@ if (false) {
 /**
  * @record
  */
+function IQueryResultSetColumn() { }
+if (false) {
+    /** @type {?} */
+    IQueryResultSetColumn.prototype.name;
+    /** @type {?} */
+    IQueryResultSetColumn.prototype.type;
+}
+/**
+ * @record
+ */
 function IQueryInfo() { }
 if (false) {
     /** @type {?|undefined} */
