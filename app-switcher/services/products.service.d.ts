@@ -8,6 +8,7 @@ export interface IVantageAppSwitcherItem {
     svgIcon?: string;
     iconClasses?: string[];
     divider?: boolean;
+    newTab?: boolean;
 }
 declare const VantageProductsService_base: new (...args: any[]) => any;
 export declare class VantageProductsService extends VantageProductsService_base {
