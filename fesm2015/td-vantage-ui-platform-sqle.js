@@ -114,6 +114,22 @@ if (false) {
     /** @type {?|undefined} */
     ISQLEConnection.prototype.creds;
 }
+/**
+ * @record
+ */
+function ISessionPayload() { }
+if (false) {
+    /** @type {?} */
+    ISessionPayload.prototype.autoCommit;
+    /** @type {?} */
+    ISessionPayload.prototype.transactionMode;
+    /** @type {?} */
+    ISessionPayload.prototype.charSet;
+    /** @type {?|undefined} */
+    ISessionPayload.prototype.defaultDatabase;
+    /** @type {?|undefined} */
+    ISessionPayload.prototype.logMech;
+}
 class VantageQueryService {
     /**
      * @param {?} _http
@@ -336,16 +352,11 @@ class VantageQueryService {
     }
     /**
      * @param {?} connection
+     * @param {?=} payload
      * @return {?}
      */
-    createSession(connection) {
+    createSession(connection, payload = { autoCommit: 'true', transactionMode: 'TERA', charSet: 'UTF8' }) {
         var _a, _b, _c;
-        /** @type {?} */
-        const payload = {
-            autoCommit: 'true',
-            transactionMode: 'TERA',
-            charSet: 'UTF8',
-        };
         /** @type {?} */
         let headers = new HttpHeaders()
             .append('Accept', 'application/vnd.com.teradata.rest-v1.0+json')

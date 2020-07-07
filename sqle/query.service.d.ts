@@ -43,6 +43,13 @@ export interface ISQLEConnection {
     system: ISystem;
     creds?: string;
 }
+export interface ISessionPayload {
+    autoCommit: string;
+    transactionMode: string;
+    charSet: string;
+    defaultDatabase?: string;
+    logMech?: string;
+}
 export declare class VantageQueryService {
     private _http;
     constructor(_http: TdHttpService);
@@ -53,7 +60,7 @@ export declare class VantageQueryService {
     getQueries(connection: ISQLEConnection, sessionId: string): Observable<IQueryResultSet>;
     getQueryResult(connection: ISQLEConnection, queryId: string): Observable<IQueryResultSet>;
     deleteQuery(connection: ISQLEConnection, queryId: string): Observable<IQueryResultSet>;
-    createSession(connection: ISQLEConnection): Observable<any>;
+    createSession(connection: ISQLEConnection, payload?: ISessionPayload): Observable<any>;
     deleteSession(connection: ISQLEConnection, sessionId: string): Observable<any>;
 }
 export declare function VANTAGE_QUERY_PROVIDER_FACTORY(parent: VantageQueryService, tdHttpService: TdHttpService): VantageQueryService;

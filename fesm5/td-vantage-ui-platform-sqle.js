@@ -114,6 +114,22 @@ if (false) {
     /** @type {?|undefined} */
     ISQLEConnection.prototype.creds;
 }
+/**
+ * @record
+ */
+function ISessionPayload() { }
+if (false) {
+    /** @type {?} */
+    ISessionPayload.prototype.autoCommit;
+    /** @type {?} */
+    ISessionPayload.prototype.transactionMode;
+    /** @type {?} */
+    ISessionPayload.prototype.charSet;
+    /** @type {?|undefined} */
+    ISessionPayload.prototype.defaultDatabase;
+    /** @type {?|undefined} */
+    ISessionPayload.prototype.logMech;
+}
 var VantageQueryService = /** @class */ (function () {
     function VantageQueryService(_http) {
         this._http = _http;
@@ -370,20 +386,17 @@ var VantageQueryService = /** @class */ (function () {
     };
     /**
      * @param {?} connection
+     * @param {?=} payload
      * @return {?}
      */
     VantageQueryService.prototype.createSession = /**
      * @param {?} connection
+     * @param {?=} payload
      * @return {?}
      */
-    function (connection) {
+    function (connection, payload) {
+        if (payload === void 0) { payload = { autoCommit: 'true', transactionMode: 'TERA', charSet: 'UTF8' }; }
         var _a, _b, _c;
-        /** @type {?} */
-        var payload = {
-            autoCommit: 'true',
-            transactionMode: 'TERA',
-            charSet: 'UTF8',
-        };
         /** @type {?} */
         var headers = new HttpHeaders()
             .append('Accept', 'application/vnd.com.teradata.rest-v1.0+json')
