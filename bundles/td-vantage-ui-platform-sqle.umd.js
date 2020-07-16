@@ -270,6 +270,10 @@
     /**
      * @record
      */
+    function IQueryResultData() { }
+    /**
+     * @record
+     */
     function IQueryResultSetResult() { }
     if (false) {
         /** @type {?} */

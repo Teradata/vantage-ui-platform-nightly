@@ -20,10 +20,11 @@ export interface IQueryResultSet {
     queryDuration: number;
     results: IQueryResultSetResult[];
 }
+export interface IQueryResultData {
+    [name: string]: string | number;
+}
 export interface IQueryResultSetResult {
-    data: {
-        [name: string]: string;
-    }[];
+    data: IQueryResultData[];
     resultSet: boolean;
     rowCount: number;
     rowLimitExceeded: boolean;
