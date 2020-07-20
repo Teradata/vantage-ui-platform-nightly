@@ -227,6 +227,63 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @enum {string} */
+    var QueryResultColumnTypes = {
+        // Array
+        'ARRAY': 'ARRAY',
+        'VARRAY': 'VARRAY',
+        // Byte
+        'BLOB': 'BLOB',
+        'BYTE': 'BYTE',
+        'VARBYTE': 'VARBYTE',
+        // Numeric
+        'BIGINT': 'BIGINT',
+        'BYTEINT': 'BYTEINT',
+        'DECIMAL': 'DECIMAL',
+        'DOUBLE PRECISION': 'DOUBLE PRECISION',
+        'FLOAT': 'FLOAT',
+        'INTEGER': 'INTEGER',
+        'NUMBER': 'NUMBER',
+        'NUMERIC': 'NUMERIC',
+        'REAL': 'REAL',
+        'SMALLINT': 'SMALLINT',
+        // DateTIme
+        'DATE': 'DATE',
+        'TIME': 'TIME',
+        'TIMESTAMP': 'TIMESTAMP',
+        'TIME WITH TIME ZONE': 'TIME WITH TIME ZONE',
+        'TIMESTAMP WITH TIME ZONE': 'TIMESTAMP WITH TIME ZONE',
+        // Interval
+        'INTERVAL': 'INTERVAL',
+        'INTERVAL DAY': 'INTERVAL DAY',
+        'INTERVAL DAY TO HOUR': 'INTERVAL DAY TO HOUR',
+        'INTERVAL DAY TO MINUTE': 'INTERVAL DAY TO MINUTE',
+        'INTERVAL DAY TO SECOND': 'INTERVAL DAY TO SECOND',
+        'INTERVAL HOUR': 'INTERVAL HOUR',
+        'INTERVAL HOUR TO MINUTE': 'INTERVAL HOUR TO MINUTE',
+        'INTERVAL HOUR TO SECOND': 'INTERVAL HOUR TO SECOND',
+        'INTERVAL MINUTE': 'INTERVAL MINUTE',
+        'INTERVAL MINUTE TO SECOND': 'INTERVAL MINUTE TO SECOND',
+        'INTERVAL MONTH': 'INTERVAL MONTH',
+        'INTERVAL SECOND': 'INTERVAL SECOND',
+        'INTERVAL YEAR': 'INTERVAL YEAR',
+        'INTERVAL YEAR TO MONTH': 'INTERVAL YEAR TO MONTH',
+        // Character
+        'CHAR': 'CHAR',
+        'CHARACTER': 'CHARACTER',
+        'CHARACTER SET GRAPHIC': 'CHARACTER SET GRAPHIC',
+        'CLOB': 'CLOB',
+        'CHAR VARYING': 'CHAR VARYING',
+        'LONG VARCHAR': 'LONG VARCHAR',
+        'VARCHAR': 'VARCHAR',
+        // Period
+        'PERIOD': 'PERIOD',
+        // UDT
+        'udt_name': 'udt_name',
+        // Parameter
+        'TD_ANYTYPE': 'TD_ANYTYPE',
+        'VARIANT_TYPE': 'VARIANT_TYPE',
+    };
     /**
      * @record
      */
@@ -2699,6 +2756,7 @@
         return VantageSQLEModule;
     }());
 
+    exports.QueryResultColumnTypes = QueryResultColumnTypes;
     exports.VANTAGE_CONNECTION_PROVIDER = VANTAGE_CONNECTION_PROVIDER;
     exports.VANTAGE_CONNECTION_PROVIDER_FACTORY = VANTAGE_CONNECTION_PROVIDER_FACTORY;
     exports.VANTAGE_DICTIONARY_PROVIDER = VANTAGE_DICTIONARY_PROVIDER;
