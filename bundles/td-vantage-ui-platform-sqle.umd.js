@@ -287,6 +287,19 @@
     /**
      * @record
      */
+    function IQueryBands() { }
+    if (false) {
+        /** @type {?} */
+        IQueryBands.prototype.ApplicationName;
+        /** @type {?} */
+        IQueryBands.prototype.Version;
+        /** @type {?|undefined} */
+        IQueryBands.prototype.ClientUser;
+        /* Skipping unhandled member: [name: string]: string;*/
+    }
+    /**
+     * @record
+     */
     function IQueryPayload() { }
     if (false) {
         /** @type {?} */
@@ -311,6 +324,8 @@
         IQueryPayload.prototype.spooledResultSet;
         /** @type {?|undefined} */
         IQueryPayload.prototype.clientId;
+        /** @type {?|undefined} */
+        IQueryPayload.prototype.queryBands;
     }
     /**
      * @record
@@ -393,6 +408,8 @@
         ISessionPayload.prototype.defaultDatabase;
         /** @type {?|undefined} */
         ISessionPayload.prototype.logMech;
+        /** @type {?|undefined} */
+        ISessionPayload.prototype.queryBands;
     }
     var VantageQueryService = /** @class */ (function () {
         function VantageQueryService(_http) {

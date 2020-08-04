@@ -49,6 +49,12 @@ export declare enum QueryResultColumnTypes {
     'TD_ANYTYPE' = "TD_ANYTYPE",
     'VARIANT_TYPE' = "VARIANT_TYPE"
 }
+export interface IQueryBands {
+    ApplicationName: string;
+    Version: string;
+    ClientUser?: string;
+    [name: string]: string;
+}
 export interface IQueryPayload {
     query: string;
     session?: string;
@@ -61,6 +67,7 @@ export interface IQueryPayload {
     outputNumbersAsStrings?: boolean;
     spooledResultSet?: boolean;
     clientId?: string;
+    queryBands?: IQueryBands;
 }
 export interface IQueryResultSet {
     queueDuration: number;
@@ -97,6 +104,7 @@ export interface ISessionPayload {
     charSet: string;
     defaultDatabase?: string;
     logMech?: string;
+    queryBands?: IQueryBands;
 }
 export declare class VantageQueryService {
     private _http;
