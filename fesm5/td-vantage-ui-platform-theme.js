@@ -31,7 +31,7 @@ var VantageThemeService = /** @class */ (function () {
         this._document = _document;
         this.preferDarkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         /** @type {?} */
-        var initialValue = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))) || this.checkOSPreference();
+        var initialValue = this.localStorageTheme() || this.checkOSPreference();
         this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
         this._activeThemeSubject = new BehaviorSubject(initialValue);
         this.activeTheme$ = this._activeThemeSubject.asObservable();
@@ -77,6 +77,21 @@ var VantageThemeService = /** @class */ (function () {
          * @return {?}
          */
         function (theme) { return _this.applyTheme(theme); }));
+        // account for cached navigation
+        // needed for Firefox BFCache
+        window.addEventListener('pageshow', (/**
+         * @param {?} pageTransition
+         * @return {?}
+         */
+        function (pageTransition) {
+            /** @type {?} */
+            var localStorageTheme = _this.localStorageTheme();
+            /** @type {?} */
+            var localStorageDiffersActiveTheme = localStorageTheme && localStorageTheme !== _this._activeTheme;
+            if (pageTransition.persisted && localStorageDiffersActiveTheme) {
+                _this.applyTheme(localStorageTheme);
+            }
+        }));
     }
     Object.defineProperty(VantageThemeService.prototype, "_activeTheme", {
         get: /**
@@ -169,6 +184,17 @@ var VantageThemeService = /** @class */ (function () {
          * @return {?}
          */
         function (value) { return (value in mapObject ? mapObject[value] : fallback); })));
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    VantageThemeService.prototype.localStorageTheme = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        return (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
     };
     /**
      * @private

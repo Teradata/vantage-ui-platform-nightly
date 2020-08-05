@@ -28,6 +28,7 @@ export declare class VantageThemeService {
     applyDarkTheme(): VantageTheme;
     toggleTheme(): VantageTheme;
     map(mapObject: IVantageThemeMap, fallback?: any): Observable<any>;
+    private localStorageTheme;
     private applyTheme;
     private checkOSPreference;
 }

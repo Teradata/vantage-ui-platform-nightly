@@ -34,7 +34,7 @@ class VantageThemeService {
         this._document = _document;
         this.preferDarkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         /** @type {?} */
-        const initialValue = (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY))) || this.checkOSPreference();
+        const initialValue = this.localStorageTheme() || this.checkOSPreference();
         this._renderer2 = rendererFactory.createRenderer(undefined, undefined);
         this._activeThemeSubject = new BehaviorSubject(initialValue);
         this.activeTheme$ = this._activeThemeSubject.asObservable();
@@ -80,6 +80,21 @@ class VantageThemeService {
          * @return {?}
          */
         (theme) => this.applyTheme(theme)));
+        // account for cached navigation
+        // needed for Firefox BFCache
+        window.addEventListener('pageshow', (/**
+         * @param {?} pageTransition
+         * @return {?}
+         */
+        (pageTransition) => {
+            /** @type {?} */
+            const localStorageTheme = this.localStorageTheme();
+            /** @type {?} */
+            const localStorageDiffersActiveTheme = localStorageTheme && localStorageTheme !== this._activeTheme;
+            if (pageTransition.persisted && localStorageDiffersActiveTheme) {
+                this.applyTheme(localStorageTheme);
+            }
+        }));
     }
     /**
      * @private
@@ -143,6 +158,13 @@ class VantageThemeService {
          * @return {?}
          */
         (value) => (value in mapObject ? mapObject[value] : fallback))));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    localStorageTheme() {
+        return (/** @type {?} */ (localStorage.getItem(THEME_LOCAL_STORAGE_KEY)));
     }
     /**
      * @private
