@@ -1,0 +1,7 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { VantageAssetsModule } from './assets.module';
+export { VANTAGE_ASSETS_PROVIDER_FACTORY, VantageAssetsService, VANTAGE_ASSETS_PROVIDER } from './assets.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B0ZC12YW50YWdlL3VpLXBsYXRmb3JtL2Fzc2V0cy8iLCJzb3VyY2VzIjpbInB1YmxpY19hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLG9DQUFjLGlCQUFpQixDQUFDO0FBQ2hDLCtGQUFjLGtCQUFrQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSAnLi9hc3NldHMubW9kdWxlJztcbmV4cG9ydCAqIGZyb20gJy4vYXNzZXRzLnNlcnZpY2UnO1xuIl19
