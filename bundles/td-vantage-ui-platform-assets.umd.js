@@ -285,7 +285,7 @@
         }
         return class_1;
     }()), {
-        baseUrl: '/vantage-assets',
+        baseUrl: '/ui-assets',
         baseHeaders: new http.HttpHeaders({
             Accept: 'application/json',
         }),

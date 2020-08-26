@@ -68,7 +68,7 @@ var VantageAssetsService = /** @class */ (function (_super) {
     }
     return class_1;
 }()), {
-    baseUrl: '/vantage-assets',
+    baseUrl: '/ui-assets',
     baseHeaders: new HttpHeaders({
         Accept: 'application/json',
     }),
