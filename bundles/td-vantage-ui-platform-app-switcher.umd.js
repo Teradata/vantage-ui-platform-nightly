@@ -263,7 +263,7 @@
         VantageAppSwitcherMenuComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'vui-app-switcher-menu',
-                        template: "<td-menu class=\"app-switcher-menu\">\n  <!--header-->\n  <div td-menu-header class=\"app-switcher-header\" (click)=\"_blockEvent($event)\">\n    <mat-icon class=\"logo-icon\" svgIcon=\"td-logo:logo-wordmark\"></mat-icon>\n    <div class=\"app-switcher-header-title\">{{ 'APP_SWITCHER.HEADER' | translate }}</div>\n  </div>\n  <!--content-->\n  <mat-action-list>\n    <ng-container *ngFor=\"let product of products; last as isLast\">\n      <a\n        *ngIf=\"product.newTab\"\n        mat-list-item\n        class=\"app-switcher-list-item text-nodecoration new-tab\"\n        target=\"_blank\"\n        [href]=\"product.href\"\n      >\n        <mat-icon\n          matListAvatar\n          [class]=\"product.iconClasses\"\n          *ngIf=\"product.svgIcon; else iconTemplate\"\n          [svgIcon]=\"product.svgIcon\"\n        ></mat-icon>\n        <ng-template #iconTemplate>\n          <mat-icon matListAvatar [class]=\"product.iconClasses\">{{ product.icon || 'apps' }}</mat-icon>\n        </ng-template>\n        <span matLine>{{ product.text }}</span>\n        <mat-icon class=\"text-lg\" [style.margin-right.px]=\"0\">launch</mat-icon>\n      </a>\n      <a *ngIf=\"!product.newTab\" mat-list-item class=\"app-switcher-list-item text-nodecoration\" [href]=\"product.href\">\n        <mat-icon\n          matListAvatar\n          [class]=\"product.iconClasses\"\n          *ngIf=\"product.svgIcon; else iconTemplate\"\n          [svgIcon]=\"product.svgIcon\"\n        ></mat-icon>\n        <ng-template #iconTemplate>\n          <mat-icon matListAvatar [class]=\"product.iconClasses\">{{ product.icon || 'apps' }}</mat-icon>\n        </ng-template>\n        <span matLine>{{ product.text }}</span>\n      </a>\n      <mat-divider class=\"push-top-sm push-bottom-sm\" *ngIf=\"product.divider && !isLast\"></mat-divider>\n    </ng-container>\n  </mat-action-list>\n  <mat-divider class=\"push-top-sm\"></mat-divider>\n  <mat-expansion-panel\n    *ngIf=\"otherProducts?.length; else explorerMore\"\n    class=\"other-products\"\n    (afterExpand)=\"scrollToBottom()\"\n    (afterCollapse)=\"scrollToBottom()\"\n    (opened)=\"scrollToBottom()\"\n    (closed)=\"scrollToBottom()\"\n  >\n    <mat-expansion-panel-header\n      collapsedHeight=\"48px\"\n      expandedHeight=\"48px\"\n      class=\"other-products-header\"\n      (click)=\"_blockEvent($event)\"\n    >\n      <mat-panel-description>\n        {{ 'APP_SWITCHER.OTHER_PRODUCTS' | translate }}\n      </mat-panel-description>\n    </mat-expansion-panel-header>\n    <mat-action-list [style.padding-top.px]=\"0\">\n      <ng-container *ngFor=\"let other of otherProducts\">\n        <a\n          *ngIf=\"other.newTab === undefined || other.newTab === true\"\n          mat-list-item\n          class=\"text-nodecoration new-tab\"\n          target=\"_blank\"\n          [href]=\"other.href\"\n        >\n          <span matLine>{{ other.text }}</span>\n          <mat-icon class=\"text-lg\" [style.margin-right.px]=\"0\">launch</mat-icon>\n        </a>\n        <a *ngIf=\"other.newTab === false\" mat-list-item class=\"text-nodecoration\" [href]=\"other.href\">\n          <span matLine>{{ other.text }}</span>\n        </a>\n      </ng-container>\n    </mat-action-list>\n    <ng-template [ngTemplateOutlet]=\"explorerMore\"></ng-template>\n  </mat-expansion-panel>\n  <ng-template #explorerMore>\n    <a mat-button class=\"explore-more\" color=\"accent\" [href]=\"exploreMoreLink\" target=\"_blank\">\n      {{ 'APP_SWITCHER.EXPLORE_MORE' | translate }}\n    </a>\n  </ng-template>\n</td-menu>\n",
+                        template: "<td-menu class=\"app-switcher-menu\">\n  <!--header-->\n  <div td-menu-header class=\"app-switcher-header\" (click)=\"_blockEvent($event)\">\n    <mat-icon class=\"logo-icon\" svgIcon=\"td-logo:logo-wordmark\"></mat-icon>\n    <div class=\"app-switcher-header-title\">{{ 'APP_SWITCHER.HEADER' | translate }}</div>\n  </div>\n  <!--content-->\n  <mat-action-list>\n    <ng-container *ngFor=\"let product of products; last as isLast\">\n      <a\n        *ngIf=\"product.newTab\"\n        mat-list-item\n        class=\"app-switcher-list-item text-nodecoration new-tab\"\n        target=\"_blank\"\n        [href]=\"product.href\"\n      >\n        <mat-icon\n          matListAvatar\n          [class]=\"product.iconClasses\"\n          *ngIf=\"product.svgIcon; else iconTemplate\"\n          [svgIcon]=\"product.svgIcon\"\n        ></mat-icon>\n        <ng-template #iconTemplate>\n          <mat-icon matListAvatar [class]=\"product.iconClasses\">{{ product.icon || 'apps' }}</mat-icon>\n        </ng-template>\n        <span matLine>{{ product.text }}</span>\n        <mat-icon class=\"text-lg\" [style.margin-right.px]=\"0\">launch</mat-icon>\n      </a>\n      <a *ngIf=\"!product.newTab\" mat-list-item class=\"app-switcher-list-item text-nodecoration\" [href]=\"product.href\">\n        <mat-icon\n          matListAvatar\n          [class]=\"product.iconClasses\"\n          *ngIf=\"product.svgIcon; else iconTemplate\"\n          [svgIcon]=\"product.svgIcon\"\n        ></mat-icon>\n        <ng-template #iconTemplate>\n          <mat-icon matListAvatar [class]=\"product.iconClasses\">{{ product.icon || 'apps' }}</mat-icon>\n        </ng-template>\n        <span matLine>{{ product.text }}</span>\n      </a>\n      <mat-divider class=\"push-top-sm push-bottom-sm\" *ngIf=\"product.divider && !isLast\"></mat-divider>\n    </ng-container>\n  </mat-action-list>\n  <mat-divider class=\"push-top-sm\"></mat-divider>\n  <mat-expansion-panel\n    #expansionPanel\n    *ngIf=\"otherProducts?.length; else explorerMore\"\n    class=\"other-products\"\n    (afterExpand)=\"scrollToBottom()\"\n    (afterCollapse)=\"scrollToBottom()\"\n    (opened)=\"scrollToBottom()\"\n    (closed)=\"scrollToBottom()\"\n  >\n    <mat-expansion-panel-header\n      collapsedHeight=\"48px\"\n      expandedHeight=\"48px\"\n      class=\"other-products-header\"\n      (click)=\"_blockEvent($event)\"\n    >\n      <mat-panel-description>\n        {{ 'APP_SWITCHER.OTHER_PRODUCTS' | translate }}\n      </mat-panel-description>\n    </mat-expansion-panel-header>\n    <mat-action-list [style.padding-top.px]=\"0\">\n      <ng-container *ngFor=\"let other of otherProducts\">\n        <a\n          *ngIf=\"other.newTab === undefined || other.newTab === true\"\n          mat-list-item\n          class=\"text-nodecoration new-tab\"\n          target=\"_blank\"\n          [href]=\"other.href\"\n        >\n          <span matLine>{{ other.text }}</span>\n          <mat-icon class=\"text-lg\" [style.margin-right.px]=\"0\">launch</mat-icon>\n        </a>\n        <a *ngIf=\"other.newTab === false\" mat-list-item class=\"text-nodecoration\" [href]=\"other.href\">\n          <span matLine>{{ other.text }}</span>\n        </a>\n      </ng-container>\n    </mat-action-list>\n    <ng-template [ngTemplateOutlet]=\"explorerMore\"></ng-template>\n  </mat-expansion-panel>\n  <ng-template #explorerMore>\n    <a mat-button class=\"explore-more\" color=\"accent\" [href]=\"exploreMoreLink\" target=\"_blank\">\n      {{ 'APP_SWITCHER.EXPLORE_MORE' | translate }}\n    </a>\n  </ng-template>\n</td-menu>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         styles: [".app-switcher-menu{min-width:256px}.app-switcher-menu .app-switcher-header[td-menu-header]{padding:24px 0}.app-switcher-menu .app-switcher-header[td-menu-header] .mat-icon[svgicon=\"td-logo:logo-wordmark\"]{height:24px;width:auto;margin-bottom:12px}.app-switcher-menu .app-switcher-list-item .mat-icon::ng-deep>svg{height:40px;width:40px}.app-switcher-menu .other-products{box-shadow:none;margin:8px 0}.app-switcher-menu .other-products .other-products-header{padding:0 16px}.app-switcher-menu .other-products ::ng-deep .mat-expansion-panel-body{padding:0}.app-switcher-menu .new-tab ::ng-deep .mat-list-item-content{padding-right:12px}.app-switcher-menu .explore-more{margin:6px 8px}.app-switcher-menu ::ng-deep .td-menu-content+.mat-divider{display:none}"]
                     }] }
@@ -275,7 +275,8 @@
         VantageAppSwitcherMenuComponent.propDecorators = {
             products: [{ type: core.Input }],
             otherProducts: [{ type: core.Input }],
-            exploreMoreLink: [{ type: core.Input }]
+            exploreMoreLink: [{ type: core.Input }],
+            expansionPanel: [{ type: core.ViewChild, args: ['expansionPanel',] }]
         };
         return VantageAppSwitcherMenuComponent;
     }());
@@ -286,6 +287,8 @@
         VantageAppSwitcherMenuComponent.prototype.otherProducts;
         /** @type {?} */
         VantageAppSwitcherMenuComponent.prototype.exploreMoreLink;
+        /** @type {?} */
+        VantageAppSwitcherMenuComponent.prototype.expansionPanel;
         /**
          * @type {?}
          * @private
@@ -298,20 +301,36 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var VantageAppSwitcherComponent = /** @class */ (function () {
-        function VantageAppSwitcherComponent() {
+        function VantageAppSwitcherComponent(_changeDetectorRef) {
+            this._changeDetectorRef = _changeDetectorRef;
         }
+        /**
+         * @return {?}
+         */
+        VantageAppSwitcherComponent.prototype.menuClosed = /**
+         * @return {?}
+         */
+        function () {
+            this.appSwitcherMenu.expansionPanel.close();
+            this._changeDetectorRef.detectChanges();
+        };
         VantageAppSwitcherComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'vui-app-switcher',
-                        template: "<button mat-icon-button [matMenuTriggerFor]=\"applicationMenu\">\n  <mat-icon>apps</mat-icon>\n</button>\n<mat-menu #applicationMenu=\"matMenu\" [overlapTrigger]=\"false\">\n  <vui-app-switcher-menu\n    [products]=\"products\"\n    [otherProducts]=\"otherProducts\"\n    [exploreMoreLink]=\"exploreMoreLink\"\n  ></vui-app-switcher-menu>\n</mat-menu>\n",
+                        template: "<button mat-icon-button [matMenuTriggerFor]=\"applicationMenu\">\n  <mat-icon>apps</mat-icon>\n</button>\n<mat-menu #applicationMenu=\"matMenu\" [overlapTrigger]=\"false\" (closed)=\"menuClosed()\">\n  <vui-app-switcher-menu\n    #appSwitcherMenu\n    [products]=\"products\"\n    [otherProducts]=\"otherProducts\"\n    [exploreMoreLink]=\"exploreMoreLink\"\n  ></vui-app-switcher-menu>\n</mat-menu>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         styles: [""]
                     }] }
         ];
+        /** @nocollapse */
+        VantageAppSwitcherComponent.ctorParameters = function () { return [
+            { type: core.ChangeDetectorRef }
+        ]; };
         VantageAppSwitcherComponent.propDecorators = {
             products: [{ type: core.Input }],
             otherProducts: [{ type: core.Input }],
-            exploreMoreLink: [{ type: core.Input }]
+            exploreMoreLink: [{ type: core.Input }],
+            appSwitcherMenu: [{ type: core.ViewChild, args: ['appSwitcherMenu', { static: true },] }]
         };
         return VantageAppSwitcherComponent;
     }());
@@ -322,6 +341,13 @@
         VantageAppSwitcherComponent.prototype.otherProducts;
         /** @type {?} */
         VantageAppSwitcherComponent.prototype.exploreMoreLink;
+        /** @type {?} */
+        VantageAppSwitcherComponent.prototype.appSwitcherMenu;
+        /**
+         * @type {?}
+         * @private
+         */
+        VantageAppSwitcherComponent.prototype._changeDetectorRef;
     }
 
     /**
