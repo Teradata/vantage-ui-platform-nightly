@@ -5,6 +5,7 @@ import { IMenuItem } from '@covalent/core/dynamic-menu';
 export interface IHelpAssets {
     [name: string]: {
         links: IMenuItem[];
+        learn?: IMenuItem[];
     };
 }
 declare const VantageAssetsService_base: new (...args: any[]) => any;
