@@ -13,6 +13,14 @@ import { of, Observable } from 'rxjs';
 /**
  * @record
  */
+function ILearnLinkItem() { }
+if (false) {
+    /** @type {?|undefined} */
+    ILearnLinkItem.prototype.description;
+}
+/**
+ * @record
+ */
 function IHelpAssets() { }
 class VantageAssetsService extends mixinHttp(class {
 }, {

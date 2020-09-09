@@ -2,10 +2,13 @@ import { Provider } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IMenuItem } from '@covalent/core/dynamic-menu';
+export interface ILearnLinkItem extends IMenuItem {
+    description?: string;
+}
 export interface IHelpAssets {
     [name: string]: {
         links: IMenuItem[];
-        learn?: IMenuItem[];
+        learn?: ILearnLinkItem[];
     };
 }
 declare const VantageAssetsService_base: new (...args: any[]) => any;
